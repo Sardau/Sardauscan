@@ -11,9 +11,9 @@ the code of the main software is writen in c# and winforms.
 
 It is based on a system of task and process.
 
-a task is on operation : scan, save file, filter noise, smooth, build mesh.
+a task is a operation : scan, save file, filter noise, smooth, build mesh.
 
-a process is a list of task.
+a Process is a list of task.
 
 you will be allowed via plugins to add to develop and add your own task. 
 
