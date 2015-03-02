@@ -1,0 +1,27 @@
+#ifndef CONFIGURATION_h
+#define CONFIGURATION_h
+
+#define FIRMWARE_VERSION "Sardauscan V0.1a"
+
+#define SERIAL_BAUD 115200
+//57600
+
+// Motor definitions
+#define motorPin1  2     // IN1 on the ULN2003 driver 1
+#define motorPin2  3     // IN2 on the ULN2003 driver 1
+#define motorPin3  4     // IN3 on the ULN2003 driver 1
+#define motorPin4  5     // IN4 on the ULN2003 driver 1
+
+#define HALFSTEP 8
+#define REVOLUTION_STEP 4072
+#define STEP_BY_MINMOVE 4  // move by STEP_BY_MINMOVE (to avoid power loss when position is between step) 
+
+#define LASER_COUNT 4
+#define LASER_PIN_1 A0 //yellow
+#define LASER_PIN_2 A1 //orange
+#define LASER_PIN_3 A2 //green
+#define LASER_PIN_4 13 //blue
+
+#endif
+
+
