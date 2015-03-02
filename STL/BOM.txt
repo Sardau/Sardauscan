@@ -1,0 +1,16 @@
+Bunch of M3 (16 and 20 mm)
+
+Bunch of M4 (12 ans 20 mm)
+
+1x chinese Arduino nano (chinese copy, 4$) http://www.befr.ebay.be/itm/NEW-Nano-V3-0-ATmega328-Controller-Board-5V-16M-CH340G-USB-Driver-For-Arduino-/141433274102?pt=AU_B_I_Electrical_Test_Equipment&hash=item20ee147ef6
+
+1x chinese Stepper Motor and controler (5$) http://www.befr.ebay.be/itm/Uln2003-Stepper-Motor-Drive-Driver-Stepper-Motor-Controllers-5V-4-Phase-5-Line-/261743645463?pt=LH_DefaultDomain_3&hash=item3cf1231317
+
+1-4x Line laser (2.5$ piece) http://www.befr.ebay.be/itm/251688838898?ssPageName=STRK:MEWNX:IT&_trksid=p3984.m1439.l2649
+
+1x Hercule HD twist (15$) http://www.befr.ebay.be/itm/Hercules-HD-Twist-5-0-MP-720p-High-Definition-Mini-Web-Cam-Green-Edition-/381162889539?pt=LH_DefaultDomain_0&hash=item58bf142143
+20x20 profile ( can be printed : for exemple http://www.thingiverse.com/thing:280318)
+
+optionnal 3x 4mm roller (0.3$ piece)
+
+total 26.5$ (1 laser) to 35$ (4 lasers)
