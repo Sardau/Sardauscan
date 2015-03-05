@@ -108,7 +108,7 @@ namespace FakeHardwarePlugins
 		public void Dispose() { }
 
 		/// <summary>
-		/// A unique id to identifi a specific instance of IHardwareProxy (mainly used for reload a IHardwareproxy, so store all the properties)
+		/// A unique id to identify a specific instance of IHardwareProxy (mainly used for reload a IHardwareproxy, so store all the properties)
 		/// </summary>
 		public String HardwareId { get { return "Unique ID to reload th same"; } }
 
@@ -116,7 +116,7 @@ namespace FakeHardwarePlugins
 		///  Load a IHardwareProxy with a specific HardwareId 
 		/// </summary>
 		/// <param name="hardwareId"></param>
-		/// <returns></returns>
+		/// <returns> the loaded IHardwareProxy or null if you can't reload it</returns>
 		public IHardwareProxy LoadFromHardwareId(string hardwareId)
 		{
 			// load a proxy using the hardwareid, for automatic reload of the last used

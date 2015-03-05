@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<OpenGL>
+  <Materials>
+    <Material Name="Emerald">
+      <Ambient>0.0215|0.1745|0.0215</Ambient>
+      <Diffuse>0.07568|0.61424|0.07568</Diffuse>
+      <Specular>0.633|0.727811|0.633</Specular>
+      <Shininess>0.6</Shininess>
+    </Material>
+    <Material Name="Jade">
+      <Ambient>0.135|0.2225|0.1575</Ambient>
+      <Diffuse>0.54|0.89|0.63</Diffuse>
+      <Specular>0.316228|0.316228|0.316228</Specular>
+      <Shininess>0.1</Shininess>
+    </Material>
+    <Material Name="Obsidian">
+      <Ambient>0.05375|0.05|0.06625</Ambient>
+      <Diffuse>0.18275|0.17|0.22525</Diffuse>
+      <Specular>0.332741|0.328634|0.346435</Specular>
+      <Shininess>0.3</Shininess>
+    </Material>
+    <Material Name="Pearl">
+      <Ambient>0.25|0.20725|0.20725</Ambient>
+      <Diffuse>1|0.829|0.829</Diffuse>
+      <Specular>0.296648|0.296648|0.296648</Specular>
+      <Shininess>0.088</Shininess>
+    </Material>
+    <Material Name="Ruby">
+      <Ambient>0.1745|0.01175|0.01175</Ambient>
+      <Diffuse>0.61424|0.04136|0.04136</Diffuse>
+      <Specular>0.727811|0.626959|0.626959</Specular>
+      <Shininess>0.6</Shininess>
+    </Material>
+    <Material Name="Turquoise">
+      <Ambient>0.1|0.18725|0.1745</Ambient>
+      <Diffuse>0.396|0.74151|0.69102</Diffuse>
+      <Specular>0.297254|0.30829|0.306678</Specular>
+      <Shininess>0.1</Shininess>
+    </Material>
+    <Material Name="Brass">
+      <Ambient>0.329412|0.223529|0.027451</Ambient>
+      <Diffuse>0.780392|0.568627|0.113725</Diffuse>
+      <Specular>0.992157|0.941176|0.807843</Specular>
+      <Shininess>0.21794872</Shininess>
+    </Material>
+    <Material Name="Bronze">
+      <Ambient>0.2125|0.1275|0.054</Ambient>
+      <Diffuse>0.714|0.4284|0.18144</Diffuse>
+      <Specular>0.393548|0.271906|0.166721</Specular>
+      <Shininess>0.2</Shininess>
+    </Material>
+    <Material Name="Chrome">
+      <Ambient>0.25|0.25|0.25</Ambient>
+      <Diffuse>0.4|0.4|0.4</Diffuse>
+      <Specular>0.774597|0.774597|0.774597</Specular>
+      <Shininess>0.6</Shininess>
+    </Material>
+    <Material Name="Copper">
+      <Ambient>0.19125|0.0735|0.0225</Ambient>
+      <Diffuse>0.7038|0.27048|0.0828</Diffuse>
+      <Specular>0.256777|0.137622|0.086014</Specular>
+      <Shininess>0.1</Shininess>
+    </Material>
+    <Material Name="Gold">
+      <Ambient>0.24725|0.1995|0.0745</Ambient>
+      <Diffuse>0.75164|0.60648|0.22648</Diffuse>
+      <Specular>0.628281|0.555802|0.366065</Specular>
+      <Shininess>0.4</Shininess>
+    </Material>
+    <Material Name="Silver">
+      <Ambient>0.19225|0.19225|0.19225</Ambient>
+      <Diffuse>0.50754|0.50754|0.50754</Diffuse>
+      <Specular>0.508273|0.508273|0.508273</Specular>
+      <Shininess>0.4</Shininess>
+    </Material>
+    <Material Name="Black plastic">
+      <Ambient>0.0|0.0|0.0</Ambient>
+      <Diffuse>0.01|0.01|0.01</Diffuse>
+      <Specular>0.50|0.50|0.50</Specular>
+      <Shininess>0.25</Shininess>
+    </Material>
+    <Material Name="Cyan plastic">
+      <Ambient>0.0|0.1|0.06</Ambient>
+      <Diffuse>0.0|0.50980392|0.50980392</Diffuse>
+      <Specular>0.50196078|0.50196078|0.50196078</Specular>
+      <Shininess>0.25</Shininess>
+    </Material>
+    <Material Name="Green plastic">
+      <Ambient>0.0|0.0|0.0</Ambient>
+      <Diffuse>0.1|0.35|0.1</Diffuse>
+      <Specular>0.45|0.55|0.45</Specular>
+      <Shininess>0.25</Shininess>
+    </Material>
+    <Material Name="Red plastic">
+      <Ambient>0.0|0.0|0.0</Ambient>
+      <Diffuse>0.5|0.0|0.0</Diffuse>
+      <Specular>0.7|0.6|0.6</Specular>
+      <Shininess>0.25</Shininess>
+    </Material>
+    <Material Name="White plastic">
+      <Ambient>0.0|0.0|0.0</Ambient>
+      <Diffuse>0.55|0.55|0.55</Diffuse>
+      <Specular>0.70|0.70|0.70</Specular>
+      <Shininess>0.25</Shininess>
+    </Material>
+    <Material Name="Yellow plastic">
+      <Ambient>0.0|0.0|0.0</Ambient>
+      <Diffuse>0.5|0.5|0.0</Diffuse>
+      <Specular>0.60|0.60|0.50</Specular>
+      <Shininess>0.25</Shininess>
+    </Material>
+    <Material Name="Black rubber">
+      <Ambient>0.02|0.02|0.02</Ambient>
+      <Diffuse>0.01|0.01|0.01</Diffuse>
+      <Specular>0.4|0.4|0.4</Specular>
+      <Shininess>0.078125</Shininess>
+    </Material>
+    <Material Name="Cyan rubber">
+      <Ambient>0.0|0.05|0.05</Ambient>
+      <Diffuse>0.4|0.5|0.5</Diffuse>
+      <Specular>0.04|0.7|0.7</Specular>
+      <Shininess>0.078125</Shininess>
+    </Material>
+    <Material Name="Green rubber">
+      <Ambient>0.0|0.05|0.0</Ambient>
+      <Diffuse>0.4|0.5|0.4</Diffuse>
+      <Specular>0.04|0.7|0.04</Specular>
+      <Shininess>0.078125</Shininess>
+    </Material>
+    <Material Name="Red rubber">
+      <Ambient>0.05|0.0|0.0</Ambient>
+      <Diffuse>0.5|0.4|0.4</Diffuse>
+      <Specular>0.7|0.04|0.04</Specular>
+      <Shininess>0.078125</Shininess>
+    </Material>
+    <Material Name="White rubber">
+      <Ambient>0.05|0.05|0.05</Ambient>
+      <Diffuse>0.5|0.5|0.5</Diffuse>
+      <Specular>0.7|0.7|0.7</Specular>
+      <Shininess>0.078125</Shininess>
+    </Material>
+    <Material Name="Yellow rubber">
+      <Ambient>0.05|0.05|0.0</Ambient>
+      <Diffuse>0.5|0.5|0.4</Diffuse>
+      <Specular>0.7|0.7|0.04</Specular>
+      <Shininess>0.078125</Shininess>
+    </Material>
+  </Materials>
+</OpenGL>

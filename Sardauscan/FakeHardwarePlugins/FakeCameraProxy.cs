@@ -29,17 +29,39 @@ using System.Text;
 using System.Drawing;
 using Sardauscan.Core.Interface;
 using Sardauscan.Hardware;
+/// Education and debug purpose sample plugin
+
+/// a plusgin is composed of 2 parts
+/// A IHardwareProxyProvider
+/// and the IHardWareProxy (ICameraProxy in this case)
+
+/// IHardwareProxyProvider is the creator of the IHardwareProxy
+/// It main purpose is to create the instance of the IHardwareProxy 
+/// by proposing a visual interface, or send directly the instance 
+/// if no configuration is necessary
+/// 
+
+// is this case the provider and the hardwareproxy are the same, to see separate sample go to laser
 
 namespace FakeHardwarePlugins
 {
 
 	/// <summary>
 	/// Fake camera for educational purpose ( and debug too ;) )
+	/// in this cas the plugin implement the provider and the hardwareproxy
+	/// it is interesting when you don't have any configuration to make 
+	/// ( if you can only select one hardware, whitout any parameter)
 	/// </summary>
+	/// <remarks>
+	/// In this cas the object derive from AbstractProxyProvider<ICameraProxy>
+	/// a abstract class that implement some function for a ICameraProxy provider
+	/// </remarks>
 	public class FakeCameraProxy : AbstractProxyProvider<ICameraProxy>, ICameraProxy
 	{
 		Image bmp;
-
+		/// <summary>
+		/// Cto must be whitout parameter !!
+		/// </summary>
 		public FakeCameraProxy()
 		{
 			bmp = new Bitmap(100, 100);
@@ -52,34 +74,81 @@ namespace FakeHardwarePlugins
 				g.DrawString("Fake Camera", new Font("Arial", 12), Brushes.Red, new Rectangle(0, 0, bmp.Width, bmp.Height), sf);
 			}
 		}
+		#region ICameraProxy implementation
+		/// <summary>
+		/// Return the current image of the camera
+		/// </summary>
+		/// <returns></returns>
 		public Bitmap AcquireImage() { return (Bitmap)bmp; }
-
+		/// <summary>
+		/// Get the camera image Height resolution (height of the current image)
+		/// </summary>
 		public int ImageHeight { get { return bmp.Height; } }
 
+		/// <summary>
+		/// Get the camera image Width resolution (Width of the current image)
+		/// </summary>
 		public int ImageWidth { get { return bmp.Width; } }
 
+		/// <summary>
+		/// Get the sensor width
+		/// </summary>
 		public float SensorWidth { get { return 3.629f; } }
+		/// <summary>
+		/// Get the sensor height
+		/// </summary>
 		public float SensorHeight { get { return 2.722f; } }
+		/// <summary>
+		/// Get the focal lenght
+		/// </summary>
 		public float FocalLength { get { return 3.6f; } }
-
+		#endregion
+		/// <summary>
+		/// dispose your Camera proxy
+		/// </summary>
 		public void Dispose() { }
 
+
+		/// <summary>
+		/// A unique id to identify a specific instance of IHardwareProxy (mainly used for reload a IHardwareproxy, so store all the properties)
+		/// </summary>
 		public String HardwareId { get { return "Unique ID to reload th same"; } }
 
+		/// <summary>
+		///  Load a IHardwareProxy with a specific HardwareId 
+		/// </summary>
+		/// <param name="hardwareId"></param>
+		/// <returns> the loaded IHardwareProxy or null if you can't reload it</returns>
 		public IHardwareProxy LoadFromHardwareId(string hardwareId)
 		{
 			// load a proxy using the hardwareid, for automatic reload of the last used
 			return new FakeCameraProxy();
 		}
+
+		/// <summary>
+		/// Get the associated Viewer of these IHardwareProxy
+		/// the viewer allow the user to interact with or tweak the hardware.
+		/// you can return null if there is no setting or viewer ( it will be a shame for camera, but hey you do what you want)
+		/// </summary>
+		/// <returns></returns>
 		public System.Windows.Forms.Control GetViewer() { return null; }
 
+		// Display name of the Provider, for the user to know what he select;)
 		public override string Name
 		{
 			get { return "*FAKE CAMERA PROXY*"; }
 		}
 
+		/// <summary>
+		/// This function is call when the user request a instance of ther IHardwareProxy
+		/// You can call winforms to as information ( Com port, configuration etc)
+		/// </summary>
+		/// <param name="owner">owner window</param>
+		/// <returns>a IHardwareProxy if one is selected, Null in case of cancle or not disponible</returns>
 		public override object Select(System.Windows.Forms.IWin32Window owner)
 		{
+			// do whatever interface stuff to select/configure your proxy
+			// return the selected one
 			return new FakeCameraProxy();
 		}
 	}
