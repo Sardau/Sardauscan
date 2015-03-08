@@ -1,7 +1,7 @@
-﻿/*
- ****************************************************************************
- *  Copyright (c) 2015 Fabio Ferretti <Fabio@ferretti.info>                 *
- *	This file is part of Sardauscan.                                        *
+﻿#region COPYRIGHT
+/****************************************************************************
+ *  Copyright (c) 2015 Fabio Ferretti <https://plus.google.com/+FabioFerretti3D>                 *
+ *  This file is part of Sardauscan.                                        *
  *                                                                          *
  *  Sardauscan is free software: you can redistribute it and/or modify      *
  *  it under the terms of the GNU General Public License as published by    *
@@ -16,10 +16,11 @@
  *  You are not allowed to Sell in any form this code                       * 
  *  or any compiled version. This code is free and for free purpose only    *
  *                                                                          *
- *   You should have received a copy of the GNU General Public License      *
- *   along with Sardauscan .  If not, see <http://www.gnu.org/licenses/>.   *
+ *  You should have received a copy of the GNU General Public License       *
+ *  along with Sardaukar.  If not, see <http://www.gnu.org/licenses/>       *
  ****************************************************************************
 */
+#endregion
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,16 +30,35 @@ using System.Drawing;
 
 namespace FakeHardwarePlugins
 {
+	/// <summary>
+	/// Fake task to show how a task plugins is implemented
+	/// </summary>
 	public class FakeTask : AbstractProcessingTask
 	{
+		/// <summary>
+		/// Name of the task
+		/// </summary>
 		public override string Name { get { return "*FAKE TASK*"; } }
-
+		/// <summary>
+		/// In Format
+		/// </summary>
 		public override eTaskItem In { get { return eTaskItem.ScanLines; } }
 
+		/// <summary>
+		/// Out Format
+		/// </summary>
 		public override eTaskItem Out{get { return eTaskItem.ScanLines; }}
-
+		/// <summary>
+		/// Clone
+		/// </summary>
+		/// <returns></returns>
 		public override AbstractProcessingTask Clone(){return new FakeTask();}
 
+		/// <summary>
+		/// Do the work: function that actualy do the work
+		/// </summary>
+		/// <param name="source"></param>
+		/// <returns></returns>
 		protected override Sardauscan.Core.ScanData DoTask(Sardauscan.Core.ScanData source)
 		{
 			// try somthing simple change Texture colors to RED

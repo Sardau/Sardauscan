@@ -1,0 +1,1070 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{26D7A8E2-AC37-4B0D-87F8-F3D767D1FC07}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Sardauscan</RootNamespace>
+    <AssemblyName>Sardauscan</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DirectShowLib-2005, Version=2.1.0.0, Culture=neutral, PublicKeyToken=67e7b740cdfc2d3f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>ExternalDLL\DirectShowLib-2005.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenTK, Version=1.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>ExternalDLL\OpenTK.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenTK.GLControl, Version=1.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>ExternalDLL\OpenTK.GLControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Core\Interface\I3DEntity.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Core\Interface\IHardwareProxyProvider.cs" />
+    <Compile Include="Core\LaserCorrection.cs" />
+    <Compile Include="Core\OpenGL\RenderingContext.cs" />
+    <Compile Include="Core\ProcessingTask\AbstractMeshBuilder.cs" />
+    <Compile Include="Core\ProcessingTask\AbstractLineTask.cs" />
+    <Compile Include="Core\ProcessingTask\AngleColor.cs" />
+    <Compile Include="Core\ProcessingTask\CalibrationTask.cs" />
+    <Compile Include="Core\ProcessingTask\LaserMerger.cs" />
+    <Compile Include="Core\ProcessingTask\LineKMean.cs" />
+    <Compile Include="Core\ProcessingTask\IqrFilter.cs" />
+    <Compile Include="Core\ProcessingTask\LineScaleTask.cs" />
+    <Compile Include="Core\ProcessingTask\LineSort.cs" />
+    <Compile Include="Core\ProcessingTask\MeshBuilderByIndex.cs" />
+    <Compile Include="Core\ProcessingTask\MeshBuilderByInterpolatedList.cs" />
+    <Compile Include="Core\ProcessingTask\MeshBuilderByInterpolatedY.cs" />
+    <Compile Include="Core\ProcessingTask\MeshBuilderByNearestY.cs" />
+    <Compile Include="Core\ProcessingTask\LineOpenFileTask.cs" />
+    <Compile Include="Core\ProcessingTask\LineBezierSmooth.cs" />
+    <Compile Include="Core\ProcessingTask\LineMedianFilter.cs" />
+    <Compile Include="Core\ProcessingTask\AbstractProcessingTask.cs" />
+    <Compile Include="Core\Geometry\Point3D.cs" />
+    <Compile Include="Core\Geometry\Point3DList.cs" />
+    <Compile Include="Core\Helper\DirtyAvareList.cs" />
+    <Compile Include="Core\Geometry\Triangle3D.cs" />
+    <Compile Include="Core\LaserInfo.cs" />
+    <Compile Include="Core\Geometry\BezierBuilder.cs" />
+    <Compile Include="Core\Geometry\PixelLocation.cs" />
+    <Compile Include="Core\Geometry\Plane.cs" />
+    <Compile Include="Core\Geometry\Ray.cs" />
+    <Compile Include="Core\ProcessingTask\LineAverageSmooth.cs" />
+    <Compile Include="Core\ProcessingTask\Process.cs" />
+    <Compile Include="Core\ProcessingTask\LinesRemoveEmpty.cs" />
+    <Compile Include="Core\ProcessingTask\SaveTask.cs" />
+    <Compile Include="Core\ProcessingTask\DisplayAs.cs" />
+    <Compile Include="Core\Reflector.cs" />
+    <Compile Include="Core\ScanLine.cs" />
+    <Compile Include="Core\ScanData.cs" />
+    <Compile Include="Core\ScanSlice.cs" />
+    <Compile Include="Core\ScanTask.cs" />
+    <Compile Include="Gui\CalibrationBigView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Gui\CalibrationBigView.Designer.cs">
+      <DependentUpon>CalibrationBigView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\CalibrationSmallView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Gui\CalibrationSmallView.Designer.cs">
+      <DependentUpon>CalibrationSmallView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\CalibrationSteps\CorrectionMatrix.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Gui\CalibrationSteps\CorrectionMatrix.Designer.cs">
+      <DependentUpon>CorrectionMatrix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\CalibrationSteps\Dimention.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Gui\CalibrationSteps\Dimention.Designer.cs">
+      <DependentUpon>Dimention.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\CalibrationSteps\ICalibrationStepInfo.cs" />
+    <Compile Include="Gui\CalibrationSteps\Manual.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Gui\CalibrationSteps\Manual.Designer.cs">
+      <DependentUpon>Manual.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\Controls\AboutControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Gui\Controls\AboutControl.Designer.cs">
+      <DependentUpon>AboutControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\Controls\ApplicationView\View.cs" />
+    <Compile Include="Gui\Controls\ApplicationView\ViewControler.cs" />
+    <Compile Include="Gui\Controls\ApplicationView\ViewSelector.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Gui\Controls\ApplicationView\ViewSelector.Designer.cs">
+      <DependentUpon>ViewSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\Controls\ApplicationView\ViewType.cs" />
+    <Compile Include="Gui\Controls\CrashReport.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Gui\Controls\CrashReport.Designer.cs">
+      <DependentUpon>CrashReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\Controls\UnderConstruction.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Gui\Controls\UnderConstruction.Designer.cs">
+      <DependentUpon>UnderConstruction.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\Forms\CustomAppForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gui\Forms\CustomForm\CustomCaptionButton.cs" />
+    <Compile Include="Gui\Forms\CustomForm\CustomDrawUtil.cs" />
+    <Compile Include="Gui\Forms\CustomForm\CustomEventArgs.cs" />
+    <Compile Include="Gui\Controls\HardwareStatusControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Gui\Controls\HardwareStatusControl.Designer.cs">
+      <DependentUpon>HardwareStatusControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\Controls\MainToolBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Gui\Controls\MainToolBox.Designer.cs">
+      <DependentUpon>MainToolBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\Controls\StatusImageButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Gui\Forms\ShowFull3dObjectForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gui\Forms\ShowFull3dObjectForm.Designer.cs">
+      <DependentUpon>ShowFull3dObjectForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\IMainView.cs" />
+    <Compile Include="Gui\SkinInfo.cs" />
+    <Compile Include="Gui\Controls\DragDropTaskList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Gui\Controls\DragDropTaskList.Designer.cs">
+      <DependentUpon>DragDropTaskList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\IOKCancelView.cs" />
+    <Compile Include="Gui\Forms\CustomForm\NativeMethods.cs" />
+    <Compile Include="Gui\Forms\OkCancelDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gui\Forms\OkCancelDialog.Designer.cs">
+      <DependentUpon>OkCancelDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\OpenGL\DragBallNavigator.cs" />
+    <Compile Include="Core\OpenGL\GLConfig.cs" />
+    <Compile Include="Core\OpenGL\GLMaterial.cs" />
+    <Compile Include="Gui\OpenGL\GLViewerConfigForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gui\OpenGL\GLViewerConfigForm.Designer.cs">
+      <DependentUpon>GLViewerConfigForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Core\OpenGL\GLViewerConfig.cs" />
+    <Compile Include="Gui\PropertyGridEditor\NumericUpDownTypeConverter.cs" />
+    <Compile Include="Gui\Controls\TaskListBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Gui\Controls\ImageButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Gui\Forms\TaskPropertiesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gui\Forms\TaskPropertiesForm.Designer.cs">
+      <DependentUpon>TaskPropertiesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\ToolBoxView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Gui\ToolBoxView.Designer.cs">
+      <DependentUpon>ToolBoxView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Core\Helper\Vector3Ext.cs" />
+    <Compile Include="Gui\TuneBigView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Gui\TuneBigView.Designer.cs">
+      <DependentUpon>TuneBigView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\UserControlExt.cs" />
+    <Compile Include="Hardware\AbstractProxyProvider.cs" />
+    <Compile Include="Hardware\DSCameraProxyProvider.cs" />
+    <Compile Include="Hardware\Gui\DSCameraProxyControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Hardware\Gui\DSCameraProxyControl.Designer.cs">
+      <DependentUpon>DSCameraProxyControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Hardware\Gui\DSCam\DSCamPropertySlider.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Hardware\Gui\DSCam\DSCamPropertySlider.Designer.cs">
+      <DependentUpon>DSCamPropertySlider.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Hardware\SardauscanProxyProvider.cs" />
+    <Compile Include="Hardware\Gui\SardauscanProxyControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Hardware\Gui\SardauscanProxyControl.Designer.cs">
+      <DependentUpon>SardauscanProxyControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Hardware\Gui\SardauscanSelectionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Hardware\Gui\SardauscanSelectionControl.Designer.cs">
+      <DependentUpon>SardauscanSelectionControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Hardware\Gui\DSCameraSelectionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Hardware\Gui\DSCameraSelectionControl.Designer.cs">
+      <DependentUpon>DSCameraSelectionControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Core\IO\PLYIO.cs" />
+    <Compile Include="Core\IO\ScanDataIO.cs" />
+    <Compile Include="Core\Helper\ColorExtension.cs" />
+    <Compile Include="Core\Interface\IHardwareProxy.cs" />
+    <Compile Include="Core\Interface\IScene3DPart.cs" />
+    <Compile Include="Core\Interface\IScene3DViewer.cs" />
+    <Compile Include="Core\PropertyGridSettingsComponent.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Core\Geometry\Scene3D.cs" />
+    <Compile Include="Gui\OpenGL\Scene3DControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Gui\OpenGL\Scene3DControl.Designer.cs">
+      <DependentUpon>Scene3DControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\TuneSmallView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Gui\TuneSmallView.Designer.cs">
+      <DependentUpon>TuneSmallView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\Controls\LaserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Gui\Controls\LaserControl.Designer.cs">
+      <DependentUpon>LaserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\Forms\ShowFullBitmapForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gui\Forms\ShowFullBitmapForm.Designer.cs">
+      <DependentUpon>ShowFullBitmapForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\Controls\SettingsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Gui\Controls\SettingsControl.Designer.cs">
+      <DependentUpon>SettingsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Hardware\DSCameraInfo.cs" />
+    <Compile Include="Hardware\Com\PortInfo.cs" />
+    <Compile Include="Hardware\Com\Provider.cs" />
+    <Compile Include="Core\Config.cs" />
+    <Compile Include="Core\IO\StlIO.cs" />
+    <Compile Include="Core\IO\XmlConfig.cs" />
+    <Compile Include="Gui\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gui\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\Controls\TurnTableControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Gui\Controls\TurnTableControl.Designer.cs">
+      <DependentUpon>TurnTableControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Core\Interface\IRegistrableInstance.cs" />
+    <Compile Include="Hardware\SardauscanHardwareProxy.cs" />
+    <Compile Include="Core\Helper\BitmapExtention.cs" />
+    <Compile Include="Core\Interface\ICameraProxy.cs" />
+    <Compile Include="Core\ImageProcessor.cs" />
+    <Compile Include="Core\Interface\ILaserProxy.cs" />
+    <Compile Include="Core\LocationMapper.cs" />
+    <Compile Include="Core\Helper\LockBitmap.cs" />
+    <Compile Include="Core\Settings.cs" />
+    <Compile Include="Core\Interface\ITurnTableProxy.cs" />
+    <Compile Include="Core\Helper\Utils.cs" />
+    <Compile Include="Hardware\DSCameraProxy.cs" />
+    <Compile Include="Core\IO\XYZIO.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Gui\CalibrationBigView.resx">
+      <DependentUpon>CalibrationBigView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gui\CalibrationSmallView.resx">
+      <DependentUpon>CalibrationSmallView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gui\CalibrationSteps\CorrectionMatrix.resx">
+      <DependentUpon>CorrectionMatrix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gui\CalibrationSteps\Dimention.resx">
+      <DependentUpon>Dimention.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gui\CalibrationSteps\Manual.resx">
+      <DependentUpon>Manual.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gui\Controls\AboutControl.resx">
+      <DependentUpon>AboutControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gui\Controls\ApplicationView\ViewSelector.resx">
+      <DependentUpon>ViewSelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gui\Controls\CrashReport.resx">
+      <DependentUpon>CrashReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gui\Controls\UnderConstruction.resx">
+      <DependentUpon>UnderConstruction.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gui\Forms\CustomAppForm.resx">
+      <DependentUpon>CustomAppForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gui\Controls\DragDropTaskList.resx">
+      <DependentUpon>DragDropTaskList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gui\Controls\HardwareStatusControl.resx">
+      <DependentUpon>HardwareStatusControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gui\Controls\MainToolBox.resx">
+      <DependentUpon>MainToolBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gui\Controls\TaskListBox.resx">
+      <DependentUpon>TaskListBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gui\Forms\OkCancelDialog.resx">
+      <DependentUpon>OkCancelDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gui\OpenGL\GLViewerConfigForm.resx">
+      <DependentUpon>GLViewerConfigForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gui\OpenGL\Scene3DControl.resx">
+      <DependentUpon>Scene3DControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gui\Forms\ShowFull3dObjectForm.resx">
+      <DependentUpon>ShowFull3dObjectForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gui\Forms\TaskPropertiesForm.resx">
+      <DependentUpon>TaskPropertiesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gui\ToolBoxView.resx">
+      <DependentUpon>ToolBoxView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gui\TuneBigView.resx">
+      <DependentUpon>TuneBigView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gui\TuneSmallView.resx">
+      <DependentUpon>TuneSmallView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gui\Controls\LaserControl.resx">
+      <DependentUpon>LaserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gui\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gui\Forms\ShowFullBitmapForm.resx">
+      <DependentUpon>ShowFullBitmapForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gui\Controls\TurnTableControl.resx">
+      <DependentUpon>TurnTableControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gui\Controls\SettingsControl.resx">
+      <DependentUpon>SettingsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Hardware\Gui\DSCameraProxyControl.resx">
+      <DependentUpon>DSCameraProxyControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Hardware\Gui\DSCam\DSCamPropertySlider.resx">
+      <DependentUpon>DSCamPropertySlider.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Hardware\Gui\SardauscanProxyControl.resx">
+      <DependentUpon>SardauscanProxyControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Hardware\Gui\SardauscanSelectionControl.resx">
+      <DependentUpon>SardauscanSelectionControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Hardware\Gui\DSCameraSelectionControl.resx">
+      <DependentUpon>DSCameraSelectionControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Resources1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LICENSE" />
+    <None Include="Resources\MainIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\laser_Off.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\%24this.Icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\View-Reset.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icomoon_e619%282%29_256.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Entypo_2b%281%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Entypo_2d%280%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Entypo_23e9%28149%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Entypo_23ea%28148%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Entypo_23ed%28147%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Entypo_23ee%28146%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Entypo_25a0%28145%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Entypo_25b4%28143%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Entypo_25b6%28144%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Entypo_25b8%28140%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Entypo_25be%28142%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Entypo_25c2%28141%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Entypo_27f3%28139%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Entypo_221e%28151%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Entypo_2302%28152%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Entypo_2389%28150%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Entypo_2691%282%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Entypo_2692%284%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Entypo_2699%283%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Entypo_2707%285%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Entypo_d83c%2815%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Entypo_d83c%2816%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Entypo_d83c%28131%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Entypo_d83d%2817%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Entypo_d83d%2818%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Entypo_d83d%2819%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Entypo_d83d%2820%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Entypo_d83d%2821%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Entypo_d83d%2822%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Entypo_d83d%28126%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Entypo_d83d%28127%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Entypo_d83d%28128%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Entypo_d83d%28129%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Entypo_d83d%28130%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Entypo_e7a2%28137%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Entypo_e7a3%28138%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Entypo_e70a%286%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Entypo_e76a%28134%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Entypo_e76b%28133%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Entypo_e724%287%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Entypo_e740%288%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Entypo_e768%28136%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Entypo_e769%28135%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Entypo_e777%289%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Entypo_e778%28132%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Entypo_e790%2814%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Entypo_e791%2813%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Entypo_e792%2812%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Entypo_e793%2811%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Entypo_e794%2810%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FontAwesome_f00c%28125%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FontAwesome_f00d%28124%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FontAwesome_f0ad%2830%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FontAwesome_f0ae%2829%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FontAwesome_f0b2%2831%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FontAwesome_f0c1%28110%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FontAwesome_f0c3%28111%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FontAwesome_f0c6%28108%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FontAwesome_f0c7%28109%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FontAwesome_f0d0%2832%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FontAwesome_f0dc%2834%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FontAwesome_f0dd%2836%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FontAwesome_f0de%2835%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FontAwesome_f0e7%2833%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FontAwesome_f0eb%28106%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FontAwesome_f0f6%2837%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FontAwesome_f0fa%28107%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FontAwesome_f02a%28122%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FontAwesome_f03d%28120%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FontAwesome_f03e%28119%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FontAwesome_f05b%28118%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FontAwesome_f05c%2823%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FontAwesome_f05d%2824%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FontAwesome_f06a%2826%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FontAwesome_f06d%2825%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FontAwesome_f06e%28117%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FontAwesome_f07b%28114%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FontAwesome_f07c%28113%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FontAwesome_f08d%28112%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FontAwesome_f09e%2828%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FontAwesome_f12a%2840%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FontAwesome_f12e%28105%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FontAwesome_f013%28123%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FontAwesome_f030%28121%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FontAwesome_f069%2827%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FontAwesome_f070%28116%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FontAwesome_f085%28115%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FontAwesome_f110%2838%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FontAwesome_f125%2839%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FontAwesome_f127%2842%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FontAwesome_f128%2841%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icomoon_e66a%2856%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icomoon_e613%2865%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icomoon_e617%2866%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icomoon_e618%2867%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icomoon_e619%2868%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icomoon_e620%2864%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icomoon_e636%2862%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icomoon_e637%2863%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icomoon_e638%2861%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icomoon_e642%2860%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icomoon_e643%2859%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icomoon_e644%2858%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icomoon_e659%2857%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Iconic_e02e%28104%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Iconic_e030%28103%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\octicons_f000%28102%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\octicons_f0c0%2888%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\octicons_f0c7%2848%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\octicons_f0c8%2847%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\octicons_f0d2%2886%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\octicons_f0d4%2887%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\octicons_f02f%2895%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\octicons_f05c%2843%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\octicons_f07c%2845%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\octicons_f07d%2846%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\octicons_f08f%2889%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\octicons_f020%28101%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\octicons_f026%28100%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\octicons_f027%2899%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\octicons_f028%2898%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\octicons_f031%2896%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\octicons_f034%2897%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\octicons_f065%2893%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\octicons_f067%2894%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\octicons_f076%2844%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\octicons_f084%2890%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\octicons_f085%2892%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\octicons_f087%2891%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Typicons_e000%2885%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Typicons_e0c5%2873%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Typicons_e0cc%2872%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Typicons_e0ef%2851%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Typicons_e001%2884%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Typicons_e01c%2855%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Typicons_e01e%2880%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Typicons_e003%2883%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Typicons_e04e%2878%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Typicons_e06e%2852%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Typicons_e010%2882%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Typicons_e10d%2850%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Typicons_e11b%2869%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Typicons_e018%2881%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Typicons_e022%2854%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Typicons_e042%2879%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Typicons_e059%2877%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Typicons_e061%2853%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Typicons_e091%2876%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Typicons_e097%2875%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Typicons_e099%2874%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Typicons_e105%2871%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Typicons_e109%2870%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Typicons_e126%2849%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Entypo_e74c%2811%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Entypo_e714%2812%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Entypo_e776%2810%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FontAwesome_f065%289%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FontAwesome_f066%288%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Iconic_e04e%287%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Iconic_e04f%286%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Iconic_e050%285%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Iconic_e051%284%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\octicons_f0d1%280%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\octicons_f06d%281%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\octicons_f033%283%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\octicons_f048%282%29_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\collapse.png" />
+    <None Include="Resources\collapse_hightlight.png" />
+    <None Include="Resources\expand.png" />
+    <None Include="Resources\expand_highlight.png" />
+    <None Include="Resources\Entypo_d83d%283%29_64.png" />
+    <None Include="Resources\FontAwesome_f1cb%281%29_64.png" />
+    <None Include="Resources\FontAwesome_f16c%282%29_64.png" />
+    <None Include="Resources\octicons_f089%280%29_64.png" />
+    <None Include="Resources\Close.png" />
+    <None Include="Resources\Window_Close.png" />
+    <None Include="Resources\Window_Maximize.png" />
+    <None Include="Resources\Window_Minimize.png" />
+    <None Include="Resources\Window_Restore.png" />
+    <None Include="Resources\skull.ico" />
+    <None Include="ExternalDLL\DirectShowLib-2005.dll" />
+    <None Include="ExternalDLL\OpenTK.dll" />
+    <None Include="ExternalDLL\OpenTK.GLControl.dll" />
+    <None Include="Resources\Calib1.PNG" />
+    <None Include="Resources\Calib2.PNG" />
+    <None Include="Resources\Calib3.PNG" />
+    <None Include="Resources\Calib4.PNG" />
+    <None Include="Resources\undercontrol.jpg" />
+    <None Include="Resources\CREDIT.txt" />
+    <None Include="Resources\MouseRotate.png" />
+    <None Include="Resources\MouseTranslate.png" />
+    <None Include="Resources\MouseZoom.png" />
+    <None Include="Resources\config.txt" />
+    <Content Include="TODO.txt" />
+    <None Include="Resources\FontAwesome_f17d%281%29_64.png" />
+    <None Include="Resources\FontAwesome_f111%280%29_64.png" />
+    <Content Include="Resources\OPENGL.xml">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

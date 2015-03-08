@@ -1,7 +1,7 @@
-﻿/*
- ****************************************************************************
- *  Copyright (c) 2015 Fabio Ferretti <Fabio@ferretti.info>                 *
- *	This file is part of Sardauscan.                                        *
+﻿#region COPYRIGHT
+/****************************************************************************
+ *  Copyright (c) 2015 Fabio Ferretti <https://plus.google.com/+FabioFerretti3D>                 *
+ *  This file is part of Sardauscan.                                        *
  *                                                                          *
  *  Sardauscan is free software: you can redistribute it and/or modify      *
  *  it under the terms of the GNU General Public License as published by    *
@@ -16,10 +16,11 @@
  *  You are not allowed to Sell in any form this code                       * 
  *  or any compiled version. This code is free and for free purpose only    *
  *                                                                          *
- *   You should have received a copy of the GNU General Public License      *
- *   along with Sardauscan .  If not, see <http://www.gnu.org/licenses/>.   *
+ *  You should have received a copy of the GNU General Public License       *
+ *  along with Sardaukar.  If not, see <http://www.gnu.org/licenses/>       *
  ****************************************************************************
 */
+#endregion
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,28 +30,33 @@ using Sardauscan.Hardware;
 using System.Windows.Forms;
 using Sardauscan.Gui.Controls;
 
-/// Education and debug purpose sample plugin
-
-/// a plusgin is composed of 2 parts
-/// A IHardwareProxyProvider
-/// and the IHardWareProxy (ILaserProxy in this case)
-
-/// IHardwareProxyProvider is the creator of the IHardwareProxy
-/// It main purpose is to create the instance of the IHardwareProxy 
-/// by proposing a visual interface, or send directly the instance 
-/// if no configuration is necessary
-
 namespace FakeHardwarePlugins
 {
 	/// <summary>
 	///  Sample of IHardwareProxyProvider
+	/// Education and debug purpose sample plugin
+	/// 
+	/// a plusgin is composed of 2 parts
+	/// A IHardwareProxyProvider
+	/// and the IHardWareProxy (ILaserProxy in this case)
+	/// 
+	/// IHardwareProxyProvider is the creator of the IHardwareProxy
+	/// It main purpose is to create the instance of the IHardwareProxy 
+	/// by proposing a visual interface, or send directly the instance 
+	/// if no configuration is necessary
 	/// </summary>
 	public class FakeLaserProxyProvider : IHardwareProxyProvider 
 	{
-		// for the user to know ;)
+		
+		/// <summary>
+		/// for the user to know ;)
+		/// </summary>
 		public string Name {get { return "*FAKE LASER PROVIDER*"; }}
 
-		// tell what type of IHardwareProxy the provider deliver
+		
+		/// <summary>
+		/// tell what type of IHardwareProxy the provider deliver 
+		/// </summary>
 		public Type GenerateType 
 		{
 			get {

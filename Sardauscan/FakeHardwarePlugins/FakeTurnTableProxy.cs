@@ -1,7 +1,7 @@
-﻿/*
- ****************************************************************************
- *  Copyright (c) 2015 Fabio Ferretti <Fabio@ferretti.info>                 *
- *	This file is part of Sardauscan.                                        *
+﻿#region COPYRIGHT
+/****************************************************************************
+ *  Copyright (c) 2015 Fabio Ferretti <https://plus.google.com/+FabioFerretti3D>                 *
+ *  This file is part of Sardauscan.                                        *
  *                                                                          *
  *  Sardauscan is free software: you can redistribute it and/or modify      *
  *  it under the terms of the GNU General Public License as published by    *
@@ -16,10 +16,11 @@
  *  You are not allowed to Sell in any form this code                       * 
  *  or any compiled version. This code is free and for free purpose only    *
  *                                                                          *
- *   You should have received a copy of the GNU General Public License      *
- *   along with Sardauscan .  If not, see <http://www.gnu.org/licenses/>.   *
+ *  You should have received a copy of the GNU General Public License       *
+ *  along with Sardaukar.  If not, see <http://www.gnu.org/licenses/>       *
  ****************************************************************************
 */
+#endregion
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,19 +28,6 @@ using System.Text;
 using Sardauscan.Gui.Controls;
 using Sardauscan.Core.Interface;
 using Sardauscan.Hardware;
-/// Education and debug purpose sample plugin
-
-/// a plusgin is composed of 2 parts
-/// A IHardwareProxyProvider
-/// and the IHardWareProxy (ITurnTableProxy in this case)
-
-/// IHardwareProxyProvider is the creator of the IHardwareProxy
-/// It main purpose is to create the instance of the IHardwareProxy 
-/// by proposing a visual interface, or send directly the instance 
-/// if no configuration is necessary
-/// 
-
-// is this case the provider and the hardwareproxy are the same, to see separate sample go to laser
 
 namespace FakeHardwarePlugins
 {
@@ -50,7 +38,7 @@ namespace FakeHardwarePlugins
 	/// ( if you can only select one hardware, whitout any parameter)
 	/// </summary>
 	/// <remarks>
-	/// In this cas the object derive from AbstractProxyProvider<ITurnTableProxy>
+	/// In this cas the object derive from AbstractProxyProvider&lt;ITurnTableProxy&gt;
 	/// a abstract class that implement some function for a ITurnTableProxy provider
 	/// </remarks>
 
@@ -115,7 +103,10 @@ namespace FakeHardwarePlugins
 			return view;
 		}
 
-		// Display name of the Provider, for the user to know what he select;)
+		
+		/// <summary>
+		///Display name of the Provider, for the user to know what he select;) 
+		/// </summary>
 		public override string Name
 		{
 			get { return "*FAKE TURNTABLE PROXY*"; }
@@ -129,6 +120,7 @@ namespace FakeHardwarePlugins
 		/// <returns>a IHardwareProxy if one is selected, Null in case of cancle or not disponible</returns>
 		public override object Select(System.Windows.Forms.IWin32Window owner)
 		{
+
 			// do whatever interface stuff to select/configure your proxy
 			// return the selected one or null
 			return new FakeTurnTableProxy();

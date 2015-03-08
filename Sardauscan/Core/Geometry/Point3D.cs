@@ -1,0 +1,187 @@
+﻿#region COPYRIGHT
+/****************************************************************************
+ *  Copyright (c) 2015 Fabio Ferretti <https://plus.google.com/+FabioFerretti3D>                 *
+ *  This file is part of Sardauscan.                                        *
+ *                                                                          *
+ *  Sardauscan is free software: you can redistribute it and/or modify      *
+ *  it under the terms of the GNU General Public License as published by    *
+ *  the Free Software Foundation, either version 3 of the License, or       *
+ *  (at your option) any later version.                                     *
+ *                                                                          *
+ *  Sardauscan is distributed in the hope that it will be useful,           *
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of          *
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the           *
+ *  GNU General Public License for more details.                            *
+ *                                                                          *
+ *  You are not allowed to Sell in any form this code                       * 
+ *  or any compiled version. This code is free and for free purpose only    *
+ *                                                                          *
+ *  You should have received a copy of the GNU General Public License       *
+ *  along with Sardaukar.  If not, see <http://www.gnu.org/licenses/>       *
+ ****************************************************************************
+*/
+#endregion
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using OpenTK;
+using System.Drawing;
+using Sardauscan.Core.Interface;
+using OpenTK.Graphics.OpenGL;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
+using Sardauscan.Core.OpenGL;
+
+namespace Sardauscan.Core.Geometry
+{
+	/// <summary>
+	/// Point in 3D Space
+	/// </summary>
+	[DebuggerDisplay("{Position.X} {Position.Y} {Position.Z}")]
+	public class Point3D : IComparable
+	{
+		/// <summary>
+		/// Ctor
+		/// </summary>
+		public Point3D()
+		{
+		}
+		/// <summary>
+		/// Ctor
+		/// </summary>
+		/// <param name="pos"></param>
+		/// <param name="normal"></param>
+		/// <param name="color"></param>
+		public Point3D(Vector3 pos, Vector3 normal, Color color)
+			: this()
+		{
+			Position = pos;
+			Normal = normal;
+			Color = color;
+		}
+		/// <summary>
+		/// Position of the Point in 3D
+		/// </summary>
+		public Vector3 Position;
+		/// <summary>
+		/// Normal to these point
+		/// </summary>
+		public Vector3 Normal;
+		/// <summary>
+		/// Color(texture) of this point
+		/// </summary>
+		public Color Color;
+		/// <summary>
+		/// Distance to another Point3D
+		/// </summary>
+		/// <param name="other"></param>
+		/// <returns></returns>
+		public float DistanceSquared(Point3D other)
+		{
+			float dx = Position.X - other.Position.X;
+			float dy = Position.Y - other.Position.Y;
+			float dz = Position.Z - other.Position.Z;
+			return dx * dx + dy * dy + dz * dz;
+		}
+		/// <summary>
+		/// Render this point to OpenGL
+		/// </summary>
+		/// <param name="context"></param>
+		public void ToGL(ref RenderingContext context)
+		{
+			if (context.UseObjectColor)
+				GL.Color3(Color);
+			if (context.UseNormal)
+				GL.Normal3(Normal);
+			GL.Vertex3(Position);
+		}
+		/// <summary>
+		/// Compare a point Y composant to another
+		/// </summary>
+		/// <param name="obj"></param>
+		/// <returns></returns>
+		public int CompareTo(object obj)
+		{
+			Point3D o = (Point3D)obj;
+			int c = -Position.Y.CompareTo(o.Position.Y);
+			/* no realy needed we only sort to Y
+									int c = Position.Y.CompareTo(o.Position.Y);
+									 if (c != 0) return c;
+									c = Position.Z.CompareTo(o.Position.Z);
+									if (c != 0) return c;
+									c = Position.X.CompareTo(o.Position.X);
+									if (c != 0) return c;
+									c = Normal.Z.CompareTo(o.Normal.Z);
+									if (c != 0) return c;
+									c = Normal.Y.CompareTo(o.Normal.Y);
+									if (c != 0) return c;
+									c = Normal.X.CompareTo(o.Normal.X);
+									if (c != 0) return c;
+									c = Color.ToArgb().CompareTo(o.Color.ToArgb());
+			 */
+			return c;
+		}
+		/// <summary>
+		/// Average this point with another
+		/// </summary>
+		/// <param name="other"></param>
+		/// <returns></returns>
+		public Point3D Average(Point3D other)
+		{
+			Vector3 vp1 = this.Position;
+			Vector3 vp2 = other.Position;
+
+			Vector3 np1 = this.Normal;
+			Vector3 np2 = other.Normal;
+
+			Vector4 cp1 = this.Color.ToVector();
+			Vector4 cp2 = other.Color.ToVector();
+
+			vp1 = (vp2 + vp1) / 2f;
+			np1 = (np2 + np1) / 2f;
+			cp1 = (cp2 + cp1) / 2f;
+			return new Point3D(vp1, np1, ColorExtension.ColorFromVector(cp1));
+		}
+		/// <summary>
+		/// Average point3D List
+		/// </summary>
+		/// <param name="pts"></param>
+		/// <returns></returns>
+		public static Point3D Average(IList<Point3D> pts)
+		{
+			Vector3 pos = new Vector3(0, 0, 0);
+			Vector3 norm = new Vector3(0, 0, 0);
+			Vector4 col = new Vector4(0, 0, 0, 0);
+			int count = pts.Count;
+			for (int i = 0; i < count; i++)
+			{
+				pos += pts[i].Position;
+				norm += pts[i].Normal;
+				col += pts[i].Color.ToVector();
+			}
+
+			pos = pos / count;
+			norm = (norm / count);
+			norm.NormalizeFast();
+			col = col / count;
+
+			return new Point3D(pos, norm, ColorExtension.ColorFromVector(col));
+
+
+
+
+
+		}
+		/// <summary>
+		/// Rotate this point around Y axe
+		/// </summary>
+		/// <param name="radian"></param>
+		public void RotateAroundY(float radian)
+		{
+			Position.RotateAroundY(radian);
+			Normal.RotateAroundY(radian);
+		}
+
+	}
+}
