@@ -1,0 +1,7 @@
+This project is based on these project and article : Big thanks to them
+
+- FreeLSS Copyright Uriah Liggett http://www.freelss.org/
+- Herman Tulleken article : http://devmag.org.za/2011/06/23/bzier-path-algorithms/
+- axos88 article : http://www.codeproject.com/Articles/16953/XML-configuration-files-made-simple-at-last
+- Custom Border Forms - Copyright (C) 2005 Szymon Kobalczyk http://www.geekswithblogs.com/kobush
+

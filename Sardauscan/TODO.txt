@@ -1,29 +1,12 @@
 ﻿
 try to reload last proxies on start
 
-SavePath => change them to use the [user-document-folder] as base
-String path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-
 New Task :
  - better point-cloud to mesh
  
 Make 2 different file for PointCloud/ mesh
 
-redo the calibration
-	Allow configuration by Camera position and specify laser angles
-	take a scan for earch laser and superpose them to see differences
-	allow move/rotate/scale of earch laser scan to visualy superpose them => construct a transformation matrix for eache laser to adjust laser points
-
-OK=> redo the laser line detection tune in new interface 
-
-OK=> Save camera settings
-
 //COMMENT!! espacialy FAKE plugins
-
-Add credits for code owner almost done
-
-
-
 
 
 smooth task to try
@@ -36,20 +19,26 @@ http://www.codeproject.com/Articles/15219/WebCam-Fast-Image-Capture-Service-usin
 http://channel9.msdn.com/coding4fun/articles/Look-at-me-Windows-Image-Acquisition
 https://edulorenzo.wordpress.com/2010/07/21/capture-picture-from-wia-using-c/
 
-
-/*
-This file is part of Sardauscan.
-
-    Sardauscan is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    Sardauscan is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with Sardaukar.  If not, see <http://www.gnu.org/licenses/>
+#region COPYRIGHT
+/****************************************************************************
+ *  Copyright (c) 2015 Fabio Ferretti <https://plus.google.com/+FabioFerretti3D>                 *
+ *  This file is part of Sardauscan.                                        *
+ *                                                                          *
+ *  Sardauscan is free software: you can redistribute it and/or modify      *
+ *  it under the terms of the GNU General Public License as published by    *
+ *  the Free Software Foundation, either version 3 of the License, or       *
+ *  (at your option) any later version.                                     *
+ *                                                                          *
+ *  Sardauscan is distributed in the hope that it will be useful,           *
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of          *
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the           *
+ *  GNU General Public License for more details.                            *
+ *                                                                          *
+ *  You are not allowed to Sell in any form this code                       * 
+ *  or any compiled version. This code is free and for free purpose only    *
+ *                                                                          *
+ *  You should have received a copy of the GNU General Public License       *
+ *  along with Sardaukar.  If not, see <http://www.gnu.org/licenses/>       *
+ ****************************************************************************
 */
+#endregion
