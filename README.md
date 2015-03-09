@@ -21,4 +21,9 @@ The software will no be linked to a specific hardware.
 by plugins, you will be allowed to add harware controller for camera, turn table and lasers.
 For exemple if you wish to use another scanner, image capture or whatever.
 
-the code is C# and winforms and is build on a Visual 2010 version. nothing special there ;)
+directory "Firmware" => code for the arduino
+directory "STL" the source stl and 123Design file.
+directory "Sardauscan" => the client software
+
+the code is C# and winforms and is build on a Visual 2010 version. so it's obviously for windows.
+No make file, but visual solution file.
