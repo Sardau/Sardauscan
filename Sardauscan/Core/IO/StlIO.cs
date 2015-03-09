@@ -90,7 +90,7 @@ namespace Sardauscan.Core.IO
 
 		public static string GetVectorSTR(Vector3 v)
 		{
-			return String.Format(CultureInfo.InvariantCulture, "{0} {1} {2}", v.X, v.Z, -v.Y);
+			return String.Format(CultureInfo.InvariantCulture, "{0} {1} {2}", v.X, -v.Z, v.Y);
 		}
 
 		public const string DefaultExtention = ".stl";
