@@ -5,5 +5,7 @@ This project is based on these project and article : Big thanks to them
 - DirectshowLib : http://directshownet.sourceforge.net/
 - Herman Tulleken article : http://devmag.org.za/2011/06/23/bzier-path-algorithms/
 - axos88 article : http://www.codeproject.com/Articles/16953/XML-configuration-files-made-simple-at-last
-- Custom Border Forms - Copyright (C) 2005 Szymon Kobalczyk http://www.geekswithblogs.com/kobush
-
+- Custom Border Forms  : Copyright (C) 2005 Szymon Kobalczyk http://www.geekswithblogs.com/kobush
+- SerialCommand : Copyright (C) 2011-2013 Steven Cogswell  http://awtfy.com
+- Accelstepper : Copyright (C) 2009 Mike McCauley
+- LockBitmap :  Vano Maisuradze http://www.codeproject.com/Tips/240428/Work-with-bitmap-faster-with-Csharp

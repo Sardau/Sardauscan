@@ -64,19 +64,18 @@ namespace Sardauscan.Gui.CalibrationSteps
 			this.label1 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
 			this.label3 = new System.Windows.Forms.Label();
-			this.LaserY = new System.Windows.Forms.NumericUpDown();
 			this.LaserZ = new System.Windows.Forms.NumericUpDown();
 			this.LaserX = new System.Windows.Forms.NumericUpDown();
 			this.label4 = new System.Windows.Forms.Label();
-			this.label5 = new System.Windows.Forms.Label();
 			this.label6 = new System.Windows.Forms.Label();
 			this.label7 = new System.Windows.Forms.Label();
+			this.label5 = new System.Windows.Forms.Label();
+			this.LaserYLabel = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.CameraZ)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.CameraY)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.LaserAngle)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.LaserY)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.LaserZ)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.LaserX)).BeginInit();
 			this.SuspendLayout();
@@ -238,36 +237,6 @@ namespace Sardauscan.Gui.CalibrationSteps
 			this.label3.TabIndex = 9;
 			this.label3.Text = "Y";
 			// 
-			// LaserY
-			// 
-			this.LaserY.DecimalPlaces = 1;
-			this.LaserY.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-			this.LaserY.Location = new System.Drawing.Point(434, 461);
-			this.LaserY.Maximum = new decimal(new int[] {
-            5000,
-            0,
-            0,
-            0});
-			this.LaserY.Minimum = new decimal(new int[] {
-            5000,
-            0,
-            0,
-            -2147483648});
-			this.LaserY.Name = "LaserY";
-			this.LaserY.Size = new System.Drawing.Size(63, 20);
-			this.LaserY.TabIndex = 10;
-			this.LaserY.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-			this.LaserY.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-			this.LaserY.ValueChanged += new System.EventHandler(this.LaserPosition_Changed);
-			// 
 			// LaserZ
 			// 
 			this.LaserZ.DecimalPlaces = 1;
@@ -337,15 +306,6 @@ namespace Sardauscan.Gui.CalibrationSteps
 			this.label4.TabIndex = 13;
 			this.label4.Text = "Laser position (mm)";
 			// 
-			// label5
-			// 
-			this.label5.AutoSize = true;
-			this.label5.Location = new System.Drawing.Point(400, 463);
-			this.label5.Name = "label5";
-			this.label5.Size = new System.Drawing.Size(14, 13);
-			this.label5.TabIndex = 14;
-			this.label5.Text = "Y";
-			// 
 			// label6
 			// 
 			this.label6.AutoSize = true;
@@ -364,18 +324,36 @@ namespace Sardauscan.Gui.CalibrationSteps
 			this.label7.TabIndex = 14;
 			this.label7.Text = "X";
 			// 
+			// label5
+			// 
+			this.label5.AutoSize = true;
+			this.label5.Location = new System.Drawing.Point(400, 463);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(14, 13);
+			this.label5.TabIndex = 14;
+			this.label5.Text = "Y";
+			// 
+			// LaserYLabel
+			// 
+			this.LaserYLabel.Location = new System.Drawing.Point(434, 458);
+			this.LaserYLabel.Name = "LaserYLabel";
+			this.LaserYLabel.Size = new System.Drawing.Size(48, 23);
+			this.LaserYLabel.TabIndex = 15;
+			this.LaserYLabel.Text = "----";
+			this.LaserYLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
 			// Dimention
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.AutoScroll = true;
+			this.Controls.Add(this.LaserYLabel);
 			this.Controls.Add(this.label7);
 			this.Controls.Add(this.label6);
 			this.Controls.Add(this.label5);
 			this.Controls.Add(this.label4);
 			this.Controls.Add(this.LaserX);
 			this.Controls.Add(this.LaserZ);
-			this.Controls.Add(this.LaserY);
 			this.Controls.Add(this.label3);
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.label1);
@@ -394,7 +372,6 @@ namespace Sardauscan.Gui.CalibrationSteps
 			((System.ComponentModel.ISupportInitialize)(this.CameraY)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.LaserAngle)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.LaserY)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.LaserZ)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.LaserX)).EndInit();
 			this.ResumeLayout(false);
@@ -414,12 +391,12 @@ namespace Sardauscan.Gui.CalibrationSteps
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Label label3;
-		private System.Windows.Forms.NumericUpDown LaserY;
 		private System.Windows.Forms.NumericUpDown LaserZ;
 		private System.Windows.Forms.NumericUpDown LaserX;
 		private System.Windows.Forms.Label label4;
-		private System.Windows.Forms.Label label5;
 		private System.Windows.Forms.Label label6;
 		private System.Windows.Forms.Label label7;
+		private System.Windows.Forms.Label label5;
+		private System.Windows.Forms.Label LaserYLabel;
 	}
 }

@@ -113,7 +113,7 @@ namespace Sardauscan.Gui.CalibrationSteps
 						angle = -angle;
 
 					this.LaserX.Value= (decimal)laserLoc.X;
-					this.LaserY.Value= (decimal)laserLoc.Y;
+					this.LaserYLabel.Text = string.Format("{0:.0}",laserLoc.Y);
 					this.LaserZ.Value= (decimal)laserLoc.Z;
 					this.LaserAngle.Value = (decimal) angle;
 				}
@@ -124,20 +124,26 @@ namespace Sardauscan.Gui.CalibrationSteps
 
 			loading = false;
 		}
-		void SaveToSettings(bool fromLaserPos=true)
+		void SaveToSettings(bool saveLaser,bool fromLaserPos)
 		{
 			Settings settings = Settings.Get<Settings>();
 			if (settings != null)
 			{
 				settings.Write(Settings.CAMERA, Settings.Z, (float)this.CameraZ.Value);
 				settings.Write(Settings.CAMERA, Settings.Y, (float)this.CameraY.Value);
-					int currentLaser = this.LaserComboBox.Items.Count == 0 ? -1 : this.LaserComboBox.SelectedIndex;
+				if (!saveLaser)
+				{
+					for (int i = 0; i < this.LaserComboBox.Items.Count;i++ )
+						settings.Write(Settings.LASER(i), Settings.Y, (float)this.CameraY.Value);
+				}
+				else
+				{
+				int currentLaser = this.LaserComboBox.Items.Count == 0 ? -1 : this.LaserComboBox.SelectedIndex;
 				if(currentLaser>=0)
 				{
 					if (fromLaserPos)
 					{
 						settings.Write(Settings.LASER(currentLaser), Settings.X, (float)this.LaserX.Value);
-						settings.Write(Settings.LASER(currentLaser), Settings.Y, (float)this.LaserY.Value);
 						settings.Write(Settings.LASER(currentLaser), Settings.Z, (float)this.LaserZ.Value);
 					}
 					else
@@ -147,10 +153,9 @@ namespace Sardauscan.Gui.CalibrationSteps
 						float angle = laserLoc.AngleInDegrees(cam);
 
 						settings.Write(Settings.LASER(currentLaser), Settings.X, laserLoc.X);
-						settings.Write(Settings.LASER(currentLaser), Settings.Y, laserLoc.Y);
 						settings.Write(Settings.LASER(currentLaser), Settings.Z, laserLoc.Z);
-
 					}
+				}
 				}
 			}
 		}
@@ -163,9 +168,9 @@ namespace Sardauscan.Gui.CalibrationSteps
 			return ret;
 		}
 
-		void UpdateSettings(bool fromLaserPos = true)
+		void UpdateSettings(bool savelaser, bool fromLaserPos)
 		{
-			SaveToSettings(fromLaserPos);
+			SaveToSettings(savelaser,fromLaserPos);
 			LoadFromSettings();
 		}
 
@@ -173,21 +178,21 @@ namespace Sardauscan.Gui.CalibrationSteps
 		{
 			if (loading)
 				return;
-			UpdateSettings();
+			UpdateSettings(false,false);
 		}
 
 		private void LaserPosition_Changed(object sender, EventArgs e)
 		{
 			if (loading)
 				return;
-			UpdateSettings();
+			UpdateSettings(true,true);
 		}
 
 		private void LaserAngle_Changed(object sender, EventArgs e)
 		{
 			if (loading)
 				return;
-			UpdateSettings(false);
+			UpdateSettings(true,false);
 		}
 
 		private void CurrentLaser_Changed(object sender, EventArgs e)

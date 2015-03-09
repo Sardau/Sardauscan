@@ -779,7 +779,7 @@ namespace Sardauscan.Hardware
         {
             get 
             {
-                return 3.629f;
+							return 0.37f;
             }
         }
 
@@ -787,14 +787,14 @@ namespace Sardauscan.Hardware
         {
             get 
             {
-                return 2.722f;
+							return 0.37f;
             }
         }
         public float FocalLength
         {
             get
             {
-                return 3.6f;
+							return 0.5f;
             }
         }
 				#region Reload

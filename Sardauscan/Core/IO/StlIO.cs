@@ -29,6 +29,7 @@ using Sardauscan.Core.Geometry;
 using System.IO;
 using OpenTK;
 using Sardauscan.Core;
+using System.Globalization;
 
 namespace Sardauscan.Core.IO
 {
@@ -80,11 +81,16 @@ namespace Sardauscan.Core.IO
 		{
 			w.WriteLine(string.Format("facet normal {0}", t.Normal.Dump()));
 			w.WriteLine("outer loop");
-			w.WriteLine(string.Format(" vertex  {0} ", t.Point1.Position.Dump()));
-			w.WriteLine(string.Format(" vertex  {0} ", t.Point2.Position.Dump()));
-			w.WriteLine(string.Format(" vertex  {0} ", t.Point3.Position.Dump()));
+			w.WriteLine(string.Format(" vertex  {0} ", GetVectorSTR(t.Point1.Position)));
+			w.WriteLine(string.Format(" vertex  {0} ", GetVectorSTR(t.Point2.Position)));
+			w.WriteLine(string.Format(" vertex  {0} ", GetVectorSTR(t.Point3.Position)));
 			w.WriteLine("endloop");
 			w.WriteLine("endfacet");
+		}
+
+		public static string GetVectorSTR(Vector3 v)
+		{
+			return String.Format(CultureInfo.InvariantCulture, "{0} {1} {2}", v.X, v.Z, -v.Y);
 		}
 
 		public const string DefaultExtention = ".stl";
