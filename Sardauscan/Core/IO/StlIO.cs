@@ -79,7 +79,7 @@ namespace Sardauscan.Core.IO
 		}
 		protected static void WriteTriangle(StreamWriter w, Triangle3D t)
 		{
-			w.WriteLine(string.Format("facet normal {0}", t.Normal.Dump()));
+			w.WriteLine(string.Format("facet normal {0}", GetVectorSTR(t.Normal)));
 			w.WriteLine("outer loop");
 			w.WriteLine(string.Format(" vertex  {0} ", GetVectorSTR(t.Point1.Position)));
 			w.WriteLine(string.Format(" vertex  {0} ", GetVectorSTR(t.Point2.Position)));
