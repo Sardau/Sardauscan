@@ -779,7 +779,7 @@ namespace Sardauscan.Hardware
         {
             get 
             {
-							return 0.37f;
+							return 0.4111f;
             }
         }
 
