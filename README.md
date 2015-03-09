@@ -20,3 +20,5 @@ you will be allowed via plugins to add to develop and add your own task.
 The software will no be linked to a specific hardware.
 by plugins, you will be allowed to add harware controller for camera, turn table and lasers.
 For exemple if you wish to use another scanner, image capture or whatever.
+
+the code is C# and winforms and is build on a Visual 2010 version. nothing special there ;)
