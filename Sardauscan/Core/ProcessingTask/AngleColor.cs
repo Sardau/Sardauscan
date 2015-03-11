@@ -27,12 +27,14 @@ using System.Linq;
 using System.Text;
 using Sardauscan.Core.Geometry;
 using OpenTK;
+using System.ComponentModel;
 
 namespace Sardauscan.Core.ProcessingTask
 {
 	/// <summary>
 	/// Color scanlines based on the ScanLine Angle
 	/// </summary>
+	[Browsable(false)]
 	public class AngleColor : AbstractLineTask
 	{
 		protected override ScanLine DoTask(ScanLine source)

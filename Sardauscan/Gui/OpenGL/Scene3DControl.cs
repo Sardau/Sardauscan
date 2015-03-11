@@ -262,7 +262,7 @@ namespace Sardauscan.Gui.OpenGL
             context.ApplyFaceDefault();
             GL.ShadeModel(Smooth ? ShadingModel.Smooth : ShadingModel.Flat);
             GL.Enable(EnableCap.CullFace);
-            GL.CullFace(CullFaceMode.Front);
+            GL.CullFace(CullFaceMode.Back);
             Scene.Render(ref context);
             SwapBuffers();
         }

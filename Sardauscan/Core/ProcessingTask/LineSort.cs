@@ -28,12 +28,14 @@ using System.Text;
 using Sardauscan.Core.Geometry;
 using OpenTK;
 using Sardauscan.Core.Interface;
+using System.ComponentModel;
 
 namespace Sardauscan.Core.ProcessingTask
 {
 	/// <summary>
 	/// Sort the Scanlines by angle
 	/// </summary>
+	[Browsable(false)]
 	public class LineSort : AbstractLineTask
 	{
 		protected Vector3 CameraPosition;

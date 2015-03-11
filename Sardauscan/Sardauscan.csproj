@@ -83,6 +83,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Core\Interface\IHardwareProxyProvider.cs" />
+    <Compile Include="Core\IO\WaveFormIO.cs" />
     <Compile Include="Core\LaserCorrection.cs" />
     <Compile Include="Core\OpenGL\RenderingContext.cs" />
     <Compile Include="Core\ProcessingTask\AbstractMeshBuilder.cs" />
@@ -116,6 +117,7 @@
     <Compile Include="Core\ProcessingTask\LinesRemoveEmpty.cs" />
     <Compile Include="Core\ProcessingTask\SaveTask.cs" />
     <Compile Include="Core\ProcessingTask\DisplayAs.cs" />
+    <Compile Include="Core\ProcessingTask\SurfaceSmoothing.cs" />
     <Compile Include="Core\Reflector.cs" />
     <Compile Include="Core\ScanLine.cs" />
     <Compile Include="Core\ScanData.cs" />

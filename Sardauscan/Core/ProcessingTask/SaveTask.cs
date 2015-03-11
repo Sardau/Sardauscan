@@ -253,4 +253,32 @@ namespace Sardauscan.Core.ProcessingTask
 		}
 	}
 
+	/// <summary>
+	/// Save Mesh As OBJ
+	/// </summary>
+	[Browsable(true)]
+	public class SaveOBJ : SaveMesh
+	{
+		public override eTaskItem In
+		{
+			get { return eTaskItem.Mesh; }
+		}
+
+		protected override void Save(ScanData source)
+		{
+			WaveFormIO.Write(this.Filename, source);
+		}
+		public override string DialogFilter
+		{
+			get
+			{
+				return WaveFormIO.GetDialogFilter();
+			}
+		}
+		public override string Name
+		{
+			get { return "Save OBJ"; }
+		}
+	}
+
 }

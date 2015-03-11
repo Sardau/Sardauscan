@@ -26,12 +26,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Sardauscan.Core.Geometry;
+using System.ComponentModel;
 
 namespace Sardauscan.Core.ProcessingTask
 {
 	/// <summary>
 	/// Reconstruc the Mesh byt interpolating the Scanline points by Y position
 	/// </summary>
+	[Browsable(false)]
 	class MeshBuilderByInterpolatedY : AbstractMeshBuilder
 	{
 		protected override StripResult CreateStrip(ScanLine previous, ScanLine current)

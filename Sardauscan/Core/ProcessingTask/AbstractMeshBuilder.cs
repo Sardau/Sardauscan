@@ -119,17 +119,27 @@ namespace Sardauscan.Core.ProcessingTask
             }
             if (count <= 2)
                 return ret;
+						Point3D topcenter = Point3D.Average(top);
+						Point3D bottomcenter = Point3D.Average(bottom);
+						for (int i = 0; i < ret.Count; i++)
+						{
+							ret[i].Insert(0, topcenter);
+							ret[i].Add(bottomcenter);
+							AdjustNormalFromTriangleStrip(ret[i]);
+						}
+						/*
 
-            if (this.CancelPending) return source;
-            //top.Reverse();
-            top = CreateForTopBottom(top);
-            AdjustNormalFromTriangleStrip(top);
-            ret.Add(top);
+													if (this.CancelPending) return source;
+													//top.Reverse();
+													top = CreateForTopBottom(top);
+													AdjustNormalFromTriangleStrip(top);
+													ret.Add(top);
 
-            if (this.CancelPending) return source;
-            bottom = CreateForTopBottom(bottom, true);
-            AdjustNormalFromTriangleStrip(bottom);
-            ret.Add(bottom);
+													if (this.CancelPending) return source;
+													bottom = CreateForTopBottom(bottom, true);
+													AdjustNormalFromTriangleStrip(bottom);
+													ret.Add(bottom);
+												 * */
             UpdatePercent(100, ret);
             return ret;
 
@@ -220,15 +230,11 @@ namespace Sardauscan.Core.ProcessingTask
                 Vector3 v0 = points[i].Position;
                 Vector3 v1 = points[i + 1].Position;
                 Vector3 v2 = points[i + 2].Position;
-                if (i % 2 == 0)
-                    normal = -Triangle3D.CalculateNormal(v0, v1, v2);
-                else
-                    normal = -Triangle3D.CalculateNormal(v0, v2, v1);
-
+                normal = -Triangle3D.CalculateNormal(v0, v1, v2);
                 points[i].Normal = normal;
             }
-            points[count - 2].Normal = -normal;
             points[count - 1].Normal = normal;
+            points[count - 2].Normal = normal;
         }
 
 			/// <summary>

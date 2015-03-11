@@ -481,8 +481,11 @@ namespace Sardauscan.Core.Geometry
 					}
 				case PrimitiveType.TriangleStrip:
 					{
-						for (int i = 2; i < count; i++)
-							ret.Add(new Triangle3D(this[i - 2], this[i - 1], this[i]));
+						for (int i = 0; i < count -2; i++)
+							if (i % 2 == 0) // http://en.wikipedia.org/wiki/Triangle_strip => order point in ccw as some fileformat does not take care of normals
+								ret.Add(new Triangle3D(this[i], this[i+1], this[i+2]));
+							else
+								ret.Add(new Triangle3D(this[i+1], this[i], this[i+2]));
 						break;
 					}
 			}

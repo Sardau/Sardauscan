@@ -299,6 +299,8 @@ namespace Sardauscan.Core.ProcessingTask
 			int c = this.In.CompareTo(other.In);
 			if (c == 0)
 				c = this.Out.CompareTo(other.Out);
+			if (c == 0)
+				c = this.DisplayName.CompareTo(other.DisplayName);
 			return c;
 		}
 
