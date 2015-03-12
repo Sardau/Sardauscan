@@ -96,7 +96,7 @@ namespace Sardauscan.Core.ProcessingTask
             return Math.Sqrt(sumSquaredDiffs);
         }
 
-        protected override ScanLine DoTask(ScanLine source)
+        public override ScanLine DoTask(ScanLine source)
         {
 
             try

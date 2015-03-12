@@ -43,7 +43,7 @@ namespace Sardauscan.Core.ProcessingTask
 			}
 		}
 
-		protected override ScanData DoTask(ScanData source)
+		public override ScanData DoTask(ScanData source)
 		{
 			ScanData step1 = base.DoTask(source);
 			step1.Sort();
@@ -64,7 +64,7 @@ namespace Sardauscan.Core.ProcessingTask
 				step3.Add(step2[i]);
 			return step3;
 		}
-		protected override ScanLine DoTask(ScanLine source)
+		public override ScanLine DoTask(ScanLine source)
 		{
 			ScanLine ret = new ScanLine(source.LaserID, source.Count);
 			if (source != null && source.Count > 0)

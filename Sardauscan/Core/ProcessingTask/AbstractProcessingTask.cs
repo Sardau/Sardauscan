@@ -219,7 +219,7 @@ namespace Sardauscan.Core.ProcessingTask
 		/// </summary>
 		/// <param name="source"></param>
 		/// <returns></returns>
-		protected abstract ScanData DoTask(ScanData source);
+		public abstract ScanData DoTask(ScanData source);
 
 		/// <summary>
 		/// Name of the task

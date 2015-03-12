@@ -37,7 +37,7 @@ namespace Sardauscan.Core.ProcessingTask
 	[Browsable(false)]
 	public class AngleColor : AbstractLineTask
 	{
-		protected override ScanLine DoTask(ScanLine source)
+		public override ScanLine DoTask(ScanLine source)
 		{
 			float clamp = Math.Abs(Utils.DeltaAngle(-180, source.Angle) / 360);
 			ScanLine ret = new ScanLine(source.LaserID,source.Count);

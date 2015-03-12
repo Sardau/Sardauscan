@@ -38,7 +38,7 @@ namespace Sardauscan.Core.ProcessingTask
 			/// </summary>
 			/// <param name="source"></param>
 			/// <returns></returns>
-        protected override ScanLine DoTask(ScanLine source)
+        public override ScanLine DoTask(ScanLine source)
         {
             if (source.Count != 0)
                 return source;

@@ -4,6 +4,92 @@
         <name>SamplePlugin</name>
     </assembly>
     <members>
+        <member name="T:FakeHardwarePlugins.FakeCameraProxy">
+            <summary>
+            Fake camera for educational purpose ( and debug too ;) )
+            in this cas the plugin implement the provider and the hardwareproxy
+            it is interesting when you don't have any configuration to make 
+            ( if you can only select one hardware, whitout any parameter)
+            </summary>
+            <remarks>
+            In this cas the object derive from AbstractProxyProvider&lt;CameraProxy&gt;
+            a abstract class that implement some function for a ICameraProxy provider
+            </remarks>
+        </member>
+        <member name="M:FakeHardwarePlugins.FakeCameraProxy.#ctor">
+            <summary>
+            Cto must be whitout parameter !!
+            </summary>
+        </member>
+        <member name="M:FakeHardwarePlugins.FakeCameraProxy.AcquireImage">
+            <summary>
+            Return the current image of the camera
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FakeHardwarePlugins.FakeCameraProxy.Dispose">
+            <summary>
+            dispose your Camera proxy
+            </summary>
+        </member>
+        <member name="M:FakeHardwarePlugins.FakeCameraProxy.LoadFromHardwareId(System.String)">
+            <summary>
+             Load a IHardwareProxy with a specific HardwareId 
+            </summary>
+            <param name="hardwareId"></param>
+            <returns> the loaded IHardwareProxy or null if you can't reload it</returns>
+        </member>
+        <member name="M:FakeHardwarePlugins.FakeCameraProxy.GetViewer">
+            <summary>
+            Get the associated Viewer of these IHardwareProxy
+            the viewer allow the user to interact with or tweak the hardware.
+            you can return null if there is no setting or viewer ( it will be a shame for camera, but hey you do what you want)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FakeHardwarePlugins.FakeCameraProxy.Select(System.Windows.Forms.IWin32Window)">
+            <summary>
+            This function is call when the user request a instance of ther IHardwareProxy
+            You can call winforms to as information ( Com port, configuration etc)
+            </summary>
+            <param name="owner">owner window</param>
+            <returns>a IHardwareProxy if one is selected, Null in case of cancle or not disponible</returns>
+        </member>
+        <member name="P:FakeHardwarePlugins.FakeCameraProxy.ImageHeight">
+            <summary>
+            Get the camera image Height resolution (height of the current image)
+            </summary>
+        </member>
+        <member name="P:FakeHardwarePlugins.FakeCameraProxy.ImageWidth">
+            <summary>
+            Get the camera image Width resolution (Width of the current image)
+            </summary>
+        </member>
+        <member name="P:FakeHardwarePlugins.FakeCameraProxy.SensorWidth">
+            <summary>
+            Get the sensor width
+            </summary>
+        </member>
+        <member name="P:FakeHardwarePlugins.FakeCameraProxy.SensorHeight">
+            <summary>
+            Get the sensor height
+            </summary>
+        </member>
+        <member name="P:FakeHardwarePlugins.FakeCameraProxy.FocalLength">
+            <summary>
+            Get the focal lenght
+            </summary>
+        </member>
+        <member name="P:FakeHardwarePlugins.FakeCameraProxy.HardwareId">
+            <summary>
+            A unique id to identify a specific instance of IHardwareProxy (mainly used for reload a IHardwareproxy, so store all the properties)
+            </summary>
+        </member>
+        <member name="P:FakeHardwarePlugins.FakeCameraProxy.Name">
+            <summary>
+            Display name of the Provider, for the user to know what he select;)
+            </summary>
+        </member>
         <member name="T:FakeHardwarePlugins.FakeTurnTableProxy">
             <summary>
             Fake TurnTable Hardware Proxy for educational purpose ( and debug too ;) )
@@ -197,92 +283,6 @@
         <member name="P:FakeHardwarePlugins.FakeLaserProxy.HardwareId">
             <summary>
             A unique id to identify a specific instance of IHardwareProxy (mainly used for reload a IHardwareproxy, so store all the properties)
-            </summary>
-        </member>
-        <member name="T:FakeHardwarePlugins.FakeCameraProxy">
-            <summary>
-            Fake camera for educational purpose ( and debug too ;) )
-            in this cas the plugin implement the provider and the hardwareproxy
-            it is interesting when you don't have any configuration to make 
-            ( if you can only select one hardware, whitout any parameter)
-            </summary>
-            <remarks>
-            In this cas the object derive from AbstractProxyProvider&lt;CameraProxy&gt;
-            a abstract class that implement some function for a ICameraProxy provider
-            </remarks>
-        </member>
-        <member name="M:FakeHardwarePlugins.FakeCameraProxy.#ctor">
-            <summary>
-            Cto must be whitout parameter !!
-            </summary>
-        </member>
-        <member name="M:FakeHardwarePlugins.FakeCameraProxy.AcquireImage">
-            <summary>
-            Return the current image of the camera
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:FakeHardwarePlugins.FakeCameraProxy.Dispose">
-            <summary>
-            dispose your Camera proxy
-            </summary>
-        </member>
-        <member name="M:FakeHardwarePlugins.FakeCameraProxy.LoadFromHardwareId(System.String)">
-            <summary>
-             Load a IHardwareProxy with a specific HardwareId 
-            </summary>
-            <param name="hardwareId"></param>
-            <returns> the loaded IHardwareProxy or null if you can't reload it</returns>
-        </member>
-        <member name="M:FakeHardwarePlugins.FakeCameraProxy.GetViewer">
-            <summary>
-            Get the associated Viewer of these IHardwareProxy
-            the viewer allow the user to interact with or tweak the hardware.
-            you can return null if there is no setting or viewer ( it will be a shame for camera, but hey you do what you want)
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:FakeHardwarePlugins.FakeCameraProxy.Select(System.Windows.Forms.IWin32Window)">
-            <summary>
-            This function is call when the user request a instance of ther IHardwareProxy
-            You can call winforms to as information ( Com port, configuration etc)
-            </summary>
-            <param name="owner">owner window</param>
-            <returns>a IHardwareProxy if one is selected, Null in case of cancle or not disponible</returns>
-        </member>
-        <member name="P:FakeHardwarePlugins.FakeCameraProxy.ImageHeight">
-            <summary>
-            Get the camera image Height resolution (height of the current image)
-            </summary>
-        </member>
-        <member name="P:FakeHardwarePlugins.FakeCameraProxy.ImageWidth">
-            <summary>
-            Get the camera image Width resolution (Width of the current image)
-            </summary>
-        </member>
-        <member name="P:FakeHardwarePlugins.FakeCameraProxy.SensorWidth">
-            <summary>
-            Get the sensor width
-            </summary>
-        </member>
-        <member name="P:FakeHardwarePlugins.FakeCameraProxy.SensorHeight">
-            <summary>
-            Get the sensor height
-            </summary>
-        </member>
-        <member name="P:FakeHardwarePlugins.FakeCameraProxy.FocalLength">
-            <summary>
-            Get the focal lenght
-            </summary>
-        </member>
-        <member name="P:FakeHardwarePlugins.FakeCameraProxy.HardwareId">
-            <summary>
-            A unique id to identify a specific instance of IHardwareProxy (mainly used for reload a IHardwareproxy, so store all the properties)
-            </summary>
-        </member>
-        <member name="P:FakeHardwarePlugins.FakeCameraProxy.Name">
-            <summary>
-            Display name of the Provider, for the user to know what he select;)
             </summary>
         </member>
     </members>

@@ -92,7 +92,7 @@ namespace Sardauscan.Core.ProcessingTask
                 return (!string.IsNullOrEmpty(Filename) && File.Exists(Filename));
             }
         }
-        protected override ScanData DoTask(ScanData source)
+				public override ScanData DoTask(ScanData source)
         {
 					LastError = string.Empty;
             if (!ValidFile)

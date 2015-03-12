@@ -43,7 +43,7 @@ namespace Sardauscan.Core.ProcessingTask
 		[DisplayName("Display as lines")]
 		public bool DisplayAsLine { get { return m_DisplayAsLine; } set { m_DisplayAsLine = value; } }
 
-		protected override ScanLine DoTask(ScanLine source)
+		public override ScanLine DoTask(ScanLine source)
 		{
 			ScanLine ret = new ScanLine(source);
 			ret.DisplayAsLine = this.DisplayAsLine;

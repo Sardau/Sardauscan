@@ -55,7 +55,7 @@ namespace Sardauscan.Core.ProcessingTask
 		/// </summary>
 		/// <param name="source"></param>
 		/// <returns></returns>
-		protected override ScanData DoTask(ScanData source)
+		public override ScanData DoTask(ScanData source)
 		{
 			ScanData ret = new ScanData(source.Count);
 			source.Sort();
@@ -109,7 +109,7 @@ namespace Sardauscan.Core.ProcessingTask
 		/// </summary>
 		/// <param name="source"></param>
 		/// <returns></returns>
-		protected abstract ScanLine DoTask(ScanLine source);
+		public abstract ScanLine DoTask(ScanLine source);
 		/// <summary>
 		/// Clone this task
 		/// </summary>

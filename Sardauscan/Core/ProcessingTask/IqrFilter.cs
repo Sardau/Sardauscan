@@ -118,7 +118,7 @@ namespace Sardauscan.Core.ProcessingTask
         [Editor(typeof(NumericUpDownTypeEditor), typeof(UITypeEditor)), MinMaxAttribute(0.001f, 3f, 0.005f, 3)]
         public float Factor { get { return factor; } set { factor = value; } }
 
-        protected override ScanLine DoTask(ScanLine source)
+        public override ScanLine DoTask(ScanLine source)
         {
 					if (source.Count < 5)
 					{ //not enough points, less than 5 points surely a false positive

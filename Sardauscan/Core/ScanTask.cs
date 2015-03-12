@@ -198,7 +198,7 @@ namespace Sardauscan.Core
 				list[iPt] = p;
 			}
 		}
-		protected override ScanData DoTask(ScanData source)
+		public override ScanData DoTask(ScanData source)
 		{
 			if (!HardwareAvailable)
 				throw new Exception(string.Format("HardWare missing : TURNTABLE:{0} LASER:{1} CAMERA:{2}", HardwarePresentTrace(TurnTable), HardwarePresentTrace(Laser), HardwarePresentTrace(Camera)));

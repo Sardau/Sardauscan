@@ -101,7 +101,8 @@ namespace Sardauscan.Gui.CalibrationSteps
 					{
 						this.LaserComboBox.Items.Add(String.Format("Laser {0}", i));
 					}
-					this.LaserComboBox.SelectedIndex = Math.Max(0,currentLaser);
+					currentLaser = Math.Max(0, currentLaser);
+					this.LaserComboBox.SelectedIndex = currentLaser;
 					Vector3 laserLoc = new Vector3(
 					settings.Read(Settings.LASER(currentLaser), Settings.X, 50f),
 					settings.Read(Settings.LASER(currentLaser), Settings.Y, (float)this.CameraY.Value),

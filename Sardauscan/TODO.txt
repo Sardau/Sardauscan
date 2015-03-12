@@ -1,18 +1,16 @@
 ﻿
-New Task :
- - better point-cloud to mesh
- 
 Make 2 different file for PointCloud/ mesh
 
 //COMMENT!! espacialy FAKE plugins
 
+AutoCalibration
+https://github.com/francisengelmann/FabScan/blob/master/sources/FabScanMac/FabScan3D/FSChessboardCalibration.cpp
 
-smooth task to try
-http://en.wikipedia.org/wiki/Ramer%E2%80%93Douglas%E2%80%93Peucker_algorithm
-http://en.wikipedia.org/wiki/Laplacian_smoothing
 
 camera Proxy to test
 http://www.codeproject.com/Articles/125478/Versatile-WebCam-C-library
 http://www.codeproject.com/Articles/15219/WebCam-Fast-Image-Capture-Service-using-WIA
 http://channel9.msdn.com/coding4fun/articles/Look-at-me-Windows-Image-Acquisition
 https://edulorenzo.wordpress.com/2010/07/21/capture-picture-from-wia-using-c/
+-->
+http://www.emgu.com/wiki/index.php/Main_Page

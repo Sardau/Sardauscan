@@ -83,7 +83,7 @@ namespace Sardauscan.Core.ProcessingTask
 			return string.Empty;
 		}
 
-		protected override ScanData DoTask(ScanData source)
+		public override ScanData DoTask(ScanData source)
 		{
 			LastError = string.Empty;
 			{

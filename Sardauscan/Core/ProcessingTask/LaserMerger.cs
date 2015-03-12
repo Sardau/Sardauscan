@@ -51,7 +51,7 @@ namespace Sardauscan.Core.ProcessingTask
 			return ret;
 		}
 
-		protected override ScanData DoTask(ScanData source)
+		public override ScanData DoTask(ScanData source)
 		{
 			ScanData ret = source;
 			Dictionary<int, ScanData> laserScanData = new Dictionary<int, ScanData>();

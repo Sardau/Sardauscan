@@ -39,7 +39,7 @@ namespace Sardauscan.Core.ProcessingTask
 	public class LineSort : AbstractLineTask
 	{
 		protected Vector3 CameraPosition;
-		protected override ScanData DoTask(ScanData source)
+		public override ScanData DoTask(ScanData source)
 		{
 			CameraPosition = new Vector3();
 			Settings settings = Settings.Get<Settings>();
@@ -50,7 +50,7 @@ namespace Sardauscan.Core.ProcessingTask
 			ret.Sort();
 			return ret;
 		}
-		protected override ScanLine DoTask(ScanLine source)
+		public override ScanLine DoTask(ScanLine source)
 		{
 			ScanLine ret = new ScanLine(source);
 			return ret;

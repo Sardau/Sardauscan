@@ -61,7 +61,7 @@ namespace Sardauscan.Core.ProcessingTask
         }
 
 
-        protected override ScanLine DoTask(ScanLine source)
+        public override ScanLine DoTask(ScanLine source)
         {
             int count = source.Count;
             if (count <= 2)

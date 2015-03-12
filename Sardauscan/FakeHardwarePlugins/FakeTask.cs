@@ -59,7 +59,7 @@ namespace FakeHardwarePlugins
 		/// </summary>
 		/// <param name="source"></param>
 		/// <returns></returns>
-		protected override Sardauscan.Core.ScanData DoTask(Sardauscan.Core.ScanData source)
+		public override Sardauscan.Core.ScanData DoTask(Sardauscan.Core.ScanData source)
 		{
 			// try somthing simple change Texture colors to RED
 			Sardauscan.Core.ScanData returndata = new Sardauscan.Core.ScanData(source.Count);

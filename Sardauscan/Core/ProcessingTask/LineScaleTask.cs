@@ -62,7 +62,7 @@ namespace Sardauscan.Core.ProcessingTask
 		[Editor(typeof(NumericUpDownTypeEditor), typeof(UITypeEditor)), MinMaxAttribute(-1000f, 1000f, 0.005f, 3)]
 		public float ZFactor { get { return zFactor; } set { zFactor = value; } }
 
-		protected override ScanLine DoTask(ScanLine source)
+		public override ScanLine DoTask(ScanLine source)
 		{
 			ScanLine ret = new ScanLine(source.LaserID, source.Count);
 			for (int i = 0; i < source.Count; i++)

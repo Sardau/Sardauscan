@@ -37,7 +37,7 @@ namespace Sardauscan.Core.ProcessingTask
 		public int Iteration { get { return iteration; } set { iteration = value; } }
 
 
-		protected override ScanData DoTask(ScanData source)
+		public override ScanData DoTask(ScanData source)
 		{
 			ScanData ret = new ScanData(source.Count);
 			UpdatePercent(0, ret);

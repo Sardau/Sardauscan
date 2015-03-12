@@ -88,7 +88,7 @@ namespace Sardauscan.Core.ProcessingTask
 			/// </summary>
 			/// <param name="source"></param>
 			/// <returns></returns>
-        protected override ScanData DoTask(ScanData source)
+        public override ScanData DoTask(ScanData source)
         {
             ScanData ret = new ScanData(source.Count);
             UpdatePercent(0, ret);
