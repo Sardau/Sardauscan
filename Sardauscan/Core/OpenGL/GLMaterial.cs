@@ -55,7 +55,7 @@ namespace Sardauscan.Core.OpenGL
 		/// <summary>
 		/// Shininess
 		/// </summary>
-		float Shininess;
+		double Shininess;
 		/// <summary>
 		/// specify this material to OpenGL
 		/// </summary>
@@ -72,7 +72,7 @@ namespace Sardauscan.Core.OpenGL
 				GL.Material(face, MaterialParameter.Ambient, Ambiant.ToVector());
 				GL.Material(face, MaterialParameter.Diffuse, Diffuse.ToVector());
 				GL.Material(face, MaterialParameter.Specular, Specular.ToVector());
-				GL.Material(face, MaterialParameter.Shininess, Shininess * 128f);
+				GL.Material(face, MaterialParameter.Shininess, (float)(Shininess * 128f));
 			}
 			else
 				GL.Color4(Ambiant);
@@ -102,7 +102,7 @@ namespace Sardauscan.Core.OpenGL
 			ret.Ambiant = ColorFromString(node.SelectSingleNode("Ambient").InnerText);
 			ret.Diffuse = ColorFromString(node.SelectSingleNode("Diffuse").InnerText);
 			ret.Specular = ColorFromString(node.SelectSingleNode("Specular").InnerText);
-			ret.Shininess = float.Parse(node.SelectSingleNode("Shininess").InnerText, NumberStyles.Any, CultureInfo.InvariantCulture);
+			ret.Shininess = double.Parse(node.SelectSingleNode("Shininess").InnerText, NumberStyles.Any, CultureInfo.InvariantCulture);
 			return ret;
 		}
 
@@ -110,15 +110,15 @@ namespace Sardauscan.Core.OpenGL
 		{
 			string[] part = val.Split("|".ToCharArray());
 			float r = 0f;
-			float g = 0f;
-			float b = 0f;
-			float a = 0f;
-			if (float.TryParse(part[0], NumberStyles.Any, CultureInfo.InvariantCulture, out r))
-				if (float.TryParse(part[1], NumberStyles.Any, CultureInfo.InvariantCulture, out g))
-					if (float.TryParse(part[2], NumberStyles.Any, CultureInfo.InvariantCulture, out b))
+            float g = 0f;
+            float b = 0f;
+            float a = 0f;
+            if (float.TryParse(part[0], NumberStyles.Any, CultureInfo.InvariantCulture, out r))
+                if (float.TryParse(part[1], NumberStyles.Any, CultureInfo.InvariantCulture, out g))
+                    if (float.TryParse(part[2], NumberStyles.Any, CultureInfo.InvariantCulture, out b))
 					{
 						if (part.Length == 4)
-							float.TryParse(part[3], NumberStyles.Any, CultureInfo.InvariantCulture, out a);
+                            float.TryParse(part[3], NumberStyles.Any, CultureInfo.InvariantCulture, out a);
 
 					}
 			return ColorExtension.ColorFromVector(new Vector4(r, g, b, a));

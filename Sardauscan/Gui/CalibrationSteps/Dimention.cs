@@ -87,7 +87,7 @@ namespace Sardauscan.Gui.CalibrationSteps
 			if(settings!=null)
 			{
 				this.Enabled=true;
-				Vector3 cam = new Vector3(settings.Read(Settings.CAMERA, Settings.X, 0f), settings.Read(Settings.CAMERA, Settings.Y, 50f), settings.Read(Settings.CAMERA, Settings.Z, 220f));
+				Vector3d cam = new Vector3d(settings.Read(Settings.CAMERA, Settings.X, 0f), settings.Read(Settings.CAMERA, Settings.Y, 50f), settings.Read(Settings.CAMERA, Settings.Z, 220f));
 
 				this.CameraZ.Value = (decimal)cam.Z;
 				this.CameraY.Value = (decimal)cam.Y;
@@ -103,13 +103,13 @@ namespace Sardauscan.Gui.CalibrationSteps
 					}
 					currentLaser = Math.Max(0, currentLaser);
 					this.LaserComboBox.SelectedIndex = currentLaser;
-					Vector3 laserLoc = new Vector3(
+					Vector3d laserLoc = new Vector3d(
 					settings.Read(Settings.LASER(currentLaser), Settings.X, 50f),
-					settings.Read(Settings.LASER(currentLaser), Settings.Y, (float)this.CameraY.Value),
-					settings.Read(Settings.LASER(currentLaser), Settings.Z, (float)this.CameraZ.Value)
+					settings.Read(Settings.LASER(currentLaser), Settings.Y, (double)this.CameraY.Value),
+					settings.Read(Settings.LASER(currentLaser), Settings.Z, (double)this.CameraZ.Value)
 				  );
 
-					float angle = laserLoc.AngleInDegrees(cam);
+					double angle = laserLoc.AngleInDegrees(cam);
 					if(cam.X < laserLoc.X)
 						angle = -angle;
 
@@ -130,12 +130,12 @@ namespace Sardauscan.Gui.CalibrationSteps
 			Settings settings = Settings.Get<Settings>();
 			if (settings != null)
 			{
-				settings.Write(Settings.CAMERA, Settings.Z, (float)this.CameraZ.Value);
-				settings.Write(Settings.CAMERA, Settings.Y, (float)this.CameraY.Value);
+				settings.Write(Settings.CAMERA, Settings.Z, (double)this.CameraZ.Value);
+				settings.Write(Settings.CAMERA, Settings.Y, (double)this.CameraY.Value);
 				if (!saveLaser)
 				{
 					for (int i = 0; i < this.LaserComboBox.Items.Count;i++ )
-						settings.Write(Settings.LASER(i), Settings.Y, (float)this.CameraY.Value);
+						settings.Write(Settings.LASER(i), Settings.Y, (double)this.CameraY.Value);
 				}
 				else
 				{
@@ -144,14 +144,14 @@ namespace Sardauscan.Gui.CalibrationSteps
 				{
 					if (fromLaserPos)
 					{
-						settings.Write(Settings.LASER(currentLaser), Settings.X, (float)this.LaserX.Value);
-						settings.Write(Settings.LASER(currentLaser), Settings.Z, (float)this.LaserZ.Value);
+						settings.Write(Settings.LASER(currentLaser), Settings.X, (double)this.LaserX.Value);
+						settings.Write(Settings.LASER(currentLaser), Settings.Z, (double)this.LaserZ.Value);
 					}
 					else
 					{
-						Vector3 cam = new Vector3(settings.Read(Settings.CAMERA, Settings.X, 0f), settings.Read(Settings.CAMERA, Settings.Y, 50f), settings.Read(Settings.CAMERA, Settings.Z, 220f));
-						Vector3 laserLoc = RotateY(cam, (float)LaserAngle.Value);
-						float angle = laserLoc.AngleInDegrees(cam);
+						Vector3d cam = new Vector3d(settings.Read(Settings.CAMERA, Settings.X, 0f), settings.Read(Settings.CAMERA, Settings.Y, 50f), settings.Read(Settings.CAMERA, Settings.Z, 220f));
+						Vector3d laserLoc = RotateY(cam, (double)LaserAngle.Value);
+						double angle = laserLoc.AngleInDegrees(cam);
 
 						settings.Write(Settings.LASER(currentLaser), Settings.X, laserLoc.X);
 						settings.Write(Settings.LASER(currentLaser), Settings.Z, laserLoc.Z);
@@ -160,12 +160,12 @@ namespace Sardauscan.Gui.CalibrationSteps
 				}
 			}
 		}
-		Vector3 RotateY(Vector3 v, float angle)
+		Vector3d RotateY(Vector3d v, double angle)
 		{
-			Vector3 ret = new Vector3(0, v.Y, 0);
-			float rad = Utils.DEGREES_TO_RADIANS(angle);
-			ret.X = (float)(v.X * Math.Cos(rad) - v.Z * Math.Sin(rad));
-			ret.Z = (float)(v.X * Math.Sin(rad) + v.Z * Math.Cos(rad));
+			Vector3d ret = new Vector3d(0, v.Y, 0);
+			double rad = Utils.DEGREES_TO_RADIANS(angle);
+			ret.X = (double)(v.X * Math.Cos(rad) - v.Z * Math.Sin(rad));
+			ret.Z = (double)(v.X * Math.Sin(rad) + v.Z * Math.Cos(rad));
 			return ret;
 		}
 

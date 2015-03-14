@@ -46,7 +46,7 @@ namespace Sardauscan.Core
 		}
 
 		/// <summary>
-		/// Convert to a Vector4
+		/// Convert to a Vector4d
 		/// </summary>
 		/// <param name="c"></param>
 		/// <returns></returns>
@@ -55,7 +55,7 @@ namespace Sardauscan.Core
 			return new Vector4(c.R / 255f, c.G / 255f, c.B / 255f, c.A / 255f);
 		}
 		/// <summary>
-		/// Create From a vector4
+		/// Create From a Vector4d
 		/// </summary>
 		/// <param name="v"></param>
 		/// <returns></returns>

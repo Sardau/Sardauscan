@@ -62,9 +62,9 @@ namespace Sardauscan.Gui.OpenGL
             public PointF _Angle;
             public PointF Pane;
             public PointF _Pane;
-            public float RotationSpeed;
-            public float _Zoom;
-            public float Zoom;
+            public double RotationSpeed;
+            public double _Zoom;
+            public double Zoom;
         }
 
         public DragBallNavigator(Control ctrl)
@@ -82,7 +82,7 @@ namespace Sardauscan.Gui.OpenGL
         sData Data;
         public PointF Angle {get{return Data.Angle;}}
         public PointF Pane {get{return Data.Pane;}}
-        public float Zoom { get { return Data.Zoom; } }
+        public double Zoom { get { return Data.Zoom; } }
 
 
         public void Init()
@@ -103,12 +103,12 @@ namespace Sardauscan.Gui.OpenGL
         {
             if (m_Mode == eDragMode.Rotation)
             {
-                Data.Angle.X = Data._Angle.X - (pos.X - Data.StartPosition.X) * Data.RotationSpeed;
-                Data.Angle.Y = Data._Angle.Y - (pos.Y - Data.StartPosition.Y) * Data.RotationSpeed;
+                Data.Angle.X = (float)(Data._Angle.X - (pos.X - Data.StartPosition.X) * Data.RotationSpeed);
+                Data.Angle.Y = (float)(Data._Angle.Y - (pos.Y - Data.StartPosition.Y) * Data.RotationSpeed);
             }
             else if (m_Mode == eDragMode.Zoom)
             {
-                Data.Zoom = (float)(Math.Max(0.00000001, Data._Zoom + (pos.Y - Data.StartPosition.Y) / 200.0f));
+                Data.Zoom = (double)(Math.Max(0.00000001, Data._Zoom + (pos.Y - Data.StartPosition.Y) / 200.0f));
             }
             else if (m_Mode == eDragMode.Pane)
             {

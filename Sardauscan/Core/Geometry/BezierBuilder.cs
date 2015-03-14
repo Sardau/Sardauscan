@@ -39,7 +39,7 @@ namespace Sardauscan.Core.Geometry
     {
 
         // This corresponds to about 172 degrees, 8 degrees from a traight line
-        private const float DIVISION_THRESHOLD = -0.99f;
+        private const double DIVISION_THRESHOLD = -0.99f;
 
 			   // the list of curve control points
         private Point3DList controlPoints;
@@ -50,7 +50,7 @@ namespace Sardauscan.Core.Geometry
             Constructs a new empty Bezier curve. Use one of these methods
             to add points: SetControlPoints, Interpolate, SamplePoints.
         */
-        public BezierBuilder(int segmentPerCurve = 10, float minSquareDistance = 0.01f)
+        public BezierBuilder(int segmentPerCurve = 10, double minSquareDistance = 0.01f)
         {
             controlPoints = new Point3DList();
             SEGMENTS_PER_CURVE = segmentPerCurve;
@@ -58,7 +58,7 @@ namespace Sardauscan.Core.Geometry
         }
 
         readonly int SEGMENTS_PER_CURVE;
-        readonly float MINIMUM_SQR_DISTANCE;        
+        readonly double MINIMUM_SQR_DISTANCE;        
 
         /**
             Sets the control points of this Bezier path.
@@ -83,7 +83,7 @@ namespace Sardauscan.Core.Geometry
         /**
             Calculates a Bezier interpolated path for the given points.
         */
-        public void Interpolate(Point3DList segmentPoints, float scale)
+        public void Interpolate(Point3DList segmentPoints, double scale)
         {
             controlPoints.Clear();
 
@@ -117,15 +117,15 @@ namespace Sardauscan.Core.Geometry
                     Point3D p0 = segmentPoints[i - 1];
                     Point3D p1 = segmentPoints[i];
                     Point3D p2 = segmentPoints[i + 1];
-                    Vector3 tp = (p2.Position - p0.Position).Normalized();
+                    Vector3d tp = (p2.Position - p0.Position).Normalized();
 
-                    Vector3 pos0 = p1.Position - scale * tp * (p1.Position - p0.Position).Length;
-                    Vector3 pos1 = p1.Position + scale * tp * (p2.Position - p1.Position).Length;
+                    Vector3d pos0 = p1.Position - scale * tp * (p1.Position - p0.Position).Length;
+                    Vector3d pos1 = p1.Position + scale * tp * (p2.Position - p1.Position).Length;
 
 
-                    Vector3 tn = (p2.Normal - p0.Normal).Normalized();
-                    Vector3 norm0 = p1.Normal - scale * tn * (p1.Normal - p0.Normal).Length;
-                    Vector3 norm1 = p1.Normal + scale * tn * (p2.Normal - p1.Normal).Length;
+                    Vector3d tn = (p2.Normal - p0.Normal).Normalized();
+                    Vector3d norm0 = p1.Normal - scale * tn * (p1.Normal - p0.Normal).Length;
+                    Vector3d norm1 = p1.Normal + scale * tn * (p2.Normal - p1.Normal).Length;
 
 
 
@@ -141,7 +141,7 @@ namespace Sardauscan.Core.Geometry
         /**
             Sample the given points as a Bezier path.
         */
-        public void SamplePoints(Point3DList sourcePoints, float minSqrDistance, float maxSqrDistance, float scale)
+        public void SamplePoints(Point3DList sourcePoints, double minSqrDistance, double maxSqrDistance, double scale)
         {
             if (sourcePoints.Count < 2)
             {
@@ -173,16 +173,16 @@ namespace Sardauscan.Core.Geometry
             Point3D p0 = samplePoints.Peek(); //second last sample point
 
 
-            Vector3 posT = (p0.Position - potentialSamplePoint.Position).Normalized();
-            float pos_d2 = (potentialSamplePoint.Position - p1.Position).Length;
-            float pos_d1 = (p1.Position - p0.Position).Length;
-            float pos_scale =((pos_d1 - pos_d2) / 2f);
-            Vector3 pos_ = p1.Position + posT * pos_scale;
+            Vector3d posT = (p0.Position - potentialSamplePoint.Position).Normalized();
+            double pos_d2 = (potentialSamplePoint.Position - p1.Position).Length;
+            double pos_d1 = (p1.Position - p0.Position).Length;
+            double pos_scale =((pos_d1 - pos_d2) / 2f);
+            Vector3d pos_ = p1.Position + posT * pos_scale;
 
-            Vector3 normT = (p0.Normal - potentialSamplePoint.Normal).Normalized();
-            float norm_d2 = (potentialSamplePoint.Normal - p1.Normal).Length;
-            float norm_d1 = (p1.Normal - p0.Normal).Length;
-            Vector3 norm_ = p1.Normal + normT * ((norm_d1 - norm_d2) / 2);
+            Vector3d normT = (p0.Normal - potentialSamplePoint.Normal).Normalized();
+            double norm_d2 = (potentialSamplePoint.Normal - p1.Normal).Length;
+            double norm_d1 = (p1.Normal - p0.Normal).Length;
+            Vector3d norm_ = p1.Normal + normT * ((norm_d1 - norm_d2) / 2);
 
             
             samplePoints.Push(new Point3D(pos_,norm_,p1.Color.GetStepColor(p0.Color,pos_scale)));
@@ -201,7 +201,7 @@ namespace Sardauscan.Core.Geometry
             @param t The paramater indicating where on the curve the point is. 0 corresponds 
             to the "left" point, 1 corresponds to the "right" end point.
         */
-        public Point3D CalculateBezierPoint(int curveIndex, float t)
+        public Point3D CalculateBezierPoint(int curveIndex, double t)
         {
             int nodeIndex = curveIndex * 3;
 
@@ -232,7 +232,7 @@ namespace Sardauscan.Core.Geometry
 
                 for (int j = 1; j <= SEGMENTS_PER_CURVE; j++)
                 {
-                    float t = j / (float)SEGMENTS_PER_CURVE;
+                    double t = j / (double)SEGMENTS_PER_CURVE;
                     drawingPoints.Add(CalculateBezierPoint(curveIndex, t));
                 }
             }
@@ -264,7 +264,7 @@ namespace Sardauscan.Core.Geometry
 
                 for (int j = 1; j <= SEGMENTS_PER_CURVE; j++)
                 {
-                    float t = j / (float)SEGMENTS_PER_CURVE;
+                    double t = j / (double)SEGMENTS_PER_CURVE;
                     drawingPoints.Add(CalculateBezierPoint(t, p0, p1, p2, p3));
                 }
             }
@@ -315,7 +315,7 @@ namespace Sardauscan.Core.Geometry
         /**
             @returns the number of points added.
         */
-        int FindDrawingPoints(int curveIndex, float t0, float t1,
+        int FindDrawingPoints(int curveIndex, double t0, double t1,
             Point3DList pointList, int insertionIndex)
         {
             Point3D left = CalculateBezierPoint(curveIndex, t0);
@@ -326,13 +326,13 @@ namespace Sardauscan.Core.Geometry
                 return 0;
             }
 
-            float tMid = (t0 + t1) / 2;
+            double tMid = (t0 + t1) / 2;
             Point3D mid = CalculateBezierPoint(curveIndex, tMid);
 
-            Vector3 leftDirection = (left.Position - mid.Position).Normalized();
-            Vector3 rightDirection = (right.Position - mid.Position).Normalized();
+            Vector3d leftDirection = (left.Position - mid.Position).Normalized();
+            Vector3d rightDirection = (right.Position - mid.Position).Normalized();
 
-            if (Vector3.Dot(leftDirection, rightDirection) > DIVISION_THRESHOLD || Math.Abs(tMid - 0.5f) < 0.0001f)
+            if (Vector3d.Dot(leftDirection, rightDirection) > DIVISION_THRESHOLD || Math.Abs(tMid - 0.5f) < 0.0001f)
             {
                 int pointsAddedCount = 0;
 
@@ -352,32 +352,32 @@ namespace Sardauscan.Core.Geometry
         /**
             Caluclates a point on the Bezier curve represented with the four controlpoints given.
         */
-        private Point3D CalculateBezierPoint(float t, Point3D p0, Point3D p1, Point3D p2, Point3D p3)
+        private Point3D CalculateBezierPoint(double t, Point3D p0, Point3D p1, Point3D p2, Point3D p3)
         {
-            float u = 1 - t;
-            float tt = t * t;
-            float uu = u * u;
-            float uuu = uu * u;
-            float ttt = tt * t;
+            double u = 1 - t;
+            double tt = t * t;
+            double uu = u * u;
+            double uuu = uu * u;
+            double ttt = tt * t;
 
-            Vector3 p = uuu * p0.Position; //first term
+            Vector3d p = uuu * p0.Position; //first term
 
             p += 3 * uu * t * p1.Position; //second term
             p += 3 * u * tt * p2.Position; //third term
             p += ttt * p3.Position; //fourth term
 
 
-            Vector3 n = uuu * p0.Normal; //first term
+            Vector3d n = uuu * p0.Normal; //first term
 
             n += 3 * uu * t * p1.Normal; //second term
             n += 3 * u * tt * p2.Normal; //third term
             n += ttt * p3.Normal; //fourth term
 
-            Vector4 c = uuu * p0.Color.ToVector(); //first term
+            Vector4 c = ((float)uuu) * p0.Color.ToVector(); //first term
 
-            c += 3 * uu * t * p1.Color.ToVector(); //second term
-            c += 3 * u * tt * p2.Color.ToVector(); //third term
-            c += ttt * p3.Color.ToVector(); //fourth term
+            c += ((float)(3 * uu * t)) * p1.Color.ToVector(); //second term
+            c += ((float)(3 * u * tt)) * p2.Color.ToVector(); //third term
+            c += ((float)(ttt)) * p3.Color.ToVector(); //fourth term
 
 
             return new Point3D(p, n, ColorExtension.ColorFromVector(c));

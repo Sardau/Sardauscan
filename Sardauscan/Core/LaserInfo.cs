@@ -43,10 +43,10 @@ namespace Sardauscan.Core
 			/// <param name="id"></param>
 			/// <param name="cameraPos"></param>
 			/// <param name="tableSize"></param>
-        public LaserInfo(int id,Vector3 cameraPos,SizeF tableSize)
+        public LaserInfo(int id,Vector3d cameraPos,SizeF tableSize)
         {
             Id = id;
-            Vector3 loc = new Vector3();
+            Vector3d loc = new Vector3d();
             Settings settings = Settings.Get<Settings>();
             loc.X = settings.Read(Settings.LASER(Id), Settings.X, 9.5f);
             loc.Y = settings.Read(Settings.LASER(Id), Settings.Y, 27.0f);
@@ -78,13 +78,13 @@ namespace Sardauscan.Core
 						ScanLine ret = new ScanLine(Id, points.Count);
 						if (useCorrection)
 						{
-							Matrix4 m = Correction.GetMatrix();
+							Matrix4d m = Correction.GetMatrix();
 							int count =points.Count;
 							for(int i=0;i<count;i++)
 							{
 								Point3D p = points[i];
-								Vector3 v = Vector3.Transform(p.Position, m);
-								Vector3 n = Vector3.Transform(p.Normal, m);
+								Vector3d v = Vector3d.Transform(p.Position, m);
+								Vector3d n = Vector3d.Transform(p.Normal, m);
 								n.Normalize();
 								ret.Add( new Point3D(v,n,p.Color));
 							}
@@ -102,7 +102,7 @@ namespace Sardauscan.Core
 			/// <summary>
 			/// Laser Location
 			/// </summary>
-        public Vector3 Location { get; private set; }
+        public Vector3d Location { get; private set; }
 
         protected LocationMapper Mapper { get; private set; }
         public int FirstRowLaserCol = 320;

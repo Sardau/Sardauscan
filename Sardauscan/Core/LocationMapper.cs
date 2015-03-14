@@ -56,7 +56,7 @@ namespace Sardauscan.Core
 {
 	public class LocationMapper
 	{
-		public LocationMapper(Vector3 laserLocation, Vector3 cameraLocation, SizeF tableSize)
+		public LocationMapper(Vector3d laserLocation, Vector3d cameraLocation, SizeF tableSize)
 		{
 			m_LaserPos = laserLocation;
 			m_CameraPos = cameraLocation;
@@ -66,9 +66,9 @@ namespace Sardauscan.Core
 			m_Image = new Size(camera.ImageWidth, camera.ImageHeight);
 
 			m_focalLength = camera.FocalLength;
-			m_Sensor = new SizeF(camera.SensorWidth, camera.SensorHeight);
+            m_Sensor = new SizeF((float)camera.SensorWidth, (float)camera.SensorHeight);
 
-			m_LaserPlane = new Plane(new Vector3(), new Vector3());
+			m_LaserPlane = new Plane(new Vector3d(), new Vector3d());
 			CalculateLaserPlane();
 
 		}
@@ -77,8 +77,8 @@ namespace Sardauscan.Core
 		/** Lookup the 3D points for each pixel location */
 		public Point3DList MapPoints(List<PixelLocation> laserLocations, Bitmap image, Color defColor)
 		{
-			float MAX_DIST_Y = TableSize.Height * 2;
-			float MAX_DIST_XZ_SQ = (TableSize.Width / 2) * (TableSize.Width / 2);
+			double MAX_DIST_Y = TableSize.Height * 2;
+			double MAX_DIST_XZ_SQ = (TableSize.Width / 2) * (TableSize.Width / 2);
 
 			Point3DList points = new Point3DList(laserLocations.Count);
 
@@ -99,7 +99,7 @@ namespace Sardauscan.Core
 				if (IntersectLaserPlane(ray, ref point, laserLocations[iLoc]))
 				{
 					// The point must be above the turn table and less than the max distance from the center of the turn table
-					float distXZSq = point.Position.X * point.Position.X + point.Position.Z * point.Position.Z;
+					double distXZSq = point.Position.X * point.Position.X + point.Position.Z * point.Position.Z;
 
 					if (point.Position.Y >= 0.0 && distXZSq < MAX_DIST_XZ_SQ && point.Position.Y < MAX_DIST_Y)
 					{
@@ -154,17 +154,17 @@ namespace Sardauscan.Core
 			// and distance to camera
 
 			// We subtract by one because the image is 0 indexed
-			float x = imagePixel.X / (float)(m_Image.Width - 1);
+			double x = imagePixel.X / (double)(m_Image.Width - 1);
 
 			// Subtract the height so it goes from bottom to top
-			float y = (m_Image.Height - imagePixel.Y) / (float)(m_Image.Height - 1);
+			double y = (m_Image.Height - imagePixel.Y) / (double)(m_Image.Height - 1);
 
 			// The center of the sensor is at 0 in the X dimension
 			x = (x * m_Sensor.Width) - (m_Sensor.Width * 0.5f) + m_CameraPos.X;
 			y = (y * m_Sensor.Height) - (m_Sensor.Height * 0.5f) + m_CameraPos.Y;
-			float z = m_CameraPos.Z - m_focalLength;
+			double z = m_CameraPos.Z - m_focalLength;
 
-			Ray ray = new Ray(new Vector3(x, y, z), new Vector3(x - m_CameraPos.X, y - m_CameraPos.Y, z - m_CameraPos.Z));
+			Ray ray = new Ray(new Vector3d(x, y, z), new Vector3d(x - m_CameraPos.X, y - m_CameraPos.Y, z - m_CameraPos.Z));
 			ray.Direction.Normalize();
 
 			return ray;
@@ -177,22 +177,22 @@ namespace Sardauscan.Core
 			// d = ((p0 - l0) * n) / (l * n)
 
 			// If dn is close to 0 then they don't intersect.  This should never happen
-			float denominator = ray.Direction.Dot(m_LaserPlane.Normal);
+			double denominator = ray.Direction.Dot(m_LaserPlane.Normal);
 			if (Math.Abs(denominator) < 0.000001)
 			{
 				Debug.WriteLine("!!! Ray never hits laser plane, pixel=" + pixel.X + ", " + pixel.Y + ", laserX=" + m_LaserPos.X + ", denom=" + denominator);
 				return false;
 			}
 
-			Vector3 v;
+			Vector3d v;
 			v.X = m_LaserPlane.Point.X - ray.Origin.X;
 			v.Y = m_LaserPlane.Point.Y - ray.Origin.Y;
 			v.Z = m_LaserPlane.Point.Z - ray.Origin.Z;
 
-			float numerator = v.Dot(m_LaserPlane.Normal);
+			double numerator = v.Dot(m_LaserPlane.Normal);
 
 			// Compute the distance along the ray to the plane
-			float d = numerator / denominator;
+			double d = numerator / denominator;
 			if (d < 0)
 			{
 				// The ray is going away from the plane.  This should never happen.
@@ -235,12 +235,12 @@ namespace Sardauscan.Core
 
 
 		private Plane m_LaserPlane;
-		private Vector3 m_LaserPos;
+		private Vector3d m_LaserPos;
 
-		private Vector3 m_CameraPos;
+		private Vector3d m_CameraPos;
 
 		private Size m_Image;
-		private float m_focalLength;
+		private double m_focalLength;
 		SizeF m_Sensor;
 
 	}

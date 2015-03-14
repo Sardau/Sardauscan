@@ -55,7 +55,7 @@ namespace Sardauscan.Core.Geometry
 			/// <param name="p2"></param>
 			/// <param name="p3"></param>
 			/// <param name="normal"></param>
-        public Triangle3D(Point3D p1, Point3D p2, Point3D p3,Vector3 normal)
+        public Triangle3D(Point3D p1, Point3D p2, Point3D p3,Vector3d normal)
             : this(p1, p2, p3, normal, CalculateColor(p1, p2, p3))
         {
         }
@@ -78,7 +78,7 @@ namespace Sardauscan.Core.Geometry
 				/// <param name="p2"></param>
 				/// <param name="p3"></param>
 				/// <param name="color"></param>
-				public Triangle3D(Point3D p1, Point3D p2, Point3D p3, Vector3 normal, Color color)
+				public Triangle3D(Point3D p1, Point3D p2, Point3D p3, Vector3d normal, Color color)
         {
             Point1 = p1;
             Point2 = p2;
@@ -103,7 +103,7 @@ namespace Sardauscan.Core.Geometry
 				/// <summary>
 				/// Normal of the triangle
 				/// </summary>
-				public Vector3 Normal;
+				public Vector3d Normal;
 				/// <summary>
 				/// Color of the triangle
 				/// </summary>
@@ -142,7 +142,7 @@ namespace Sardauscan.Core.Geometry
 			/// <param name="b"></param>
 			/// <param name="c"></param>
 			/// <returns></returns>
-        public static Vector3 CalculateNormal(Point3D a, Point3D b, Point3D c)
+        public static Vector3d CalculateNormal(Point3D a, Point3D b, Point3D c)
         {
             return CalculateNormal(a.Position, b.Position, c.Position);
         }
@@ -154,9 +154,9 @@ namespace Sardauscan.Core.Geometry
 				/// <param name="b"></param>
 				/// <param name="c"></param>
 				/// <returns></returns>
-				public static Vector3 CalculateNormal(Vector3 a, Vector3 b, Vector3 c)
+				public static Vector3d CalculateNormal(Vector3d a, Vector3d b, Vector3d c)
         {
-            return Vector3.Cross(b - a, c - a).Normalized();
+            return Vector3d.Cross(b - a, c - a).Normalized();
         }
 				/// <summary>
 				/// Calculate a color based on 3 color (average)

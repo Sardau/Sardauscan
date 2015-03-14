@@ -92,13 +92,13 @@ namespace Sardauscan.Core.ProcessingTask
                 if (remainder.Equals(0))
                 {
                     // we have an integer value, no interpolation needed
-                    result = pts[list.ElementAt((int)index)].Position.Xz.LengthFast;
+                    result = pts[list.ElementAt((int)index)].Position.Xz.Length;
                 }
                 else
                 {
                     // we need to interpolate
-                    double v1 = pts[list.ElementAt((int)index)].Position.Xz.LengthFast;
-                    double v2 = pts[list.ElementAt((int)(index + 1))].Position.Xz.LengthFast;
+                    double v1 = pts[list.ElementAt((int)index)].Position.Xz.Length;
+                    double v2 = pts[list.ElementAt((int)(index + 1))].Position.Xz.Length;
                     result = v1 + ((v2 - v1) * remainder);
                 }
                 return result;
@@ -110,13 +110,13 @@ namespace Sardauscan.Core.ProcessingTask
         [DisplayName("ColoriseOnly")]
         public bool ColoriseOnly { get { return m_ColoriseOnly; } set { m_ColoriseOnly = value; } }
 #endif        
-        private float factor = 1f;
+        private double factor = 1f;
         [Browsable(true)]
         [Description("IDR factor (1.5 = default)")]
         [DisplayName("IDR factor")]
         [TypeConverter(typeof(NumericUpDownTypeConverter))]
         [Editor(typeof(NumericUpDownTypeEditor), typeof(UITypeEditor)), MinMaxAttribute(0.001f, 3f, 0.005f, 3)]
-        public float Factor { get { return factor; } set { factor = value; } }
+        public double Factor { get { return factor; } set { factor = value; } }
 
         public override ScanLine DoTask(ScanLine source)
         {

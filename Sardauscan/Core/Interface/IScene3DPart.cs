@@ -38,11 +38,11 @@ namespace Sardauscan.Core.Interface
 		/// <summary>
 		/// Minimal X Y Z position
 		/// </summary>
-		Vector3 Min { get; }
+		Vector3d Min { get; }
 		/// <summary>
 		/// MAximal X Y Z position
 		/// </summary>
-		Vector3 Max { get; }
+		Vector3d Max { get; }
 		/// <summary>
 		/// Is the Scene dirty (modified), tell us if we must call Update (to update min-max etc)
 		/// </summary>
@@ -73,21 +73,21 @@ namespace Sardauscan.Core.Interface
 		/// </summary>
 		/// <param name="part"></param>
 		/// <returns></returns>
-		public static Vector3 Center(this IScene3DPart part)
+		public static Vector3d Center(this IScene3DPart part)
 		{
-			return new Vector3((part.Min.X + part.Max.X) / 2.0f, (part.Min.Y + part.Max.Y) / 2.0f, (part.Min.Z + part.Max.Z) / 2.0f);
+			return new Vector3d((part.Min.X + part.Max.X) / 2.0f, (part.Min.Y + part.Max.Y) / 2.0f, (part.Min.Z + part.Max.Z) / 2.0f);
 		}
 		/// <summary>
 		///  Get the size of the part
 		/// </summary>
 		/// <param name="part"></param>
 		/// <returns></returns>
-		static public float Size(this IScene3DPart part)
+		static public double Size(this IScene3DPart part)
 		{
 
-			float mx = Math.Abs(part.Min.X - part.Max.X);
-			float my = Math.Abs(part.Min.Y - part.Max.Y);
-			float mz = Math.Abs(part.Min.Z - part.Max.Z);
+			double mx = Math.Abs(part.Min.X - part.Max.X);
+			double my = Math.Abs(part.Min.Y - part.Max.Y);
+			double mz = Math.Abs(part.Min.Z - part.Max.Z);
 			return Math.Max(mx, Math.Max(my, mz));
 		}
 	}

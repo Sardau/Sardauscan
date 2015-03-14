@@ -43,7 +43,7 @@ namespace Sardauscan.Core
 
 			this.Rotation = set.Read(Settings.LASER(laserindex), Settings.ROTATION, this.Rotation);
 			this.Scale = set.Read(Settings.LASER(laserindex), Settings.SCALE, this.Scale);
-			this.Translation = new Vector2(
+			this.Translation = new Vector2d(
 				set.Read(Settings.LASER(laserindex), Settings.TRANSLATIONX, this.Translation.X),
 				set.Read(Settings.LASER(laserindex), Settings.TRANSLATIONY, this.Translation.Y)
 				);
@@ -60,16 +60,16 @@ namespace Sardauscan.Core
 		public void Clear()
 		{
 			Rotation = 0;
-			Translation = new Vector2(0, 0);
+			Translation = new Vector2d(0, 0);
 			Scale = 1f;
 		}
 
 		/// <summary>
 		/// Ritation in degrees
 		/// </summary>
-		public float Rotation;
-		public Vector2 Translation;
-		public float Scale;
+		public double Rotation;
+		public Vector2d Translation;
+		public double Scale;
 
 
 		public void Apply(DragBallNavigator dragball)
@@ -81,11 +81,11 @@ namespace Sardauscan.Core
 
 		}
 
-		public Matrix4 GetMatrix()
+		public Matrix4d GetMatrix()
 		{
-			Matrix4 matrix = Matrix4.CreateRotationY(Utils.DEGREES_TO_RADIANS(this.Rotation));
-			matrix = Matrix4.Mult(matrix,Matrix4.CreateTranslation(Translation.X,0,Translation.Y));
-			matrix = Matrix4.Mult(matrix,Matrix4.CreateScale(Scale,1f,Scale));
+			Matrix4d matrix = Matrix4d.CreateRotationY(Utils.DEGREES_TO_RADIANS(this.Rotation));
+			matrix = Matrix4d.Mult(matrix,Matrix4d.CreateTranslation(Translation.X,0,Translation.Y));
+			matrix = Matrix4d.Mult(matrix,Matrix4d.Scale(Scale,1f,Scale));
 			return matrix;
 		}
 	

@@ -46,7 +46,7 @@ namespace Sardauscan.Core.Geometry
 		/// </summary>
 		/// <param name="x"></param>
 		/// <param name="y"></param>
-		public PixelLocation(float x, float y)
+		public PixelLocation(double x, double y)
 		{
 			X = x;
 			Y = y;
@@ -55,11 +55,11 @@ namespace Sardauscan.Core.Geometry
 		/// <summary>
 		/// X position
 		/// </summary>
-		public float X;
+		public double X;
 		/// <summary>
 		/// Y position
 		/// </summary>
-		public float Y;
+		public double Y;
 		/// <summary>
 		/// Is default
 		/// </summary>
@@ -74,7 +74,7 @@ namespace Sardauscan.Core.Geometry
 		/// <returns></returns>
 		public PointF ToPointF()
 		{
-			return new PointF(X, Y);
+            return new PointF((float)X, (float)Y);
 		}
 	}
 }

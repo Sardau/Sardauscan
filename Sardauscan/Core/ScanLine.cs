@@ -104,25 +104,37 @@ namespace Sardauscan.Core
 		/// </summary>
 		public int LaserID { get; protected set; }
 
-		private float _angle = float.NaN;
+		private double _angle = double.NaN;
 		/// <summary>
 		/// Angle of the ScanLine
 		/// </summary>
-		public float Angle
+		public double Angle
 		{
 			get
 			{
-				if (!float.IsNaN(_angle))
+
+                if (Count <= 0)
+                    return double.NaN;
+
+                if(Dirty)
+                {
+                    Update();
+                    List<Point3D> sub = new List<Point3D>();
+                    for(int i= Count/4; i <= (Count*3/4);i++)
+                        sub.Add(this[i]);
+                    Point3D avg = Point3D.Average(sub);
+                    _angle = avg.Position.XZProjected_AngleInDegree(new Vector3d(0, 0, 1)) + 180;
+                }
+
+				if (!double.IsNaN(_angle))
 					return _angle;
 
-				if (Count <= 0)
-					return float.NaN;
-				return this[Count / 2].Position.XZProjected_AngleInDegree(new Vector3(0, 0, 1)) + 180;
+                return (this[Count/2].Position.XZProjected_AngleInDegree(new Vector3d(0, 0, 1))) + 180;
 			}
 		}
 
 
-		private void ForceAngle(float angle)
+		private void ForceAngle(double angle)
 		{
 			_angle = angle;
 		}
@@ -130,9 +142,9 @@ namespace Sardauscan.Core
 		/// Rotate these scanline around Y axe
 		/// </summary>
 		/// <param name="angle"></param>
-		public void RotateAroundY(float angle)
+		public void RotateAroundY(double angle)
 		{
-			float radian = Utils.DEGREES_TO_RADIANS(angle);
+			double radian = Utils.DEGREES_TO_RADIANS(angle);
 			for (int i = 0; i < Count; i++)
 				this[i].RotateAroundY(radian);
 

@@ -82,15 +82,15 @@ namespace FakeHardwarePlugins
 		/// <summary>
 		/// Get the sensor width
 		/// </summary>
-		public float SensorWidth { get { return 3.629f; } }
+		public double SensorWidth { get { return 3.629f; } }
 		/// <summary>
 		/// Get the sensor height
 		/// </summary>
-		public float SensorHeight { get { return 2.722f; } }
+		public double SensorHeight { get { return 2.722f; } }
 		/// <summary>
 		/// Get the focal lenght
 		/// </summary>
-		public float FocalLength { get { return 3.6f; } }
+		public double FocalLength { get { return 3.6f; } }
 		#endregion
 		/// <summary>
 		/// dispose your Camera proxy

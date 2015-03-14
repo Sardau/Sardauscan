@@ -39,13 +39,13 @@ namespace Sardauscan.Core.ProcessingTask
 	{
 		public override ScanLine DoTask(ScanLine source)
 		{
-			float clamp = Math.Abs(Utils.DeltaAngle(-180, source.Angle) / 360);
+			double clamp = Math.Abs(Utils.DeltaAngle(-180, source.Angle) / 360);
 			ScanLine ret = new ScanLine(source.LaserID,source.Count);
 			for (int i = 0; i < source.Count; i++)
 			{
 				Point3D p = source[i];
 				Vector4 c = new Vector4(0.25f, 0.25f, 0.25f, 1);
-				c[source.LaserID%3] = clamp;
+				c[source.LaserID%3] = (float)clamp;
 				ret.Add(new Point3D(p.Position,p.Normal,ColorExtension.ColorFromVector(c))); 
 			}
 			return ret;

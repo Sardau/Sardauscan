@@ -206,11 +206,11 @@ namespace Sardauscan.Core
 		}
 
 		/// <summary>
-		/// float value of the specific Configuration Node
+		/// double value of the specific Configuration Node
 		/// </summary>
-		public float FloatValue
+		public double doubleValue
 		{
-			get { float f; float.TryParse(Value, out f); return f; }
+			get { double f; double.TryParse(Value, out f); return f; }
 			set
 			{
 				Value = value.ToString();

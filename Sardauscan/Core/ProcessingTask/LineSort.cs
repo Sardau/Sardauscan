@@ -38,10 +38,10 @@ namespace Sardauscan.Core.ProcessingTask
 	[Browsable(false)]
 	public class LineSort : AbstractLineTask
 	{
-		protected Vector3 CameraPosition;
+		protected Vector3d CameraPosition;
 		public override ScanData DoTask(ScanData source)
 		{
-			CameraPosition = new Vector3();
+			CameraPosition = new Vector3d();
 			Settings settings = Settings.Get<Settings>();
 			CameraPosition.X = settings.Read(Settings.CAMERA, Settings.X, 0f);
 			CameraPosition.Y = settings.Read(Settings.CAMERA, Settings.Y, 270f);

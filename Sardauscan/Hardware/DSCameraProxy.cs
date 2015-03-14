@@ -775,7 +775,7 @@ namespace Sardauscan.Hardware
             get { return this.Width; }
         }
 
-        public float SensorWidth
+        public double SensorWidth
         {
             get 
             {
@@ -783,14 +783,14 @@ namespace Sardauscan.Hardware
             }
         }
 
-       public float SensorHeight
+       public double SensorHeight
         {
             get 
             {
 							return 0.37f;
             }
         }
-        public float FocalLength
+        public double FocalLength
         {
             get
             {

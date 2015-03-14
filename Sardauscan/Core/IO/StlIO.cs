@@ -88,7 +88,7 @@ namespace Sardauscan.Core.IO
 			w.WriteLine("endfacet");
 		}
 
-		public static string GetVectorSTR(Vector3 v)
+		public static string GetVectorSTR(Vector3d v)
 		{
 			return String.Format(CultureInfo.InvariantCulture, "{0} {1} {2}", v.X, -v.Z, v.Y);
 		}

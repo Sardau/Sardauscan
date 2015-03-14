@@ -68,13 +68,13 @@ namespace Sardauscan.Core.ProcessingTask
         [Editor(typeof(NumericUpDownTypeEditor), typeof(UITypeEditor)), MinMaxAttribute(2, 10)]
         public int SegmentPerCurve { get { return m_SegmentPerCurve; } set { m_SegmentPerCurve = value; } }
 
-        private  float m_MinSquareDistance = 0.2f;
+        private  double m_MinSquareDistance = 0.2f;
         [Browsable(true)]
         [Description("Minimum size of a segment (squared)")]
         [DisplayName("Minimum square distance")]
         [TypeConverter(typeof(NumericUpDownTypeConverter))]
         [Editor(typeof(NumericUpDownTypeEditor), typeof(UITypeEditor)), MinMaxAttribute(0.01f, 50.0f, 0.005f,3)]
-        public float MinSquareDistance { get { return m_MinSquareDistance; } set { m_MinSquareDistance = value; } }
+        public double MinSquareDistance { get { return m_MinSquareDistance; } set { m_MinSquareDistance = value; } }
 
         public LineBezierSmooth()
         {

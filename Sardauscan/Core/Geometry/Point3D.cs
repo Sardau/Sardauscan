@@ -53,7 +53,7 @@ namespace Sardauscan.Core.Geometry
 		/// <param name="pos"></param>
 		/// <param name="normal"></param>
 		/// <param name="color"></param>
-		public Point3D(Vector3 pos, Vector3 normal, Color color)
+		public Point3D(Vector3d pos, Vector3d normal, Color color)
 			: this()
 		{
 			Position = pos;
@@ -63,11 +63,11 @@ namespace Sardauscan.Core.Geometry
 		/// <summary>
 		/// Position of the Point in 3D
 		/// </summary>
-		public Vector3 Position;
+		public Vector3d Position;
 		/// <summary>
 		/// Normal to these point
 		/// </summary>
-		public Vector3 Normal;
+		public Vector3d Normal;
 		/// <summary>
 		/// Color(texture) of this point
 		/// </summary>
@@ -77,11 +77,11 @@ namespace Sardauscan.Core.Geometry
 		/// </summary>
 		/// <param name="other"></param>
 		/// <returns></returns>
-		public float DistanceSquared(Point3D other)
+		public double DistanceSquared(Point3D other)
 		{
-			float dx = Position.X - other.Position.X;
-			float dy = Position.Y - other.Position.Y;
-			float dz = Position.Z - other.Position.Z;
+			double dx = Position.X - other.Position.X;
+			double dy = Position.Y - other.Position.Y;
+			double dz = Position.Z - other.Position.Z;
 			return dx * dx + dy * dy + dz * dz;
 		}
 		/// <summary>
@@ -129,11 +129,11 @@ namespace Sardauscan.Core.Geometry
 		/// <returns></returns>
 		public Point3D Average(Point3D other)
 		{
-			Vector3 vp1 = this.Position;
-			Vector3 vp2 = other.Position;
+			Vector3d vp1 = this.Position;
+			Vector3d vp2 = other.Position;
 
-			Vector3 np1 = this.Normal;
-			Vector3 np2 = other.Normal;
+			Vector3d np1 = this.Normal;
+			Vector3d np2 = other.Normal;
 
 			Vector4 cp1 = this.Color.ToVector();
 			Vector4 cp2 = other.Color.ToVector();
@@ -150,8 +150,8 @@ namespace Sardauscan.Core.Geometry
 		/// <returns></returns>
 		public static Point3D Average(IList<Point3D> pts)
 		{
-			Vector3 pos = new Vector3(0, 0, 0);
-			Vector3 norm = new Vector3(0, 0, 0);
+			Vector3d pos = new Vector3d(0, 0, 0);
+			Vector3d norm = new Vector3d(0, 0, 0);
 			Vector4 col = new Vector4(0, 0, 0, 0);
 			int count = pts.Count;
 			for (int i = 0; i < count; i++)
@@ -177,10 +177,110 @@ namespace Sardauscan.Core.Geometry
 		/// Rotate this point around Y axe
 		/// </summary>
 		/// <param name="radian"></param>
-		public void RotateAroundY(float radian)
+		public void RotateAroundY(double radian)
 		{
 			Position.RotateAroundY(radian);
 			Normal.RotateAroundY(radian);
+		}
+
+	}
+
+	public static class Point3DExt
+	{
+		public static IList<Point3D> Copy(this IList<Point3D> pointsTarget)
+		{
+
+			List<Point3D> tempPoints = new List<Point3D>();
+
+
+			for (int i = (pointsTarget.Count - 1); i >= 0; i--)
+			{
+				Point3D p = pointsTarget[i];
+				tempPoints.Add(new Point3D(p.Position,p.Normal,p.Color));
+
+			}
+			return tempPoints;
+		}
+		private static Point3D CalculateCenterOfGravity(this IList<Point3D> vertices)
+		{
+			Point3D centerOfGravity = new Point3D();
+
+
+			foreach (Point3D vr in vertices)
+				centerOfGravity.Position += vr.Position;
+			centerOfGravity.Position /= (double)vertices.Count;
+			return centerOfGravity;
+		}
+		public static void ResetVerticesTo(this IList<Point3D> vertices, Point3D newOrigin)
+		{
+			//reset vertex so that it starts from 0,0,0
+			for (int i = 0; i < vertices.Count; i++)
+			{
+				Vector3d v = vertices[i].Position;
+				v.X -= newOrigin.Position.X;
+				v.Y -= newOrigin.Position.Y;
+				v.Z -= newOrigin.Position.Z;
+				vertices[i].Position = v;
+
+			}
+
+		}
+		public static void AddVector(this IList<Point3D> vertices, Point3D newOrigin)
+		{
+			//reset vertex so that it starts from 0,0,0
+			for (int i = 0; i < vertices.Count; i++)
+			{
+				Vector3d v = vertices[i].Position;
+				v.X += newOrigin.Position.X;
+				v.Y += newOrigin.Position.Y;
+				v.Z += newOrigin.Position.Z;
+				vertices[i].Position = v;
+
+			}
+
+		}
+
+		public static Point3D ResetToOrigin(this IList<Point3D> vertices)
+		{
+			Point3D newOrigin = vertices.CalculateCenterOfGravity();
+			vertices.ResetVerticesTo(newOrigin);
+			return newOrigin;
+
+		}
+
+		public static List<Vector3d> ConvertToVector3List(this IList<Point3D> listPoints)
+		{
+			List<Vector3d> listOfVectors = new List<Vector3d>();
+			for (int i = 0; i < listPoints.Count; i++)
+			{
+				Point3D myPoint = listPoints[i];
+				listOfVectors.Add(new Vector3d(myPoint.Position));
+			}
+
+			return listOfVectors;
+		}
+		public static void RemoveRange(this IList<Point3D> listPoints, int index, int count)
+		{
+			for (int i = 0; i < count; i++)
+				listPoints.RemoveAt(index);
+
+		}
+
+		public static double CalculateTotalDistance(this IList<Point3D> a, IList<Point3D> b)
+		{
+
+			double totaldist = 0;
+			for (int i = 0; i < Math.Min(a.Count,b.Count); i++)
+			{
+				Point3D p1 = a[i];
+				Point3D p2 = b[i];
+				double dist = (Vector3d.Subtract(p1.Position, p2.Position)).Length;
+
+				totaldist += dist;
+
+			}
+
+			return (double)totaldist;
 		}
 
 	}

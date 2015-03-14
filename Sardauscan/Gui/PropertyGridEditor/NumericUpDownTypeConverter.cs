@@ -54,8 +54,8 @@ namespace Sardauscan.Gui.PropertyGridEditor
             }
             else
                Value = value as string;
-            float decVal;
-            if (!float.TryParse(Value,NumberStyles.Any, CultureInfo.InvariantCulture, out decVal))
+            double decVal;
+            if (!double.TryParse(Value,NumberStyles.Any, CultureInfo.InvariantCulture, out decVal))
                decVal = 1;
             MinMaxAttribute attr = (MinMaxAttribute)context.PropertyDescriptor.Attributes[typeof(MinMaxAttribute)];
             if (attr != null)
@@ -90,9 +90,9 @@ namespace Sardauscan.Gui.PropertyGridEditor
    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
    public class MinMaxAttribute : Attribute
    {
-      public float Min { get; private set; }
-      public float Max { get; private set; }
-      public float Increment { get; private set; }
+      public double Min { get; private set; }
+      public double Max { get; private set; }
+      public double Increment { get; private set; }
       public int DecimalPlaces { get; private set; }
 
       /// <summary>
@@ -100,7 +100,7 @@ namespace Sardauscan.Gui.PropertyGridEditor
       /// </summary>
       /// <param name="max"></param>
       public MinMaxAttribute(UInt16 max)
-          : this((float)UInt16.MinValue, max)
+          : this((double)UInt16.MinValue, max)
       {
       }
 
@@ -112,7 +112,7 @@ namespace Sardauscan.Gui.PropertyGridEditor
       /// <param name="max"></param>
       /// <param name="increment"></param>
       public MinMaxAttribute(int min, int max, int increment = 1)
-          : this((float)min, max, increment)
+          : this((double)min, max, increment)
       {
       }
 
@@ -123,7 +123,7 @@ namespace Sardauscan.Gui.PropertyGridEditor
       /// <param name="max"></param>
       /// <param name="increment"></param>
       /// <param name="decimalPlaces"></param>
-      public MinMaxAttribute(float min, float max, float increment = 1, int decimalPlaces = 0)
+      public MinMaxAttribute(double min, double max, double increment = 1, int decimalPlaces = 0)
       {
          Min = min;
          Max = max;
@@ -138,7 +138,7 @@ namespace Sardauscan.Gui.PropertyGridEditor
       /// <returns></returns>
       public bool IsInRange(object value)
       {
-          float checkedValue = (float)Convert.ChangeType(value, typeof(float));
+          double checkedValue = (double)Convert.ChangeType(value, typeof(double));
          return ((checkedValue <= Max)
             && (checkedValue >= Min)
             );
@@ -149,9 +149,9 @@ namespace Sardauscan.Gui.PropertyGridEditor
       /// </summary>
       /// <param name="value"></param>
       /// <returns></returns>
-      public float PutInRange(object value)
+      public double PutInRange(object value)
       {
-          float checkedValue = (float)Convert.ChangeType(value, typeof(float));
+          double checkedValue = (double)Convert.ChangeType(value, typeof(double));
          if (checkedValue > Max)
             checkedValue = Max;
          else if (checkedValue < Min)

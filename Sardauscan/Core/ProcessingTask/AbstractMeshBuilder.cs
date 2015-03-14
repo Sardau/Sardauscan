@@ -195,7 +195,7 @@ namespace Sardauscan.Core.ProcessingTask
                     }
                 }
             }
-            Vector3 center = new Vector3((float)(x / count), (float)(y / count), (float)(z / count));
+            Vector3d center = new Vector3d((double)(x / count), (double)(y / count), (double)(z / count));
 
             count = outerList.Count;
             if (count < 2)
@@ -224,12 +224,12 @@ namespace Sardauscan.Core.ProcessingTask
             int count = points.Count;
             if (count < 3)
                 return;
-            Vector3 normal = new Vector3();
+            Vector3d normal = new Vector3d();
             for (int i = 0; i < count - 2; i++)
             {
-                Vector3 v0 = points[i].Position;
-                Vector3 v1 = points[i + 1].Position;
-                Vector3 v2 = points[i + 2].Position;
+                Vector3d v0 = points[i].Position;
+                Vector3d v1 = points[i + 1].Position;
+                Vector3d v2 = points[i + 2].Position;
                 normal = -Triangle3D.CalculateNormal(v0, v1, v2);
                 points[i].Normal = normal;
             }

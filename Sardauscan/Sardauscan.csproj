@@ -79,17 +79,27 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\Helper\ALGLIB.cs" />
+    <Compile Include="Core\ICP\IterativeClosestPointTransform.cs" />
     <Compile Include="Core\Interface\I3DEntity.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Core\Interface\IHardwareProxyProvider.cs" />
     <Compile Include="Core\IO\WaveFormIO.cs" />
+    <Compile Include="Core\KDTree\DistanceFunctions.cs" />
+    <Compile Include="Core\KDTree\IntervalHeap.cs" />
+    <Compile Include="Core\KDTree\KDNode.cs" />
+    <Compile Include="Core\KDTree\KDTreePoint3D .cs" />
+    <Compile Include="Core\KDTree\MinHeap.cs" />
+    <Compile Include="Core\KDTree\NearestNeighbour.cs" />
     <Compile Include="Core\LaserCorrection.cs" />
     <Compile Include="Core\OpenGL\RenderingContext.cs" />
     <Compile Include="Core\ProcessingTask\AbstractMeshBuilder.cs" />
     <Compile Include="Core\ProcessingTask\AbstractLineTask.cs" />
     <Compile Include="Core\ProcessingTask\AngleColor.cs" />
+    <Compile Include="Core\ProcessingTask\AngleMerge.cs" />
     <Compile Include="Core\ProcessingTask\CalibrationTask.cs" />
+    <Compile Include="Core\ProcessingTask\ICPTask.cs" />
     <Compile Include="Core\ProcessingTask\LaserMerger.cs" />
     <Compile Include="Core\ProcessingTask\LineKMean.cs" />
     <Compile Include="Core\ProcessingTask\IqrFilter.cs" />

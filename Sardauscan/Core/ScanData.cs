@@ -1,27 +1,4 @@
-﻿#region COPYRIGHT
-/****************************************************************************
- *  Copyright (c) 2015 Fabio Ferretti <https://plus.google.com/+FabioFerretti3D>                 *
- *  This file is part of Sardauscan.                                        *
- *                                                                          *
- *  Sardauscan is free software: you can redistribute it and/or modify      *
- *  it under the terms of the GNU General Public License as published by    *
- *  the Free Software Foundation, either version 3 of the License, or       *
- *  (at your option) any later version.                                     *
- *                                                                          *
- *  Sardauscan is distributed in the hope that it will be useful,           *
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of          *
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the           *
- *  GNU General Public License for more details.                            *
- *                                                                          *
- *  You are not allowed to Sell in any form this code                       * 
- *  or any compiled version. This code is free and for free purpose only    *
- *                                                                          *
- *  You should have received a copy of the GNU General Public License       *
- *  along with Sardaukar.  If not, see <http://www.gnu.org/licenses/>       *
- ****************************************************************************
-*/
-#endregion
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -69,12 +46,12 @@ namespace Sardauscan.Core
 			return c;
 		}
 
-		protected Vector3 m_Min;
-		protected Vector3 m_Max;
+		protected Vector3d m_Min;
+		protected Vector3d m_Max;
 		/// <summary>
 		/// Minimum X Y Z position
 		/// </summary>
-		public Vector3 Min
+		public Vector3d Min
 		{
 			get
 			{
@@ -87,7 +64,7 @@ namespace Sardauscan.Core
 		/// <summary>
 		/// Maximum X Y Z position
 		/// </summary>
-		public Vector3 Max
+		public Vector3d Max
 		{
 			get
 			{
@@ -121,8 +98,8 @@ namespace Sardauscan.Core
 		{
 			if (this.Count == 0)
 			{
-				m_Min = new Vector3(float.NaN, 0, 0);
-				m_Max = new Vector3(float.NaN, 0, 0);
+				m_Min = new Vector3d(double.NaN, 0, 0);
+				m_Max = new Vector3d(double.NaN, 0, 0);
 			}
 			else
 			{
@@ -134,8 +111,8 @@ namespace Sardauscan.Core
 
 				}
 				IScene3DPart p = this[0];
-				m_Min = new Vector3(p.Min);
-				m_Max = new Vector3(p.Max);
+				m_Min = new Vector3d(p.Min);
+				m_Max = new Vector3d(p.Max);
 
 				for (int i = 1; i < Count; i++)
 				{
@@ -173,15 +150,15 @@ namespace Sardauscan.Core
 		/// </summary>
 		/// <param name="angle"></param>
 		/// <returns></returns>
-		public ScanLine GetNearestLine(float angle)
+		public ScanLine GetNearestLine(double angle)
 		{
-			float refAngle = angle;
-			float dist = float.MaxValue;
+			double refAngle = angle;
+			double dist = double.MaxValue;
 			ScanLine ret = null;
 			for (int i = 0; i < this.Count; i++)
 			{
-				float curAngle = this[i].Angle;
-				float dx = Math.Abs(Utils.DeltaAngle(refAngle, curAngle));
+				double curAngle = this[i].Angle;
+				double dx = Math.Abs(Utils.DeltaAngle(refAngle, curAngle));
 				if (dx < dist)
 				{
 					ret = this[i];
@@ -190,5 +167,13 @@ namespace Sardauscan.Core
 			}
 			return ret;
 		}
+
+		public void Transform(Matrix4d mat)
+		{
+			for (int i = 0; i < Count; i++)
+				this[i].Transform(mat);
+
+		}
+
 	}
 }

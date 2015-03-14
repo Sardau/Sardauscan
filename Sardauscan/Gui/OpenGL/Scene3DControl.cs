@@ -64,8 +64,8 @@ namespace Sardauscan.Gui.OpenGL
 
         public bool ShowSceneColor { get { return ViewerConfig.ShowSceneColor; } }
         public bool BoundingBox { get { return ViewerConfig.BoundingBox; } }
-        public float TableRadius { get { return ViewerConfig.TableRadius; } }
-        public float TableHeight { get { return ViewerConfig.TableHeight; } }
+        public double TableRadius { get { return ViewerConfig.TableRadius; } }
+        public double TableHeight { get { return ViewerConfig.TableHeight; } }
         public bool Lightning { get { return ViewerConfig.Lightning; } }
         public bool Smooth { get { return ViewerConfig.Smooth; } }
         public bool Projection { get { return ViewerConfig.Projection; } }
@@ -137,23 +137,24 @@ namespace Sardauscan.Gui.OpenGL
 	
 
         }
-        public static Matrix4 MatrixFromYawPitchRoll(double yaw, double pitch, double roll)
+        public static Matrix4d MatrixFromYawPitchRoll(double yaw, double pitch, double roll)
         {
-            return Matrix4.CreateFromQuaternion(QuaternionFromYawPitchRoll(yaw, pitch, roll));
+            return Matrix4d.CreateFromQuaternion(QuaternionFromYawPitchRoll(yaw, pitch, roll));
         }
 
-        public static Quaternion QuaternionFromYawPitchRoll(double yaw, double pitch, double roll)
+        public static Quaterniond QuaternionFromYawPitchRoll(double yaw, double pitch, double roll)
         {
-            Quaternion result = Quaternion.Identity;
-            float num9 = (float)roll * 0.5f;
-            float num6 = (float)Math.Sin((double)num9);
-            float num5 = (float)Math.Cos((double)num9);
-            float num8 = (float)pitch * 0.5f;
-            float num4 = (float)Math.Sin((double)num8);
-            float num3 = (float)Math.Cos((double)num8);
-            float num7 = (float)yaw * 0.5f;
-            float num2 = (float)Math.Sin((double)num7);
-            float num = (float)Math.Cos((double)num7);
+
+            Quaterniond result = Quaterniond.Identity;
+            double num9 = (double)roll * 0.5f;
+            double num6 = (double)Math.Sin((double)num9);
+            double num5 = (double)Math.Cos((double)num9);
+            double num8 = (double)pitch * 0.5f;
+            double num4 = (double)Math.Sin((double)num8);
+            double num3 = (double)Math.Cos((double)num8);
+            double num7 = (double)yaw * 0.5f;
+            double num2 = (double)Math.Sin((double)num7);
+            double num = (double)Math.Cos((double)num7);
             result.X = ((num * num4) * num5) + ((num2 * num3) * num6);
             result.Y = ((num2 * num3) * num5) - ((num * num4) * num6);
             result.Z = ((num * num3) * num6) - ((num2 * num4) * num5);
@@ -168,25 +169,25 @@ namespace Sardauscan.Gui.OpenGL
                 return;
             MakeCurrent();
 						SetupViewport();
-            //float size = Scene.Size();
+            //double size = Scene.Size();
 
-            float size = Scene.Max.Y - Scene.Min.Y;
+            double size = Scene.Max.Y - Scene.Min.Y;
 
-            float SceneYOffset = -Scene.Min.Y - size / 2f;
+            double SceneYOffset = -Scene.Min.Y - size / 2f;
 
-            float defaultzoom = (float)Math.Sqrt(Math.Pow(TableRadius , 2) + Math.Pow(TableHeight, 2));
+            double defaultzoom = (double)Math.Sqrt(Math.Pow(TableRadius , 2) + Math.Pow(TableHeight, 2));
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             GL.LoadIdentity();
-            var aspect_ratio = Width / (float)Height;
-            var projection = Matrix4.CreatePerspectiveFieldOfView(
-                          MathHelper.PiOver4, float.Parse(aspect_ratio.ToString()), 1f, 1024);
+            var aspect_ratio = Width / (double)Height;
+            var projection = Matrix4d.CreatePerspectiveFieldOfView(
+                          MathHelper.PiOver4, double.Parse(aspect_ratio.ToString()), 1f, 1024);
 
              
             
-            //            var modelview = Matrix4.LookAt(0, size / 2 , - DragZoom * defaultzoom * 2f,
+            //            var modelview = Matrix4d.LookAt(0, size / 2 , - DragZoom * defaultzoom * 2f,
 //                                            0,TableHeight/2, 0,  0, size, 0);
             var h = size / 2f ;
-            var modelview = Matrix4.LookAt(0, h, Math.Max(0.00000001f, -(- Drag.Zoom * defaultzoom * 2)),
+            var modelview = Matrix4d.LookAt(0, h, Math.Max(0.00000001f, -(- Drag.Zoom * defaultzoom * 2)),
                                             0, h, 0, 0, size, 0);
 
             GL.MatrixMode(MatrixMode.Projection);
@@ -195,8 +196,8 @@ namespace Sardauscan.Gui.OpenGL
             else
             {
                 GL.LoadIdentity();
-                float x = Math.Max(TableRadius*2,TableHeight) * Drag.Zoom;
-                float y = x * ((float)Height / (float)Width);
+                double x = Math.Max(TableRadius*2,TableHeight) * Drag.Zoom;
+                double y = x * ((double)Height / (double)Width);
                 GL.Ortho(-x,x, -y, y, 0.0, 10000.0);
             }
             GL.MatrixMode(MatrixMode.Modelview);
@@ -205,7 +206,7 @@ namespace Sardauscan.Gui.OpenGL
             #region LIGHT
             if (Lightning)
             {
-                float[] lightPos = new float[] { -TableRadius * 2f, TableRadius * 2f, TableHeight * 2f, 1.0f };
+                float[] lightPos = new float[] { (float)(-TableRadius * 2f), (float)TableRadius * 2f, (float)TableHeight * 2f, 1.0f };
                 GL.PointSize(5);
                 GL.Disable(EnableCap.Lighting);
                 GL.Begin(PrimitiveType.Points);
@@ -232,14 +233,14 @@ namespace Sardauscan.Gui.OpenGL
 
            //GL.Scale(DragZoom, DragZoom, DragZoom);
             GL.Translate(Drag.Pane.X, -Drag.Pane.Y +size/2f, 0);
-            Matrix4 m = MatrixFromYawPitchRoll(-Math.PI * Drag.Angle.X / 360.0f, -Math.PI * Drag.Angle.Y / 360.0f, 0);
+            Matrix4d m = MatrixFromYawPitchRoll(-Math.PI * Drag.Angle.X / 360.0f, -Math.PI * Drag.Angle.Y / 360.0f, 0);
             GL.MultMatrix(ref m);
             // Model space
             #region Box/Axis
             GL.Disable(EnableCap.Lighting);
-            Vector3 scannerCenter = new Vector3(0, -size/2f, 0);
+            Vector3d scannerCenter = new Vector3d(0, -size/2f, 0);
             DrawScannerBox(ForeColor, scannerCenter);
-            Axis(new Vector3(0, 0 , 0), 10);
+            Axis(new Vector3d(0, 0 , 0), 10);
             #endregion;
 
             GL.Translate(0, SceneYOffset, 0);
@@ -267,7 +268,7 @@ namespace Sardauscan.Gui.OpenGL
             SwapBuffers();
         }
         #region Draw
-        public static void Axis(Vector3 center, float size)
+        public static void Axis(Vector3d center, double size)
         {
             GL.LineWidth(2f);
             GL.Translate(center.X, center.Y, center.Z);
@@ -289,23 +290,23 @@ namespace Sardauscan.Gui.OpenGL
             GL.Translate(-center.X, -center.Y, -center.Z);
             GL.LineWidth(1f);
         }
-        public static void DrawBoundingBox(Color color, Vector3 min, Vector3 max)
+        public static void DrawBoundingBox(Color color, Vector3d min, Vector3d max)
         {
-            Vector3 pos = min;
-            Vector3 size = new Vector3(max.X - min.X, max.Y - min.Y, max.Z - min.Z);
+            Vector3d pos = min;
+            Vector3d size = new Vector3d(max.X - min.X, max.Y - min.Y, max.Z - min.Z);
             WireCube(color, pos, size);
         }
-        public void DrawScannerBox(Color color, Vector3 center)
+        public void DrawScannerBox(Color color, Vector3d center)
         {
-            Vector3 size = new Vector3(TableRadius * 2f, TableHeight, TableRadius * 2f);
-            Vector3 pos = new Vector3(center.X - size.X / 2f, center.Y, center.Z - size.Z / 2f);
+            Vector3d size = new Vector3d(TableRadius * 2f, TableHeight, TableRadius * 2f);
+            Vector3d pos = new Vector3d(center.X - size.X / 2f, center.Y, center.Z - size.Z / 2f);
             WireCube(color, pos, size);
             DrawFloor(color, pos , size);
         }
-        public static void WireCube(Color color, Vector3 position,Vector3 size)
+        public static void WireCube(Color color, Vector3d position,Vector3d size)
         {
-            Vector3 s = new Vector3(size);
-            Vector3 p = new Vector3(position);
+            Vector3d s = new Vector3d(size);
+            Vector3d p = new Vector3d(position);
 
             GL.Color3(color);
             // Bottom
@@ -337,15 +338,15 @@ namespace Sardauscan.Gui.OpenGL
             GL.End();
         }
 
-        public static void DrawFloor(Color color, Vector3 position , Vector3 size, int iter = -1)
+        public static void DrawFloor(Color color, Vector3d position , Vector3d size, int iter = -1)
         {
-            float iterationsX = iter > 0 ? iter : size.X / 10f;
-            float iterationsZ = iter > 0 ? iter : size.X / 10f;
-            Vector3 p = position;
+            double iterationsX = iter > 0 ? iter : size.X / 10f;
+            double iterationsZ = iter > 0 ? iter : size.X / 10f;
+            Vector3d p = position;
             GL.Color3(color);
 
-            float deltaX = size.X / iterationsX;
-            float deltaZ = size.Z / iterationsZ;
+            double deltaX = size.X / iterationsX;
+            double deltaZ = size.Z / iterationsZ;
 
             GL.Begin(PrimitiveType.Lines);
             for (var x = 0; x < iterationsX; x++)
@@ -365,15 +366,15 @@ namespace Sardauscan.Gui.OpenGL
         {
             int step = 1;
             int len = (int)(360 / step);
-            Vector3[] v = new Vector3[len];
-            float tr = TableRadius;
-            float h = -TableHeight;
+            Vector3d[] v = new Vector3d[len];
+            double tr = TableRadius;
+            double h = -TableHeight;
             for (int ang = 0; ang < 360; ang += step)
             {
-                float rad = Utils.DEGREES_TO_RADIANS(ang);
-                float x = (float)Math.Sin(rad);
-                float y = (float)Math.Cos(rad);
-                v[ang] = new Vector3(x, y, 0);
+                double rad = Utils.DEGREES_TO_RADIANS(ang);
+                double x = (double)Math.Sin(rad);
+                double y = (double)Math.Cos(rad);
+                v[ang] = new Vector3d(x, y, 0);
             }
             GL.Enable(EnableCap.Lighting);
             GL.Color3(this.BackColor);

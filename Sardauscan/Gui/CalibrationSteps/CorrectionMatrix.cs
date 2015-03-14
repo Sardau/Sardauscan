@@ -179,9 +179,9 @@ namespace Sardauscan.Gui.CalibrationSteps
 						{
 							ScanLine line=null;
 							LaserCorrection corr = null;
-							float size = ScanInfo.Size() * 1.2f;
-							float factor = Math.Min(PreviewPanel.Width, PreviewPanel.Height) / size;
-							Matrix4 baseMatrix = Matrix4.CreateScale(factor);
+							double size = ScanInfo.Size() * 1.2f;
+							double factor = Math.Min(PreviewPanel.Width, PreviewPanel.Height) / size;
+							Matrix4d baseMatrix = Matrix4d.Scale(factor);
 							PointF center = new PointF(PreviewPanel.Width / 2, PreviewPanel.Height / 2);
 							int currentLaser = CurrentLaserIndex;
 							ScanLine selectedLaserLine = null;
@@ -215,22 +215,22 @@ namespace Sardauscan.Gui.CalibrationSteps
 				e.Graphics.DrawImageUnscaled(bmp, new Point(0, 0));
 			}
 		}
-		protected void DrawScanLine(Graphics g, PointF translation, float scale, ScanLine line, LaserCorrection corr,bool selected)
+		protected void DrawScanLine(Graphics g, PointF translation, double scale, ScanLine line, LaserCorrection corr,bool selected)
 		{
 			List<PointF> points = new List<PointF>(line.Count);
-			Matrix4 m = corr.GetMatrix();
+			Matrix4d m = corr.GetMatrix();
 			int laserid = line.LaserID;
 			for (int i = 0; i < line.Count; i++)
 			{
 				Point3D p = line[i];
-				Vector3 v = Vector3.Transform(p.Position, m);
-				PointF pt = new PointF(v.X * scale, v.Z * scale);
+				Vector3d v = Vector3d.Transform(p.Position, m);
+                PointF pt = new PointF((float)(v.X * scale), (float)(v.Z * scale));
 				pt.X += translation.X;
 				pt.Y += translation.Y;
 				points.Add(pt);
 			}
 			Color col = GetLaserColor(laserid);
-			using (SolidBrush b = new SolidBrush(Color.FromArgb(selected?128:64, col)))
+			using (SolidBrush b = new SolidBrush(Color.FromArgb(selected?64:32, col)))
 				g.FillPolygon(b, points.ToArray());
 			using (Pen b = new Pen(col))
 				g.DrawPolygon(b, points.ToArray());
@@ -336,7 +336,7 @@ namespace Sardauscan.Gui.CalibrationSteps
 			if (data != null)
 			{
 				IqrFilter task1 = new IqrFilter();
-				task1.Factor = 0;
+				task1.Factor = 0.5f;
 				ScanData step1 = task1.Run(data);
 				CalibrationTask task = new CalibrationTask();
 				ScanInfo = task.Run(step1);

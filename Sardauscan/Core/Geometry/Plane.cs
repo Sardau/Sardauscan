@@ -40,7 +40,7 @@ namespace Sardauscan.Core.Geometry
 		/// </summary>
 		/// <param name="point"></param>
 		/// <param name="normal"></param>
-		public Plane(Vector3 point, Vector3 normal)
+		public Plane(Vector3d point, Vector3d normal)
 		{
 			Point = point;
 			Normal = normal;
@@ -48,10 +48,10 @@ namespace Sardauscan.Core.Geometry
 		}
 
 		/** The plane normal */
-		public Vector3 Normal;
+		public Vector3d Normal;
 
 		/** A point in the plane */
-		public Vector3 Point;
+		public Vector3d Point;
 
 		/// <summary>
 		/// Is the a Ray intersecting this plane
@@ -59,9 +59,9 @@ namespace Sardauscan.Core.Geometry
 		/// <param name="inRay"></param>
 		/// <param name="intersection"></param>
 		/// <returns></returns>
-		public bool Intersect(Ray inRay, out Vector3 intersection)
+		public bool Intersect(Ray inRay, out Vector3d intersection)
 		{
-			intersection = new Vector3();
+			intersection = new Vector3d();
 			// Reference: http://www.scratchapixel.com/lessons/3d-basic-lessons/lesson-7-intersecting-simple-shapes/ray-plane-and-ray-disk-intersection/
 			// d = ((p0 - l0) * n) / (l * n)
 
@@ -71,21 +71,21 @@ namespace Sardauscan.Core.Geometry
 			ray.Direction.Z *= -1;
 
 			// If dn is close to 0 then they don't intersect.  This should never happen
-			float denominator = ray.Direction.Dot(Normal);
+			double denominator = ray.Direction.Dot(Normal);
 			if (Math.Abs(denominator) < 0.00001)
 			{
 				return false;
 			}
 
-			Vector3 v;
+			Vector3d v;
 			v.X = Point.X - ray.Origin.X;
 			v.Y = Point.Y - ray.Origin.Y;
 			v.Z = -1 * (Point.Z - ray.Origin.Z);
 
-			float numerator = v.Dot(Normal);
+			double numerator = v.Dot(Normal);
 
 			// Compute the distance along the ray to the plane
-			float d = numerator / denominator;
+			double d = numerator / denominator;
 			if (d < 0)
 			{
 				return false;

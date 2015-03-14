@@ -130,18 +130,18 @@ namespace Sardauscan.Hardware
 
 		protected List<bool> LaserStatus { get; set; }
 
-		protected float StepsToDegree(int steps)
+		protected double StepsToDegree(int steps)
 		{
 			return steps * 360.0f / RevolutionStep;
 		}
-		protected int DegreeToSteps(float degree)
+		protected int DegreeToSteps(double degree)
 		{
 			return (int)Math.Round((degree / 360.0) * RevolutionStep);
 		}
 
 		protected Int32 RevolutionStep = -1;
 
-		public float MinimumRotation()
+		public double MinimumRotation()
 		{
 			return StepsToDegree(1);
 		}
@@ -206,7 +206,7 @@ namespace Sardauscan.Hardware
 		}
 		void SendRotateCommand(double angle, bool relative)
 		{
-			string ret = SendCommand(string.Format("T {0} {1}", relative ? "R" : "A", DegreeToSteps((float)angle)), this.TableTimeout);
+			string ret = SendCommand(string.Format("T {0} {1}", relative ? "R" : "A", DegreeToSteps((double)angle)), this.TableTimeout);
 			return;
 		}
 

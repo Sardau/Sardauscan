@@ -49,12 +49,12 @@ namespace Sardauscan.Core.IO
 				w.WriteLine("ply");
 				w.WriteLine("format ascii 1.0");
 				w.WriteLine(string.Format("element vertex {0}", points.PointCount()));  // Leave space for updating the vertex count
-				w.WriteLine("property float x");
-				w.WriteLine("property float y");
-				w.WriteLine("property float z");
-				w.WriteLine("property float nx");
-				w.WriteLine("property float ny");
-				w.WriteLine("property float nz");
+				w.WriteLine("property double x");
+				w.WriteLine("property double y");
+				w.WriteLine("property double z");
+				w.WriteLine("property double nx");
+				w.WriteLine("property double ny");
+				w.WriteLine("property double nz");
 				w.WriteLine("property uchar red");
 				w.WriteLine("property uchar green");
 				w.WriteLine("property uchar blue");

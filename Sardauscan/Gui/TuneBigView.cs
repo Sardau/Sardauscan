@@ -58,7 +58,7 @@ namespace Sardauscan.Gui
 		}
 
 
-		public void TestLaser(int laserIndex, float theshold, int minLaserWidth, int maxLaserWidth)
+		public void TestLaser(int laserIndex, double theshold, int minLaserWidth, int maxLaserWidth)
 		{
 			if (!Available)
 			{

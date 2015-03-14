@@ -301,16 +301,16 @@ namespace Sardauscan.Core
             xmlConfig.Commit();
         }
         #endregion
-        #region float
-        /** Read a floating point value from the settings database */
-        public float Read(string tableName, string columnName,float def )
+        #region double
+        /** Read a doubleing point value from the settings database */
+        public double Read(string tableName, string columnName,double def )
         {
             try
             {
                 if (Exist(tableName, columnName))
-                    return xmlConfig.Settings[tableName][columnName].FloatValue;
+                    return xmlConfig.Settings[tableName][columnName].doubleValue;
                 Write(tableName, columnName,def);
-                return xmlConfig.Settings[tableName][columnName].FloatValue;
+                return xmlConfig.Settings[tableName][columnName].doubleValue;
             }
             catch
             {
@@ -320,9 +320,9 @@ namespace Sardauscan.Core
         }
 
         /** Updates the given real value in the settings database */
-        public void Write(string tableName, string columnName, float value)
+        public void Write(string tableName, string columnName, double value)
         {
-            xmlConfig.Settings[tableName][columnName].FloatValue = (float)value;
+            xmlConfig.Settings[tableName][columnName].doubleValue = (double)value;
             xmlConfig.Commit();
         }
         #endregion

@@ -67,7 +67,7 @@ namespace Sardauscan.Gui
 					if (Viewer == null || loading)
 						return;
 					int laserIndex = Math.Max(0,this.LaserComboBox.SelectedIndex);
-					float thres = (float)this.ThresholdUpDown.Value;
+					double thres = (double)this.ThresholdUpDown.Value;
 					int min = (int)this.MinWidthUpDown.Value;
 					int max = (int)this.MaxWidthUpDown.Value;
 					Viewer.TestLaser(laserIndex, thres, min, max);

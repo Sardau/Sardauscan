@@ -60,11 +60,11 @@ namespace Sardauscan.Core.Geometry
 		/// OpenGL primitive to use
 		/// </summary>
 		public virtual PrimitiveType DrawAs { get { return PrimitiveType.Points; } }
-		private Vector3 m_Min;
+		private Vector3d m_Min;
 		/// <summary>
 		/// Minimal X Y Z position
 		/// </summary>
-		public Vector3 Min
+		public Vector3d Min
 		{
 			get
 			{
@@ -73,11 +73,11 @@ namespace Sardauscan.Core.Geometry
 				return m_Min;
 			}
 		}
-		private Vector3 m_Max;
+		private Vector3d m_Max;
 		/// <summary>
 		/// Maximal X Y Z position
 		/// </summary>
-		public Vector3 Max
+		public Vector3d Max
 		{
 			get
 			{
@@ -93,9 +93,9 @@ namespace Sardauscan.Core.Geometry
 		{
 			if (Count > 0)
 			{
-				Vector3 v = this[0].Position;
-				m_Min = new Vector3(v);
-				m_Max = new Vector3(v);
+				Vector3d v = this[0].Position;
+				m_Min = new Vector3d(v);
+				m_Max = new Vector3d(v);
 				for (int i = 1; i < Count; i++)
 				{
 					v = this[i].Position;
@@ -109,8 +109,8 @@ namespace Sardauscan.Core.Geometry
 			}
 			else
 			{
-				m_Min = new Vector3(-0.5f, -0.5f, -0.5f);
-				m_Max = new Vector3(0.5f, 0.5f, 0.5f);
+				m_Min = new Vector3d(-0.5f, -0.5f, -0.5f);
+				m_Max = new Vector3d(0.5f, 0.5f, 0.5f);
 			}
 			base.Update();
 		}
@@ -127,8 +127,8 @@ namespace Sardauscan.Core.Geometry
 			if (useGLArray)
 			{
 				int len = Count;
-				Vector3[] pos = new Vector3[len];
-				Vector3[] nor = new Vector3[context.UseNormal ? len : 0];
+				Vector3d[] pos = new Vector3d[len];
+				Vector3d[] nor = new Vector3d[context.UseNormal ? len : 0];
 				int[] col = new int[context.UseObjectColor ? len : 0];
 				for (int i = 0; i < Count; i++)
 				{
@@ -142,9 +142,9 @@ namespace Sardauscan.Core.Geometry
 						col[i] = v.Color.ToGLRgba32();
 				}
 				int posH = -1; ;
-				int pos_Size = Vector3.SizeInBytes;
+				int pos_Size = Vector3d.SizeInBytes;
 				int norH = -1;
-				int nor_Size = Vector3.SizeInBytes;
+				int nor_Size = Vector3d.SizeInBytes;
 				int colH = -1;
 				int col_Size = sizeof(int);
 
@@ -152,7 +152,7 @@ namespace Sardauscan.Core.Geometry
 				GL.BindBuffer(BufferTarget.ArrayBuffer, posH);
 				GL.BufferData(BufferTarget.ArrayBuffer, new IntPtr(len * pos_Size), pos, BufferUsageHint.StaticDraw);
 				GL.BindBuffer(BufferTarget.ArrayBuffer, posH);
-				GL.VertexPointer(3, VertexPointerType.Float, pos_Size, IntPtr.Zero);
+				GL.VertexPointer(3, VertexPointerType.Double, pos_Size, IntPtr.Zero);
 				GL.EnableClientState(ArrayCap.VertexArray);
 
 
@@ -162,7 +162,7 @@ namespace Sardauscan.Core.Geometry
 					GL.BindBuffer(BufferTarget.ArrayBuffer, norH);
 					GL.BufferData(BufferTarget.ArrayBuffer, new IntPtr(len * nor_Size), nor, BufferUsageHint.StaticDraw);
 					GL.BindBuffer(BufferTarget.ArrayBuffer, norH);
-					GL.NormalPointer(NormalPointerType.Float, pos_Size, IntPtr.Zero);
+                    GL.NormalPointer(NormalPointerType.Double , pos_Size, IntPtr.Zero);
 					GL.EnableClientState(ArrayCap.NormalArray);
 				}
 
@@ -212,8 +212,8 @@ namespace Sardauscan.Core.Geometry
 				}
 				GL.End();
 #if false
-                Vector4 currentColor = new Vector4();
-                GL.GetFloat(GetPName.CurrentColor, out currentColor);
+                Vector4d currentColor = new Vector4d();
+                GL.Getdouble(GetPName.CurrentColor, out currentColor);
                 GL.Begin(PrimitiveType.Lines);
                 GL.Color3(Color.Red);
                 for (int i = 0; i < Count; i++)
@@ -230,16 +230,16 @@ namespace Sardauscan.Core.Geometry
 		}
 
 		/// <summary>
-		/// Create a Point3dList from Vector3 List and a color
+		/// Create a Point3dList from Vector3d List and a color
 		/// </summary>
 		/// <param name="vertices"></param>
 		/// <param name="color"></param>
 		/// <returns></returns>
-		public static Point3DList FromVertices(List<Vector3> vertices, Color color)
+		public static Point3DList FromVertices(List<Vector3d> vertices, Color color)
 		{
 			Point3DList ret = new Point3DList();
 			for (int i = 0; i < vertices.Count; i++)
-				ret.Add(new Point3D(vertices[i], new Vector3(0, 1, 0), color));
+				ret.Add(new Point3D(vertices[i], new Vector3d(0, 1, 0), color));
 			return ret;
 		}
 
@@ -259,8 +259,8 @@ namespace Sardauscan.Core.Geometry
 			}
 			else
 			{
-				float max = Max.Y;
-				float d = (max - Min.Y) / count;
+				double max = Max.Y;
+				double d = (max - Min.Y) / count;
 				for (int i = 0; i < count; i++)
 				{
 					Point3D p = GetInterpolateByY(max - i * d, i == 0);
@@ -283,7 +283,7 @@ namespace Sardauscan.Core.Geometry
 
 			for (int i = 0; i < count; i++)
 			{
-				float y = reflist[i].Position.Y;
+				double y = reflist[i].Position.Y;
 				Point3D p = GetInterpolateByY(reflist[i].Position.Y, i == 0);
 
 				ret.Add(p);
@@ -299,7 +299,7 @@ namespace Sardauscan.Core.Geometry
 		/// </summary>
 		/// <param name="y"></param>
 		/// <returns></returns>
-		public Point3D ClosestY(float y)
+		public Point3D ClosestY(double y)
 		{
 			return this.OrderBy(n => Math.Abs(y - n.Position.Y)).First();
 		}
@@ -308,7 +308,7 @@ namespace Sardauscan.Core.Geometry
 		/// </summary>
 		/// <param name="y"></param>
 		/// <returns></returns>
-		public Point3D GetNearestY(float y, bool sort = false)
+		public Point3D GetNearestY(double y, bool sort = false)
 		{
 			if (Count == 0)
 				return null;
@@ -322,8 +322,8 @@ namespace Sardauscan.Core.Geometry
 			int range = 0;
 			for (int i = 0; i < Count - 1; i++)
 			{
-				float y0 = this[i].Position.Y;
-				float y1 = this[i + 1].Position.Y;
+				double y0 = this[i].Position.Y;
+				double y1 = this[i + 1].Position.Y;
 
 				if (y0 == y)
 					return this[i];
@@ -340,9 +340,9 @@ namespace Sardauscan.Core.Geometry
 
 			Point3D pt1 = this[range];
 			Point3D pt2 = this[range + 1];
-			float d1 = y - pt1.Position.Y;
-			float d = pt2.Position.Y - pt1.Position.Y;
-			float clamp = d1 / (d);
+			double d1 = y - pt1.Position.Y;
+			double d = pt2.Position.Y - pt1.Position.Y;
+			double clamp = d1 / (d);
 			if (clamp > 0.5)
 				return pt1;
 			return pt2;
@@ -355,7 +355,7 @@ namespace Sardauscan.Core.Geometry
 		/// </summary>
 		/// <param name="count"></param>
 		/// <returns></returns>
-		public Point3D GetInterpolateByY(float y, bool sort = false)
+		public Point3D GetInterpolateByY(double y, bool sort = false)
 		{
 			if (Count == 0)
 				return null;
@@ -388,10 +388,10 @@ namespace Sardauscan.Core.Geometry
 		/// <param name="end"></param>
 		/// <param name="y"></param>
 		/// <returns></returns>
-		public static Point3D InterpolateByY(Point3D start, Point3D end, float y)
+		public static Point3D InterpolateByY(Point3D start, Point3D end, double y)
 		{
-			float delta = start.Position.Y - end.Position.Y;
-			float clamp = (start.Position.Y - y) / delta;
+			double delta = start.Position.Y - end.Position.Y;
+			double clamp = (start.Position.Y - y) / delta;
 			return Interpolate(start, end, clamp);
 		}
 		/// <summary>
@@ -402,7 +402,7 @@ namespace Sardauscan.Core.Geometry
 		/// <param name="clamp"></param>
 		/// <returns></returns>
 
-		public static Point3D Interpolate(Point3D start, Point3D end, float clamp)
+		public static Point3D Interpolate(Point3D start, Point3D end, double clamp)
 		{
 			Point3D ret = new Point3D();
 
@@ -419,9 +419,9 @@ namespace Sardauscan.Core.Geometry
 		/// <param name="end"></param>
 		/// <param name="clamp"></param>
 		/// <returns></returns>
-		public static Vector3 Interpolate(Vector3 start, Vector3 end, float clamp)
+		public static Vector3d Interpolate(Vector3d start, Vector3d end, double clamp)
 		{
-			return new Vector3(
+			return new Vector3d(
 					Interpolate(start.X, end.X, clamp),
 					Interpolate(start.Y, end.Y, clamp),
 					Interpolate(start.Z, end.Z, clamp)
@@ -429,16 +429,16 @@ namespace Sardauscan.Core.Geometry
 		}
 
 		/// <summary>
-		/// Interpolate 2 float on a [0-1] range
+		/// Interpolate 2 double on a [0-1] range
 		/// </summary>
 		/// <param name="start"></param>
 		/// <param name="end"></param>
 		/// <param name="clamp"></param>
 		/// <returns></returns>
-		public static float Interpolate(float start, float end, float clamp)
+		public static double Interpolate(double start, double end, double clamp)
 		{
-			float t = Math.Min(Math.Max(clamp, 0), 1);
-			float d = end - start;
+			double t = Math.Min(Math.Max(clamp, 0), 1);
+			double d = end - start;
 			return start + d * t;
 		}
 		/// <summary>
@@ -490,6 +490,18 @@ namespace Sardauscan.Core.Geometry
 					}
 			}
 			return ret;
+		}
+
+		public void Transform(Matrix4d mat)
+		{
+			double[,] matrixdouble = MathUtils.GetTransformMatrixAsArray(mat);
+			for (int i = 0; i < Count; i++)
+			{
+				Point3D p1 = this[i];
+
+				p1.Position = MathUtils.TransformPoint(p1.Position, matrixdouble);
+				p1.Normal = MathUtils.TransformPoint(p1.Normal, matrixdouble);
+			}
 		}
 	}
 }

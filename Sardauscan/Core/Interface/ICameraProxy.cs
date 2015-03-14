@@ -57,17 +57,17 @@ namespace Sardauscan.Core.Interface
 		/// <summary>
 		/// Get the sensor width
 		/// </summary>
-		float SensorWidth { get; }
+		double SensorWidth { get; }
 
 		/// <summary>
 		/// Get the sensor height
 		/// </summary>
-		float SensorHeight { get; }
+		double SensorHeight { get; }
 
 		/// <summary>
 		/// Get the focal lenght
 		/// </summary>
-		float FocalLength { get; }
+		double FocalLength { get; }
 	}
 }
 

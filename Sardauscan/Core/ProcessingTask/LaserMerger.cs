@@ -75,11 +75,11 @@ namespace Sardauscan.Core.ProcessingTask
 			ret = new ScanData();
 			
 			ScanData master = laserScanData[masterLaserId];
-			float maxAngle = 180f / master.Count;
+			double maxAngle = 180f / master.Count;
 			for (int i = 0; i < master.Count; i++)
 			{
 				List<ScanLine> lines = new List<ScanLine>(laserScanData.Keys.Count);
-				float currentAngle = master[i].Angle;
+				double currentAngle = master[i].Angle;
 				int currentCount = master[i].Count;
 				int biggestIndex = 0;
 				lines.Add(master[i]);
@@ -113,7 +113,7 @@ namespace Sardauscan.Core.ProcessingTask
 			for (int i = 0; i < count; i++)
 			{
 				List<Point3D> list = new List<Point3D>(numLines);
-				float refy = scanlines[biggestIndex][i].Position.Y;
+				double refy = scanlines[biggestIndex][i].Position.Y;
 				for (int line = 0; line < numLines; line++)
 				{
 					list.Add(scanlines[line].GetInterpolateByY(refy,i==0));

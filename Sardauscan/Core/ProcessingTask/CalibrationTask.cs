@@ -46,7 +46,7 @@ namespace Sardauscan.Core.ProcessingTask
 		public override ScanData DoTask(ScanData source)
 		{
 			ScanData step1 = base.DoTask(source);
-			step1.Sort();
+			step1.Sort(); //SORT
 			Dictionary<int, ScanLine> step2 = new Dictionary<int, ScanLine>();
 			for (int i = 0; i < step1.Count; i++)
 			{
@@ -55,7 +55,8 @@ namespace Sardauscan.Core.ProcessingTask
 				{
 					if (!step2.ContainsKey(line.LaserID))
 						step2[line.LaserID] = new ScanLine(line.LaserID, 24);
-					step2[line.LaserID].Add(line[0]);
+					step2[line.LaserID].Add(Point3D.Average(line));
+					//step2[line.LaserID].Add(line[0]);
 				}
 			}
 

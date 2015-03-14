@@ -118,7 +118,7 @@ namespace Sardauscan.Core.IO
 				{
 					line = r.ReadLine();
 					part = line.Split(":".ToArray());
-					ScanLine slice = new ScanLine((int)float.Parse(part[1]));
+					ScanLine slice = new ScanLine((int)double.Parse(part[1]));
 
 					line = r.ReadLine();
 					part = line.Split(":".ToArray());
@@ -154,8 +154,8 @@ namespace Sardauscan.Core.IO
 						line = r.ReadLine();
 						part = line.Split("|".ToArray());
 
-						Vector3 pos = GetVector(part[0]);
-						Vector3 normal = pos.Normalized();
+						Vector3d pos = GetVector(part[0]);
+						Vector3d normal = pos.Normalized();
 						try
 						{
 							normal = GetVector(part[1]);
@@ -170,16 +170,16 @@ namespace Sardauscan.Core.IO
 			}
 			return ret;
 		}
-		private static Vector3 GetVector(string vectorStr)
+		private static Vector3d GetVector(string vectorStr)
 		{
 			string[] part = vectorStr.Split(" ".ToArray());
-			Vector3 ret = new Vector3();
-			float dummy = float.NaN;
-			if (float.TryParse(part[0], out dummy) && float.TryParse(part[1], out dummy) && float.TryParse(part[2], out dummy))
+			Vector3d ret = new Vector3d();
+			double dummy = double.NaN;
+			if (double.TryParse(part[0], out dummy) && double.TryParse(part[1], out dummy) && double.TryParse(part[2], out dummy))
 			{
-				ret.X = float.Parse(part[0], CultureInfo.InvariantCulture);
-				ret.Y = float.Parse(part[1], CultureInfo.InvariantCulture);
-				ret.Z = float.Parse(part[2], CultureInfo.InvariantCulture);
+				ret.X = double.Parse(part[0], CultureInfo.InvariantCulture);
+				ret.Y = double.Parse(part[1], CultureInfo.InvariantCulture);
+				ret.Z = double.Parse(part[2], CultureInfo.InvariantCulture);
 			}
 			return ret;
 		}

@@ -66,15 +66,15 @@ namespace Sardauscan.Core.ProcessingTask
 			ret = source;
 			for (int i = 0; i < Iteration; i++)
 			{
-				float pctstart = i * 100f/Iteration;
-				float pctend = pctstart + 100f / Iteration;
+				double pctstart = i * 100f/Iteration;
+				double pctend = pctstart + 100f / Iteration;
 				ret = DoIteration(ret, pctstart, pctend);
 			}
 			UpdatePercent(100, ret);
 			return ret;
 		}
 
-		protected ScanData DoIteration(ScanData source, float pctMin, float pctMax)
+		protected ScanData DoIteration(ScanData source, double pctMin, double pctMax)
 		{
 			ScanData ret = new ScanData(source.Count);
 			ret.AddRange(source);
@@ -140,8 +140,8 @@ namespace Sardauscan.Core.ProcessingTask
 		{
 			if(nearPts.Count<1)
 				return p;
-			Vector3 pos = new Vector3(0, 0, 0);
-			Vector3 norm = new Vector3(0, 0, 0);
+			Vector3d pos = new Vector3d(0, 0, 0);
+			Vector3d norm = new Vector3d(0, 0, 0);
 
 			int count =nearPts.Count;
 			for (int i = 0; i < count; i++)

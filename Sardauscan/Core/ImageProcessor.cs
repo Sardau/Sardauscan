@@ -76,7 +76,7 @@ namespace Sardauscan.Core
 
 		#endregion
 
-		public ImageProcessor(float magnitudeThreshold, int minLaserWidth, int maxLaserWidth)
+		public ImageProcessor(double magnitudeThreshold, int minLaserWidth, int maxLaserWidth)
 		{
 			m_laserMagnitudeThreshold = magnitudeThreshold;
 			m_maxLaserWidth = maxLaserWidth;
@@ -178,7 +178,7 @@ namespace Sardauscan.Core
 				int r = br[col].R - ar[col].R;
 				int g = br[col].G - ar[col].G;
 				int b = br[col].B - ar[col].B;
-				float mag = r * r + g * g + b * b;
+				double mag = r * r + g * g + b * b;
 				if (mag != 0)
 				{
 					numerator += mag;
@@ -204,7 +204,7 @@ namespace Sardauscan.Core
 				int g = br[iCol].G - ar[iCol].G;
 				int b = br[iCol].B - ar[iCol].B;
 
-				float mag = r * r + g * g + b * b;
+				double mag = r * r + g * g + b * b;
 				totalSum += mag;
 				weightedSum += mag * cCol;
 
@@ -371,7 +371,7 @@ namespace Sardauscan.Core
 
 					double centerCol = DetectLaserRangeCenter(laserRanges[rangeChoice], arLine, brLine);
 
-					PixelLocation location = new PixelLocation((float)centerCol, y);
+					PixelLocation location = new PixelLocation((double)centerCol, y);
 					laserLocations.Add(location);
 
 					// If this is the first row that a laser is detected in, set the firstRowLaserCol member
@@ -396,7 +396,7 @@ namespace Sardauscan.Core
 		}
 
 
-		private float m_laserMagnitudeThreshold;
+		private double m_laserMagnitudeThreshold;
 		private int m_maxLaserWidth;
 		private int m_minLaserWidth;
 

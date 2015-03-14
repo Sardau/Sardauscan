@@ -40,12 +40,12 @@ namespace Sardauscan.Core.Geometry
 	public class Scene3D : DirtyAvareList<IScene3DPart>, IScene3DPart
 	{
 
-		protected Vector3 m_Min;
-		protected Vector3 m_Max;
+		protected Vector3d m_Min;
+		protected Vector3d m_Max;
 		/// <summary>
 		/// Minimum X Y Z position
 		/// </summary>
-		public Vector3 Min
+		public Vector3d Min
 		{
 			get
 			{
@@ -58,7 +58,7 @@ namespace Sardauscan.Core.Geometry
 		/// <summary>
 		/// Maximum X Y Z position
 		/// </summary>
-		public Vector3 Max
+		public Vector3d Max
 		{
 			get
 			{
@@ -92,8 +92,8 @@ namespace Sardauscan.Core.Geometry
 		{
 			if (this.Count == 0 || this[0] == null)
 			{
-				m_Min = new Vector3(float.NaN, 0, 0);
-				m_Max = new Vector3(float.NaN, 0, 0);
+				m_Min = new Vector3d(double.NaN, 0, 0);
+				m_Max = new Vector3d(double.NaN, 0, 0);
 			}
 			else
 			{
@@ -106,8 +106,8 @@ namespace Sardauscan.Core.Geometry
 
 				}
 				p = this[0];
-				m_Min = new Vector3(p.Min);
-				m_Max = new Vector3(p.Max);
+				m_Min = new Vector3d(p.Min);
+				m_Max = new Vector3d(p.Max);
 
 				for (int i = 1; i < Count; i++)
 				{

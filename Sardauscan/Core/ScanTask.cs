@@ -48,9 +48,9 @@ namespace Sardauscan.Core
 	{
 		protected int LaserCount { get { return Lasers.Count; } }
 		protected List<LaserInfo> Lasers;
-		protected float RotationStep;
+		protected double RotationStep;
 
-		protected Vector3 CameraLoc = new Vector3();
+		protected Vector3d CameraLoc = new Vector3d();
 		protected ImageProcessor ImageProcessor;
 		protected bool _UseTexture = true;
 		protected bool _UseCorrectionMatrix = true;
@@ -86,14 +86,14 @@ namespace Sardauscan.Core
 		public bool UseCorrectionMatrix { get { return _UseCorrectionMatrix; } set { _UseCorrectionMatrix = value; } }
 
 
-		private float _Precision = 50f;
+		private double _Precision = 50f;
 
 		[Browsable(true)]
 		[Description("Acquire Precision")]
 		[DisplayName("Precision")]
 		[TypeConverter(typeof(NumericUpDownTypeConverter))]
 		[Editor(typeof(NumericUpDownTypeEditor), typeof(UITypeEditor)), MinMaxAttribute(0f, 100f, 0.5f, 1)]
-		public float Precision { get { return _Precision; } set { _Precision = value; } }
+		public double Precision { get { return _Precision; } set { _Precision = value; } }
 
 		private string _FileName = "last" + ScanDataIO.DefaultExtention;
 		[Browsable(true)]
@@ -165,26 +165,26 @@ namespace Sardauscan.Core
 			}
 			return img;
 		}
-		public void PositionPostProcess(ref Point3DList list, float rotation)
+		public void PositionPostProcess(ref Point3DList list, double rotation)
 		{
 			// Build the 2D rotation matrix to rotate in the XZ plane
-			float c = (float)Math.Cos(rotation);
-			float s = (float)Math.Sin(rotation);
-			float scale = 1f;
+			double c = (double)Math.Cos(rotation);
+			double s = (double)Math.Sin(rotation);
+			double scale = 1f;
 
 			for (int iPt = 0; iPt < list.Count; iPt++)
 			{
 				// Location
 				Point3D p = list[iPt];
-				float x = scale * (p.Position.X * c + p.Position.Z * -s);
-				float y = scale * (p.Position.Y);
-				float z = scale * (p.Position.X * s + p.Position.Z * c);
+				double x = scale * (p.Position.X * c + p.Position.Z * -s);
+				double y = scale * (p.Position.Y);
+				double z = scale * (p.Position.X * s + p.Position.Z * c);
 
 
 				// Normal
-				float nx = p.Normal.X * c + p.Normal.Z * -s;
-				float ny = p.Normal.Y;
-				float nz = p.Normal.X * s + p.Normal.Z * c;
+				double nx = p.Normal.X * c + p.Normal.Z * -s;
+				double ny = p.Normal.Y;
+				double nz = p.Normal.X * s + p.Normal.Z * c;
 
 
 				p.Position.X = x;
@@ -205,7 +205,7 @@ namespace Sardauscan.Core
 
 
 
-			RotationStep = (float)Math.Round(TurnTable.MinimumRotation() + (15f - TurnTable.MinimumRotation()) * ((100 - Precision) / 100f), 2);
+			RotationStep = (double)Math.Round(TurnTable.MinimumRotation() + (15f - TurnTable.MinimumRotation()) * ((100 - Precision) / 100f), 2);
 
 
 			Settings settings = Settings.Get<Settings>();
@@ -213,7 +213,7 @@ namespace Sardauscan.Core
 			CameraLoc.Y = settings.Read(Settings.CAMERA, Settings.Y, 270f);
 			CameraLoc.Z = settings.Read(Settings.CAMERA, Settings.Z, 70f);
 
-			float thres = settings.Read(Settings.LASER_COMMON, Settings.MAGNITUDE_THRESHOLD, 10);
+			double thres = settings.Read(Settings.LASER_COMMON, Settings.MAGNITUDE_THRESHOLD, 10);
 			int min = settings.Read(Settings.LASER_COMMON, Settings.MIN_WIDTH, 1);
 			int max = settings.Read(Settings.LASER_COMMON, Settings.MAX_WIDTH, 60);
 
@@ -222,8 +222,8 @@ namespace Sardauscan.Core
 			ImageProcessor = new ImageProcessor(thres, min, max);
 
 			SizeF tableSize = new SizeF(
-					settings.Read(Settings.TABLE, Settings.DIAMETER, 20f),
-					settings.Read(Settings.TABLE, Settings.HEIGHT, 15f)
+					(float)settings.Read(Settings.TABLE, Settings.DIAMETER, 20f),
+                    (float)settings.Read(Settings.TABLE, Settings.HEIGHT, 15f)
 					);
 
 			Lasers = new List<LaserInfo>(LaserId.Length);
@@ -240,7 +240,7 @@ namespace Sardauscan.Core
 			int numbadLaserLocation = 0;
 			int numImageProcessingRetries = 0;
 			// Scan all laser location, 
-			for (float currentAngle = 0; currentAngle < 360f; currentAngle += RotationStep)
+			for (double currentAngle = 0; currentAngle < 360f; currentAngle += RotationStep)
 			{
 				if (this.CancelPending) return ret;
 

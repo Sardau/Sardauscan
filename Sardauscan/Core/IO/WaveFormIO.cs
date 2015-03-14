@@ -29,7 +29,7 @@ namespace Sardauscan.Core.IO
 				w.WriteLine("#");
 				w.WriteLine("# Object");
 				List<FaceInfo> faces = new List<FaceInfo>();
-				List<Vector3> vertex = new List<Vector3>();
+				List<Vector3d> vertex = new List<Vector3d>();
 				for (int i = 0; i < data.Count; i++) // collect vertices and face
 				{
 					ScanLine slice = data[i];
@@ -57,9 +57,9 @@ namespace Sardauscan.Core.IO
 		}
 
 
-		private static long AddToList(List<Vector3> list, Vector3 vector)
+		private static long AddToList(List<Vector3d> list, Vector3d vector)
 		{
-			Vector3 val = new Vector3(vector.X, -vector.Z, vector.Y);
+			Vector3d val = new Vector3d(vector.X, -vector.Z, vector.Y);
 			int ret = list.IndexOf(val);
 			if (ret < 0)
 			{

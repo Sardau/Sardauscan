@@ -216,7 +216,7 @@ namespace Sardauscan.Gui.Controls
 			pts.Add(new Point(r.X + r.Width / 2, r.Y + r.Height / 2));
 			g.FillPolygon(b, pts.ToArray());
 		}
-		protected string GetDeltaDebugString(string pref, float start, float current)
+		protected string GetDeltaDebugString(string pref, double start, double current)
 		{
 			return string.Format("{0}: {1}=>{2} ={3}", pref, start, current, current - start);
 		}

@@ -60,7 +60,7 @@ namespace FakeHardwarePlugins
 		/// Retreave the minimum rotation of the table
 		/// </summary>
 		/// <returns></returns>
-		public float MinimumRotation() { return 1; }
+		public double MinimumRotation() { return 1; }
 
 		/// <summary>
 		/// Enable disable motor

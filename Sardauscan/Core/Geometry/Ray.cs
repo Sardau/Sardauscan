@@ -39,7 +39,7 @@ namespace Sardauscan.Core.Geometry
 		/// </summary>
 		/// <param name="origin"></param>
 		/// <param name="direction"></param>
-		public Ray(Vector3 origin, Vector3 direction)
+		public Ray(Vector3d origin, Vector3d direction)
 		{
 			Origin = origin;
 			Direction = direction;
@@ -47,8 +47,8 @@ namespace Sardauscan.Core.Geometry
 		/// <summary>
 		/// Origin of the Ray
 		/// </summary>
-		public Vector3 Origin;
+		public Vector3d Origin;
 		//Direction vector of the ray
-		public Vector3 Direction;
+		public Vector3d Direction;
 	};
 }

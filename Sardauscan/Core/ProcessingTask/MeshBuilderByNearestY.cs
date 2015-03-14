@@ -52,7 +52,7 @@ namespace Sardauscan.Core.ProcessingTask
 
             for (int i = 0; i < all.Count; i++)
             {
-                float y = all[i].Position.Y;
+                double y = all[i].Position.Y;
                 Point3D p1 = previous.GetNearestY(y);
                 Point3D p2 = current.GetNearestY(y);
                 ret1.Add(p1);

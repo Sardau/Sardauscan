@@ -76,7 +76,7 @@ namespace Sardauscan.Core.ProcessingTask
             }
         }
 
-        static double Distance(Vector3 tuple, Vector3 vector)
+        static double Distance(Vector3d tuple, Vector3d vector)
         {
             // Euclidean distance between an actual data tuple and a cluster mean or centroid
             double sumSquaredDiffs = 0.0;
@@ -86,7 +86,7 @@ namespace Sardauscan.Core.ProcessingTask
             return Math.Sqrt(sumSquaredDiffs);
         }
 
-        static double DistanceOutlier(Vector3 tuple, Vector3 vector)
+        static double DistanceOutlier(Vector3d tuple, Vector3d vector)
         {
             // Euclidean distance between an actual data tuple and a cluster mean or centroid
             double sumSquaredDiffs = 0.0;
@@ -105,10 +105,10 @@ namespace Sardauscan.Core.ProcessingTask
 
                 //Debug.WriteLine("Loading all (height-weight) data into memory");
                 string[] attributes = new string[] { "X", "Y", "Z" };
-                Vector3[] rawData = new Vector3[source.Count];  // in most cases data will be in a text file or SQl table
+                Vector3d[] rawData = new Vector3d[source.Count];  // in most cases data will be in a text file or SQl table
 
                 for (int i = 0; i < rawData.Length; i++)
-                    rawData[i] = new Vector3(source[i].Position.X, source[i].Position.Y, source[i].Position.Z );
+                    rawData[i] = new Vector3d(source[i].Position.X, source[i].Position.Y, source[i].Position.Z );
 
                 //Debug.WriteLine("\nRaw data:\n");
                 //ShowMatrix(rawData, rawData.Length, true);
@@ -145,7 +145,7 @@ namespace Sardauscan.Core.ProcessingTask
                 List<bool> clusterOk = new List<bool>(numClusters);
                 for (int i = 0; i < numClusters; i++)
                 {
-                    float pct =  (100f*count[i])/pointCount;
+                    double pct =  (100f*count[i])/pointCount;
                     clusterOk.Add(pct >= this.RejectPercent);
                 }
 
@@ -158,7 +158,7 @@ namespace Sardauscan.Core.ProcessingTask
 #if DEBUG
                     if (ColoriseOnly)
                     {
-                        float clamp = ((1.0f * clusterIndex) / (numClusters - 1));
+                        float clamp = (float)((1.0f * clusterIndex) / (numClusters - 1));
                         col = ColorExtension.ColorFromVector(new Vector4(clamp, clamp, clamp, clamp));
                         if (!clusterOk[clusterIndex])
                             col = Color.Green;
@@ -198,22 +198,22 @@ namespace Sardauscan.Core.ProcessingTask
             return clustering;
         }
 
-        static Vector3[] Allocate(int numClusters)
+        static Vector3d[] Allocate(int numClusters)
         {
             // helper allocater for means[][] and centroids[][]
-            Vector3[] result = new Vector3[numClusters];
+            Vector3d[] result = new Vector3d[numClusters];
             for (int k = 0; k < numClusters; ++k)
-                result[k] = new Vector3();
+                result[k] = new Vector3d();
             return result;
         }
 
-        static void UpdateMeans(Vector3[] rawData, int[] clustering, Vector3[] means)
+        static void UpdateMeans(Vector3d[] rawData, int[] clustering, Vector3d[] means)
         {
             // assumes means[][] exists. consider making means[][] a ref parameter
             int numClusters = means.Length;
             // zero-out means[][]
             for (int k = 0; k < means.Length; ++k)
-                    means[k]= new Vector3(0,0,0);
+                    means[k]= new Vector3d(0,0,0);
 
             // make an array to hold cluster counts
             int[] clusterCounts = new int[numClusters];
@@ -241,10 +241,10 @@ namespace Sardauscan.Core.ProcessingTask
             return;
         } // UpdateMeans
 
-        static Vector3 ComputeCentroid(Vector3[] rawData, int[] clustering, int cluster, Vector3[] means)
+        static Vector3d ComputeCentroid(Vector3d[] rawData, int[] clustering, int cluster, Vector3d[] means)
         {
             // the centroid is the actual tuple values that are closest to the cluster mean
-            Vector3 centroid = new Vector3();
+            Vector3d centroid = new Vector3d();
             double minDist = double.MaxValue;
             for (int i = 0; i < rawData.Length; ++i) // walk thru each data tuple
             {
@@ -255,18 +255,18 @@ namespace Sardauscan.Core.ProcessingTask
                 if (currDist < minDist)
                 {
                     minDist = currDist;
-                    centroid = new Vector3(rawData[i]);
+                    centroid = new Vector3d(rawData[i]);
                 }
             }
             return centroid;
         }
 
-        static void UpdateCentroids(Vector3[] rawData, int[] clustering, Vector3[] means, Vector3[] centroids)
+        static void UpdateCentroids(Vector3d[] rawData, int[] clustering, Vector3d[] means, Vector3d[] centroids)
         {
             // updates all centroids by calling helper that updates one centroid
             for (int k = 0; k < centroids.Length; ++k)
             {
-                Vector3 centroid = ComputeCentroid(rawData, clustering, k, means);
+                Vector3d centroid = ComputeCentroid(rawData, clustering, k, means);
                 centroids[k] = centroid;
             }
         }
@@ -286,7 +286,7 @@ namespace Sardauscan.Core.ProcessingTask
             return indexOfMin;
         }
 
-        static bool Assign(Vector3[] rawData, int[] clustering, Vector3[] centroids)
+        static bool Assign(Vector3d[] rawData, int[] clustering, Vector3d[] centroids)
         {
             // assign each tuple to best cluster (closest to cluster centroid)
             // return true if any new cluster assignment is different from old/curr cluster
@@ -310,15 +310,15 @@ namespace Sardauscan.Core.ProcessingTask
             return changed; // was there any change in clustering?
         } // Assign
 
-        static int[] Cluster(Vector3[] rawData, int numClusters, int numAttributes, int maxCount)
+        static int[] Cluster(Vector3d[] rawData, int numClusters, int numAttributes, int maxCount)
         {
             bool changed = true;
             int ct = 0;
 
             int numTuples = rawData.Length;
             int[] clustering = InitClustering(numTuples, numClusters, 0);  // 0 is a seed for random
-            Vector3[] means = Allocate(numClusters);       // just makes things a bit cleaner
-            Vector3[] centroids = Allocate(numClusters);
+            Vector3d[] means = Allocate(numClusters);       // just makes things a bit cleaner
+            Vector3d[] centroids = Allocate(numClusters);
             UpdateMeans(rawData, clustering, means);                       // could call this inside UpdateCentroids instead
             UpdateCentroids(rawData, clustering, means, centroids);
 
@@ -333,13 +333,13 @@ namespace Sardauscan.Core.ProcessingTask
             return clustering;
         }
 
-        static List<int> Outlier(Vector3[] rawData, int[] clustering, double maxDistance)
+        static List<int> Outlier(Vector3d[] rawData, int[] clustering, double maxDistance)
         {
 
             List<int> outlier = new List<int>();
 
-            Vector3[] means = Allocate(clustering.Length);
-            Vector3[] centroids = Allocate(clustering.Length);
+            Vector3d[] means = Allocate(clustering.Length);
+            Vector3d[] centroids = Allocate(clustering.Length);
             UpdateMeans(rawData, clustering, means);
             UpdateCentroids(rawData, clustering, means, centroids);
 
@@ -377,13 +377,13 @@ namespace Sardauscan.Core.ProcessingTask
             if (newLine == true) Debug.WriteLine("");
         }
 
-        static void ShowVector(Vector3 vector, bool newLine)
+        static void ShowVector(Vector3d vector, bool newLine)
         {
             Debug.WriteLine(string.Format("{0:0.00} {1:0.00} {2:0.00}", vector.X, vector.Y, vector.Z));
             if (newLine == true) Debug.WriteLine("");
         }
 
-        static void ShowClustering(Vector3[] rawData, int numClusters, int[] clustering, bool newLine)
+        static void ShowClustering(Vector3d[] rawData, int numClusters, int[] clustering, bool newLine)
         {
             Debug.WriteLine("-----------------");
             for (int k = 0; k < numClusters; ++k) // display by cluster

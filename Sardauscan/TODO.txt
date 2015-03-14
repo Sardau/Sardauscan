@@ -14,3 +14,8 @@ http://channel9.msdn.com/coding4fun/articles/Look-at-me-Windows-Image-Acquisitio
 https://edulorenzo.wordpress.com/2010/07/21/capture-picture-from-wia-using-c/
 -->
 http://www.emgu.com/wiki/index.php/Main_Page
+
+ICP
+https://github.com/peterbrook/libicp-net
+KDTREE
+https://code.google.com/p/kd-sharp/source/browse/#svn%2Ftrunk%2FKDTree%253Fstate%253Dclosed

@@ -48,7 +48,7 @@ namespace Sardauscan.Core.Interface
 		/// Get the minimum Rotation angle for the table
 		/// </summary>
 		/// <returns></returns>
-		float MinimumRotation();
+		double MinimumRotation();
 		/// <summary>
 		/// Enable of disable the motors
 		/// </summary>

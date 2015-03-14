@@ -38,29 +38,29 @@ namespace Sardauscan.Core.ProcessingTask
 	/// </summary>
 	public class LineScaleTask : AbstractLineTask
 	{
-		private float xFactor = 1;
+		private double xFactor = 1;
 		[Browsable(true)]
 		[Description("X scale factor (1 = no scale)")]
 		[DisplayName("X")]
 		[TypeConverter(typeof(NumericUpDownTypeConverter))]
 		[Editor(typeof(NumericUpDownTypeEditor), typeof(UITypeEditor)), MinMaxAttribute(-1000f, 1000f, 0.005f, 3)]
-		public float XFactor { get { return xFactor; } set { xFactor = value; } }
+		public double XFactor { get { return xFactor; } set { xFactor = value; } }
 
-		private float yFactor = 1;
+		private double yFactor = 1;
 		[Browsable(true)]
 		[Description("Y scale factor (1 = no scale)")]
 		[DisplayName("Y")]
 		[TypeConverter(typeof(NumericUpDownTypeConverter))]
 		[Editor(typeof(NumericUpDownTypeEditor), typeof(UITypeEditor)), MinMaxAttribute(-1000f, 1000f, 0.005f, 3)]
-		public float YFactor { get { return yFactor; } set { yFactor = value; } }
+		public double YFactor { get { return yFactor; } set { yFactor = value; } }
 
-		private float zFactor = 1;
+		private double zFactor = 1;
 		[Browsable(true)]
 		[Description("Z scale factor (1 = no scale)")]
 		[DisplayName("Z")]
 		[TypeConverter(typeof(NumericUpDownTypeConverter))]
 		[Editor(typeof(NumericUpDownTypeEditor), typeof(UITypeEditor)), MinMaxAttribute(-1000f, 1000f, 0.005f, 3)]
-		public float ZFactor { get { return zFactor; } set { zFactor = value; } }
+		public double ZFactor { get { return zFactor; } set { zFactor = value; } }
 
 		public override ScanLine DoTask(ScanLine source)
 		{
@@ -68,7 +68,7 @@ namespace Sardauscan.Core.ProcessingTask
 			for (int i = 0; i < source.Count; i++)
 			{
 				Point3D p = source[i];
-				Vector3 pos = p.Position;
+				Vector3d pos = p.Position;
 				pos.X *= XFactor;
 				pos.Y *= YFactor;
 				pos.Z *= ZFactor;

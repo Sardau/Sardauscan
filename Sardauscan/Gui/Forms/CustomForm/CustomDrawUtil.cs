@@ -89,7 +89,7 @@ namespace Sardauscan.Gui.Forms.CustomForm
 				using (TextureBrush b = new TextureBrush(image, new Rectangle(0, 0, image.Width, image.Height), attr))
 				{
 					// adjust the origin of the brush to coincide with the destination rect 
-					b.TranslateTransform((float)destRect.Left, (float)destRect.Top);
+					b.TranslateTransform(destRect.Left, destRect.Top);
 
 					// fill the area using the texture 
 					g.FillRectangle(b, destRect);

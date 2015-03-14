@@ -49,11 +49,11 @@ namespace Sardauscan.Core.OpenGL
 		/// <summary>
 		/// Scaner Table Radius
 		/// </summary>
-		public float TableRadius;
+		public double TableRadius;
 		/// <summary>
 		/// Scaner Table Height
 		/// </summary>
-		public float TableHeight;
+		public double TableHeight;
 		/// <summary>
 		/// Lignning enabled
 		/// </summary>

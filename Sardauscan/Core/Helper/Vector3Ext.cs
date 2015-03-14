@@ -31,7 +31,7 @@ using System.Globalization;
 namespace Sardauscan.Core
 {
 	/// <summary>
-	/// Vector3 Extention
+	/// Vector3d Extention
 	/// </summary>
 	public static class Vector3Ext
 	{
@@ -41,7 +41,7 @@ namespace Sardauscan.Core
 		/// <param name="v"></param>
 		/// <param name="a"></param>
 		/// <returns></returns>
-		public static float Dot(this Vector3 v, Vector3 a)
+		public static double Dot(this Vector3d v, Vector3d a)
 		{
 			return v.X * a.X + v.Y * a.Y + v.Z * a.Z;
 		}
@@ -50,16 +50,16 @@ namespace Sardauscan.Core
 		/// </summary>
 		/// <param name="v"></param>
 		/// <returns></returns>
-		public static bool IsValid(this Vector3 v)
+		public static bool IsValid(this Vector3d v)
 		{
-			return v.X != float.NaN && v.Y != float.NaN && v.Z != float.NaN;
+			return v.X != double.NaN && v.Y != double.NaN && v.Z != double.NaN;
 		}
 		/// <summary>
 		/// Dump as a string "X Y Z"
 		/// </summary>
 		/// <param name="v"></param>
 		/// <returns></returns>
-		public static string Dump(this Vector3 v)
+		public static string Dump(this Vector3d v)
 		{
 			return String.Format(CultureInfo.InvariantCulture, "{0} {1} {2}", v.X, v.Y, v.Z);
 		}
@@ -69,17 +69,17 @@ namespace Sardauscan.Core
 		/// <param name="a"></param>
 		/// <param name="b"></param>
 		/// <returns></returns>
-		public static float AngleInRadian(this Vector3 a, Vector3 b)
+		public static double AngleInRadian(this Vector3d a, Vector3d b)
 		{
-			if (a.Equals(Vector3.Zero) || b.Equals(Vector3.Zero))
-				return (float)(2 * Math.PI);
+			if (a.Equals(Vector3d.Zero) || b.Equals(Vector3d.Zero))
+				return (double)(2 * Math.PI);
 
-			Vector3 v = Vector3.Cross(a, b);
+			Vector3d v = Vector3d.Cross(a, b);
 			double d1 = v.Length;//v.Norm();
 
-			double d2 = Vector3.Dot(a, b);
+			double d2 = Vector3d.Dot(a, b);
 			double angle = Math.Atan2(d1, d2);
-			return (float)angle;
+			return (double)angle;
 		}
 		/// <summary>
 		/// Angle between 2 vector in degree
@@ -87,7 +87,7 @@ namespace Sardauscan.Core
 		/// <param name="a"></param>
 		/// <param name="b"></param>
 		/// <returns></returns>
-		public static float AngleInDegrees(this Vector3 a, Vector3 b)
+		public static double AngleInDegrees(this Vector3d a, Vector3d b)
 		{
 			return Utils.RADIANS_TO_DEGREES(a.AngleInRadian(b));
 		}
@@ -97,11 +97,11 @@ namespace Sardauscan.Core
 		/// <param name="a"></param>
 		/// <param name="b"></param>
 		/// <returns></returns>
-		public static float XZProjected_AngleInDegree(this Vector3 a, Vector3 b)
+		public static double XZProjected_AngleInDegree(this Vector3d a, Vector3d b)
 		{
-			float cross = a.X * b.Z - a.Z * b.X;
-			float dot = a.X * b.X + a.Z * b.Z;
-			return Utils.RADIANS_TO_DEGREES((float)Math.Atan2(cross, dot));
+			double cross = a.X * b.Z - a.Z * b.X;
+			double dot = a.X * b.X + a.Z * b.Z;
+			return Utils.RADIANS_TO_DEGREES((double)Math.Atan2(cross, dot));
 		}
 
 		/// <summary>
@@ -109,12 +109,12 @@ namespace Sardauscan.Core
 		/// </summary>
 		/// <param name="v"></param>
 		/// <param name="radian"></param>
-		public static void RotateAroundY(this Vector3 v, float radian)
+		public static void RotateAroundY(this Vector3d v, double radian)
 		{
-			float x = v.X;
-			float z = v.Z;
-			v.Z = (float)(z * Math.Cos(radian) - x * Math.Sin(radian));
-			v.X = (float)(z * Math.Sin(radian) + x * Math.Cos(radian));
+			double x = v.X;
+			double z = v.Z;
+			v.Z = (double)(z * Math.Cos(radian) - x * Math.Sin(radian));
+			v.X = (double)(z * Math.Sin(radian) + x * Math.Cos(radian));
 		}
 
 	}
