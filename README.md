@@ -27,3 +27,7 @@ directory "Sardauscan" => the client software
 
 the code is C# and winforms and is build on a Visual 2010 version. so it's obviously for windows.
 No make file, but visual solution file.
+
+the firmware need the arduino accellstepper library 
+https://github.com/adafruit/AccelStepper
+
