@@ -14,3 +14,30 @@ Bunch of M4 (12 ans 20 mm)
 optionnal 3x 4mm roller (0.3$ piece)
 
 total 26.5$ (1 laser) to 35$ (4 lasers)
+
+2020 lengths of my build (but you can use whatever you want, just make sure the camera can see all the scan area)
+2x 140mm
+1x 120mm
+1x 250mm
+
+you must install the accellstepper library in arduino to compile the firmware
+https://github.com/adafruit/AccelStepper
+
+
+what to print.
+1 x arm_left.stl
+1x box.stl
+1x box_door.stl
+1x box_arduino_clamp.stl
+1x arm_right.stl
+1x CORNER.stl
+1X Camera_HOLDER_LOWER_PART.stl
+1x MOTOR_MOUNT.stl
+1 to 4 x laser_holder.stl
+1x Camera_HOLDER_UPPER_PART.stl
+1x center_axe_MINIMAL.stl OR 1x table_AXLE.stl
+OPTIONAL
+3x roller_baseV2.stl 
+1x calibration.stl
+
+you can print 12x M4_tslot_nut.stl if you use 20x20 profile and you don't have any
