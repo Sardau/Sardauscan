@@ -508,5 +508,12 @@ namespace Sardauscan.Gui.OpenGL
             }
 
         }
+
+        private void imageButton1_Click(object sender, EventArgs e)
+        {
+            Drag.SetAngleY(-180);
+            InvalidateAll();
+
+        }
     }
 }

@@ -43,36 +43,62 @@ namespace Sardauscan.Core.ProcessingTask
 			}
 		}
 
+        public int NumClass = 5;
+
 		public override ScanData DoTask(ScanData source)
 		{
 			ScanData step1 = base.DoTask(source);
 			step1.Sort(); //SORT
-			Dictionary<int, ScanLine> step2 = new Dictionary<int, ScanLine>();
+            Dictionary<string, ScanLine> step2 = new Dictionary<string, ScanLine>();
 			for (int i = 0; i < step1.Count; i++)
 			{
 				ScanLine line = step1[i];
 				if (line.Count > 0)
 				{
-					if (!step2.ContainsKey(line.LaserID))
-						step2[line.LaserID] = new ScanLine(line.LaserID, 24);
-					step2[line.LaserID].Add(Point3D.Average(line));
+                    for (int c = 0; c < NumClass; c++)
+                    {
+                        string key = string.Format("{0}->{1}", line.LaserID, c);
+                        if (!step2.ContainsKey(key))
+                            step2[key] = new ScanLine(line.LaserID, NumClass);
+                        step2[key].Add(GetSample(line, NumClass, c));
+                    }
+
 					//step2[line.LaserID].Add(line[0]);
 				}
 			}
 
 			ScanData step3 = new ScanData(step2.Keys.Count);
 			for (int i = 0; i < step2.Keys.Count; i++)
-				step3.Add(step2[i]);
+            {
+                string k = step2.Keys.ElementAt(i);
+                step3.Add(step2[k]);
+
+            }
 			return step3;
 		}
+        public Point3D GetSample(ScanLine line,int numClass, int index)
+        {
+            int classCount = line.Count / numClass;
+            int classStart = index * classCount;
+            if (classCount == 0 && line.Count > 0)
+                return line[0];
+            List<Point3D> sub = new List<Point3D>();
+            for (int i = 0; i < classCount; i++)
+               sub.Add(line[classStart + i]);
+            return Point3D.Average(sub);
+
+        }
 		public override ScanLine DoTask(ScanLine source)
 		{
 			ScanLine ret = new ScanLine(source.LaserID, source.Count);
+            ret.AddRange(source);
+            /*
 			if (source != null && source.Count > 0)
 			{
 				Point3D avg = Point3D.Average(source);
 				ret.Add(avg);
 			}
+             */
 			return ret;
 		}
 

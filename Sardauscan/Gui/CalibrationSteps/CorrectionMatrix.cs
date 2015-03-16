@@ -64,7 +64,7 @@ namespace Sardauscan.Gui.CalibrationSteps
 			this.ProgressBar.Visible = false;
 			this.BackColor = SkinInfo.BackColor;
 			this.ForeColor = SkinInfo.ForeColor;
-			this.PreviewPanel.BackColor = SkinInfo.BackColor.GetStepColor(Color.LightGray, 0.75);
+			this.PreviewPanel.BackColor = SkinInfo.BackColor.GetStepColor(Color.White, 0.75);
 #if DEBUG
 			LoadButton.Visible = true;
 #else
@@ -161,7 +161,31 @@ namespace Sardauscan.Gui.CalibrationSteps
 			else
 				return LaserInfo.GetDefaultColor(laserIndex);
 		}
+        public void DrawGrid(Graphics g, PointF translation,float scale)
+        {
+            Settings set = Settings.Get<Settings>();
+            float r = (float)(set.Read(Settings.TABLE, Settings.DIAMETER, 20f)*scale);
 
+            Color color = ForeColor.GetStepColor(BackColor, 0.5);
+            using (Pen p = new Pen(color, 2))
+            {
+                g.DrawLine(p, new PointF(translation.X, translation.Y - r), new PointF(translation.X, translation.Y + r));
+                g.DrawLine(p, new PointF(translation.X - r, translation.Y), new PointF(translation.X + r, translation.Y));
+            }
+
+            using (Pen p = new Pen(color, 1))
+            {
+                for (float x = 10 * scale; x < r; x += 10 * scale)
+                {
+                    g.DrawLine(p, new PointF(translation.X - x, translation.Y - r), new PointF(translation.X - x, translation.Y + r));
+                    g.DrawLine(p, new PointF(translation.X + x, translation.Y - r), new PointF(translation.X + x, translation.Y + r));
+
+                    g.DrawLine(p, new PointF(translation.X - r, translation.Y - x), new PointF(translation.X + r, translation.Y - x));
+                    g.DrawLine(p, new PointF(translation.X - r, translation.Y + x), new PointF(translation.X + r, translation.Y + x));
+
+                }
+            }
+        }
 		private void PreviewPanel_Paint(object sender, PaintEventArgs e)
 		{
 			//Graphics g = e.Graphics;
@@ -183,8 +207,9 @@ namespace Sardauscan.Gui.CalibrationSteps
 							double factor = Math.Min(PreviewPanel.Width, PreviewPanel.Height) / size;
 							Matrix4d baseMatrix = Matrix4d.Scale(factor);
 							PointF center = new PointF(PreviewPanel.Width / 2, PreviewPanel.Height / 2);
+                            DrawGrid(g, center, (float)factor);
 							int currentLaser = CurrentLaserIndex;
-							ScanLine selectedLaserLine = null;
+							List<ScanLine> selectedLaserLine = new List<ScanLine>();
 							for (int i = 0; i < ScanInfo.Count; i++)
 							{
 								line = ScanInfo[i];
@@ -192,17 +217,20 @@ namespace Sardauscan.Gui.CalibrationSteps
 								corr = new LaserCorrection();
 								corr.LoadFromSettings(line.LaserID);
 								bool selected = currentLaser == line.LaserID;
-								if (!selected)
-									DrawScanLine(g, center, factor, line, corr, false);
-								else
-									selectedLaserLine=line;
+                                if (!selected)
+                                {
+                                    DrawScanLine(g, center, factor, line, corr, false);
+                                }
+                                else
+                                    selectedLaserLine.Add(line);
 							}
-							if(selectedLaserLine!=null)
+
+                            corr = new LaserCorrection();
+                            corr.LoadFromSettings(selectedLaserLine[Math.Max(0,currentLaser)].LaserID);
+                            corr.Apply(Drag);
+                            for (int i = 0; i < selectedLaserLine.Count; i++)
 							{
-								corr = new LaserCorrection();
-								corr.LoadFromSettings(selectedLaserLine.LaserID);
-								corr.Apply(Drag);
-								DrawScanLine(g, center, factor, selectedLaserLine, corr, true);
+                                DrawScanLine(g, center, factor,selectedLaserLine[i], corr, true);
 							}
 
 						}
@@ -220,7 +248,10 @@ namespace Sardauscan.Gui.CalibrationSteps
 			List<PointF> points = new List<PointF>(line.Count);
 			Matrix4d m = corr.GetMatrix();
 			int laserid = line.LaserID;
-			for (int i = 0; i < line.Count; i++)
+            int count = line.Count;
+            Color baseCol = GetLaserColor(laserid);
+            Color col = Color.FromArgb(selected ? 128 / NumClass : 64 / NumClass, baseCol);
+            for (int i = 0; i < line.Count; i++)
 			{
 				Point3D p = line[i];
 				Vector3d v = Vector3d.Transform(p.Position, m);
@@ -228,13 +259,12 @@ namespace Sardauscan.Gui.CalibrationSteps
 				pt.X += translation.X;
 				pt.Y += translation.Y;
 				points.Add(pt);
-			}
-			Color col = GetLaserColor(laserid);
-			using (SolidBrush b = new SolidBrush(Color.FromArgb(selected?64:32, col)))
-				g.FillPolygon(b, points.ToArray());
-			using (Pen b = new Pen(col))
-				g.DrawPolygon(b, points.ToArray());
-		}
+            }
+            using (SolidBrush b = new SolidBrush(col))
+                g.FillPolygon(b, points.ToArray());
+            using (Pen b = new Pen(Color.FromArgb(selected ? 128 : 64 , baseCol)))
+                g.DrawPolygon(b, points.ToArray());
+        }
 
 		private void QuickScanButton_Click(object sender, EventArgs e)
 		{
@@ -330,15 +360,16 @@ namespace Sardauscan.Gui.CalibrationSteps
 			if(!e.Cancelled && e.Error==null)
 				ProcessScanData(e.Result as ScanData);
 		}
-
+        public int NumClass = 10;
 		protected void ProcessScanData(ScanData data)
 		{
 			if (data != null)
 			{
 				IqrFilter task1 = new IqrFilter();
-				task1.Factor = 0.5f;
+				task1.Factor = 0.1f;
 				ScanData step1 = task1.Run(data);
 				CalibrationTask task = new CalibrationTask();
+                task.NumClass=NumClass;
 				ScanInfo = task.Run(step1);
 			}
 			this.PreviewPanel.Invalidate();

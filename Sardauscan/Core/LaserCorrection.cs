@@ -76,7 +76,7 @@ namespace Sardauscan.Core
 		{
 			Translation.X += dragball.Pane.X / 2;
 			Translation.Y += dragball.Pane.Y / 2;
-			Scale *= dragball.Zoom;
+			Scale /= dragball.Zoom;
 			Rotation += dragball.Angle.X / 4;
 
 		}
