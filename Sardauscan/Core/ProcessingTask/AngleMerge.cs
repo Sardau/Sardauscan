@@ -26,7 +26,7 @@ namespace Sardauscan.Core.ProcessingTask
         [Description("Merge all angle between angle")]
         [DisplayName("Angle to merge")]
         [TypeConverter(typeof(NumericUpDownTypeConverter))]
-        [Editor(typeof(NumericUpDownTypeEditor), typeof(UITypeEditor)), MinMaxAttribute(0.1f, 3.6f, 0.05f, 2)]
+        [Editor(typeof(NumericUpDownTypeEditor), typeof(UITypeEditor)), MinMaxAttribute(0.1f, 9f, 0.05f, 2)]
         public double DeltaAngle { get { return m_Angle; } set { m_Angle = value; } }
 
         public override ScanData DoTask(ScanData source)
@@ -40,7 +40,7 @@ namespace Sardauscan.Core.ProcessingTask
             int count = source.Count ;
             double delta_angle = DeltaAngle;
             int step = (int)((count * delta_angle) / 360.0);
-            for (double ang = 0; ang <= 360; ang += delta_angle)
+            for (double ang = 0; ang < 360; ang += delta_angle)
             {
                 int biggestIndex = 0;
                 int biggestCount = 0;
@@ -83,9 +83,23 @@ namespace Sardauscan.Core.ProcessingTask
         {
             List<ScanLine> ret = new List<ScanLine>();
             data.Sort();
-            for(int i=0;i<data.Count;i++)
+            int startindex = -1;
+            int cnt = data.Count;/*
+            for (int i = 0; i < cnt && startindex == -1; i++) // find first of range
             {
                 ScanLine line = data[i];
+                double angle = line.Angle;
+                while (angle < 0)
+                    angle += 360;
+                if (angle >= from && angle <= to)
+                    startindex = i;
+            }
+            if (startindex < 0)
+                return ret;*/
+            startindex =0;
+            for (int i = 0; i < cnt; i++) // fill the range
+            {
+                ScanLine line = data[(i + startindex)%cnt ];
                 double angle = line.Angle;
                 while (angle < 0)
                     angle += 360;

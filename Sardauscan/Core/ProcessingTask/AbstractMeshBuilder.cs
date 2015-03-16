@@ -32,16 +32,16 @@ using System.ComponentModel;
 
 namespace Sardauscan.Core.ProcessingTask
 {
-	 /// <summary>
-	 /// Strip result
-	 /// </summary>
+    /// <summary>
+    /// Strip result
+    /// </summary>
     public class StripResult
     {
-			 /// <summary>
-			 /// Create a strip result for 2 Scanline (with same Nbr of Points)
-			 /// </summary>
-			 /// <param name="prev"></param>
-			 /// <param name="current"></param>
+        /// <summary>
+        /// Create a strip result for 2 Scanline (with same Nbr of Points)
+        /// </summary>
+        /// <param name="prev"></param>
+        /// <param name="current"></param>
         public StripResult(ScanLine prev, ScanLine current)
         {
             if (prev.Count != current.Count)
@@ -58,36 +58,36 @@ namespace Sardauscan.Core.ProcessingTask
             }
             AbstractMeshBuilder.AdjustNormalFromTriangleStrip(Result);
         }
-			/// <summary>
-			/// Previous ScanLine
-			/// </summary>
+        /// <summary>
+        /// Previous ScanLine
+        /// </summary>
         public ScanLine Previous;
-			/// <summary>
-			/// Current ScanLine
-			/// </summary>
+        /// <summary>
+        /// Current ScanLine
+        /// </summary>
         public ScanLine Current;
-			/// <summary>
-			/// Scan*SLICE* resulting
-			/// </summary>
+        /// <summary>
+        /// Scan*SLICE* resulting
+        /// </summary>
         public ScanSlice Result;
     }
-	/// <summary>
-	/// Class for Abstract Mesh builder
-	/// </summary>
+    /// <summary>
+    /// Class for Abstract Mesh builder
+    /// </summary>
     public abstract class AbstractMeshBuilder : AbstractProcessingTask
     {
 
-			/// <summary>
-			/// Ctor
-			/// </summary>
+        /// <summary>
+        /// Ctor
+        /// </summary>
         public AbstractMeshBuilder()
         {
         }
-			/// <summary>
-			/// Do the task function override
-			/// </summary>
-			/// <param name="source"></param>
-			/// <returns></returns>
+        /// <summary>
+        /// Do the task function override
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns></returns>
         public override ScanData DoTask(ScanData source)
         {
             ScanData ret = new ScanData(source.Count);
@@ -119,59 +119,46 @@ namespace Sardauscan.Core.ProcessingTask
             }
             if (count <= 2)
                 return ret;
-						Point3D topcenter = Point3D.Average(top);
-						Point3D bottomcenter = Point3D.Average(bottom);
-						for (int i = 0; i < ret.Count; i++)
-						{
-							ret[i].Insert(0, topcenter);
-							ret[i].Add(bottomcenter);
-							AdjustNormalFromTriangleStrip(ret[i]);
-						}
-						/*
-
-													if (this.CancelPending) return source;
-													//top.Reverse();
-													top = CreateForTopBottom(top);
-													AdjustNormalFromTriangleStrip(top);
-													ret.Add(top);
-
-													if (this.CancelPending) return source;
-													bottom = CreateForTopBottom(bottom, true);
-													AdjustNormalFromTriangleStrip(bottom);
-													ret.Add(bottom);
-												 * */
+            Point3D topcenter = Point3D.Average(top);
+            Point3D bottomcenter = Point3D.Average(bottom);
+            for (int i = 0; i < ret.Count; i++)
+            {
+                ret[i].Insert(0, topcenter);
+                ret[i].Add(bottomcenter);
+                AdjustNormalFromTriangleStrip(ret[i]);
+            }
             UpdatePercent(100, ret);
             return ret;
 
         }
 
-			/// <summary>
-			/// Create a StripResult from 2 ScanLine
-			/// </summary>
-			/// <param name="previous"></param>
-			/// <param name="current"></param>
-			/// <returns></returns>
+        /// <summary>
+        /// Create a StripResult from 2 ScanLine
+        /// </summary>
+        /// <param name="previous"></param>
+        /// <param name="current"></param>
+        /// <returns></returns>
         protected abstract StripResult CreateStrip(ScanLine previous, ScanLine current);
-			/// <summary>
-			/// In data are ScanLines
-			/// </summary>
+        /// <summary>
+        /// In data are ScanLines
+        /// </summary>
         public override eTaskItem In
         {
             get { return eTaskItem.ScanLines; }
         }
-			/// <summary>
-			/// OutData is a Mesh
-			/// </summary>
+        /// <summary>
+        /// OutData is a Mesh
+        /// </summary>
         public override eTaskItem Out
         {
             get { return eTaskItem.Mesh; }
         }
-			/// <summary>
-			/// Create Top and Bottom of mesh
-			/// </summary>
-			/// <param name="pts"></param>
-			/// <param name="invert"></param>
-			/// <returns></returns>
+        /// <summary>
+        /// Create Top and Bottom of mesh
+        /// </summary>
+        /// <param name="pts"></param>
+        /// <param name="invert"></param>
+        /// <returns></returns>
         protected ScanSlice CreateForTopBottom(Point3DList pts, bool invert = false)
         {
             int count = pts.Count;
@@ -215,10 +202,10 @@ namespace Sardauscan.Core.ProcessingTask
 
             return ret;
         }
-			/// <summary>
-			/// Adjust normals for a "trianglestrip" Point list
-			/// </summary>
-			/// <param name="points"></param>
+        /// <summary>
+        /// Adjust normals for a "trianglestrip" Point list
+        /// </summary>
+        /// <param name="points"></param>
         public static void AdjustNormalFromTriangleStrip(Point3DList points)
         {
             int count = points.Count;
@@ -237,10 +224,10 @@ namespace Sardauscan.Core.ProcessingTask
             points[count - 2].Normal = normal;
         }
 
-			/// <summary>
-			/// Clone the task
-			/// </summary>
-			/// <returns></returns>
+        /// <summary>
+        /// Clone the task
+        /// </summary>
+        /// <returns></returns>
         public override AbstractProcessingTask Clone()
         {
             AbstractMeshBuilder ret = (AbstractMeshBuilder)Activator.CreateInstance(this.GetType());
@@ -251,4 +238,4 @@ namespace Sardauscan.Core.ProcessingTask
 
     }
 
- }
+}

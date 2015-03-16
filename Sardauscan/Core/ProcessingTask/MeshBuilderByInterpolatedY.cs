@@ -33,7 +33,7 @@ namespace Sardauscan.Core.ProcessingTask
 	/// <summary>
 	/// Reconstruc the Mesh byt interpolating the Scanline points by Y position
 	/// </summary>
-	[Browsable(false)]
+	[Browsable(true)]
 	class MeshBuilderByInterpolatedY : AbstractMeshBuilder
 	{
 		protected override StripResult CreateStrip(ScanLine previous, ScanLine current)
