@@ -48,7 +48,7 @@ namespace Sardauscan.Gui.CalibrationSteps
 	{
 		public class StepInfo : ICalibrationStepInfo
 		{
-			public int OrderId { get { return 300; } }
+			public int OrderId { get { return 400; } }
 
 			public string Label { get { return "Correction matrix"; } }
 
@@ -392,10 +392,13 @@ namespace Sardauscan.Gui.CalibrationSteps
 			}
 			Drag = new DragBallNavigator(PreviewPanel);
 			Drag.Init();
-			this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.OptimizedDoubleBuffer, true);
+			this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.Selectable	, true);
 			typeof(Panel).InvokeMember("DoubleBuffered",
 		BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic,
 		null, PreviewPanel, new object[] { true });
+			PreviewPanel.TabStop = true;
+			this.MouseWheel += Drag.MouseWheel;
+
 
 		}
 

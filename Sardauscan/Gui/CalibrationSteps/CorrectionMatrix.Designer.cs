@@ -65,8 +65,8 @@ namespace Sardauscan.Gui.CalibrationSteps
 			this.ReInitButton = new Sardauscan.Gui.Controls.ImageButton();
 			this.BackgroundWorker = new System.ComponentModel.BackgroundWorker();
 			this.panel1 = new System.Windows.Forms.Panel();
-			this.QuickScanButton = new Sardauscan.Gui.Controls.ImageButton();
 			this.LoadButton = new Sardauscan.Gui.Controls.ImageButton();
+			this.QuickScanButton = new Sardauscan.Gui.Controls.ImageButton();
 			this.LaserCommandPanel.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
@@ -148,7 +148,7 @@ namespace Sardauscan.Gui.CalibrationSteps
 			// pictureBox7
 			// 
 			this.pictureBox7.Image = global::Sardauscan.Properties.Resources.Zoom;
-			this.pictureBox7.Location = new System.Drawing.Point(74, 147);
+			this.pictureBox7.Location = new System.Drawing.Point(76, 90);
 			this.pictureBox7.Name = "pictureBox7";
 			this.pictureBox7.Size = new System.Drawing.Size(74, 54);
 			this.pictureBox7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -158,7 +158,7 @@ namespace Sardauscan.Gui.CalibrationSteps
 			// pictureBox6
 			// 
 			this.pictureBox6.Image = global::Sardauscan.Properties.Resources.Corner_Arrow;
-			this.pictureBox6.Location = new System.Drawing.Point(74, 90);
+			this.pictureBox6.Location = new System.Drawing.Point(76, 148);
 			this.pictureBox6.Name = "pictureBox6";
 			this.pictureBox6.Size = new System.Drawing.Size(74, 53);
 			this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -168,7 +168,7 @@ namespace Sardauscan.Gui.CalibrationSteps
 			// pictureBox5
 			// 
 			this.pictureBox5.Image = global::Sardauscan.Properties.Resources.Reload3;
-			this.pictureBox5.Location = new System.Drawing.Point(74, 32);
+			this.pictureBox5.Location = new System.Drawing.Point(76, 32);
 			this.pictureBox5.Name = "pictureBox5";
 			this.pictureBox5.Size = new System.Drawing.Size(74, 53);
 			this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -239,6 +239,18 @@ namespace Sardauscan.Gui.CalibrationSteps
 			this.panel1.Size = new System.Drawing.Size(151, 65);
 			this.panel1.TabIndex = 13;
 			// 
+			// LoadButton
+			// 
+			this.LoadButton.BackColor = System.Drawing.Color.Transparent;
+			this.LoadButton.Cursor = System.Windows.Forms.Cursors.Hand;
+			this.LoadButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(55)))), ((int)(((byte)(85)))));
+			this.LoadButton.Image = global::Sardauscan.Properties.Resources.Load;
+			this.LoadButton.Location = new System.Drawing.Point(112, 6);
+			this.LoadButton.Name = "LoadButton";
+			this.LoadButton.Size = new System.Drawing.Size(36, 35);
+			this.LoadButton.TabIndex = 10;
+			this.LoadButton.Click += new System.EventHandler(this.LoadButton_Click);
+			// 
 			// QuickScanButton
 			// 
 			this.QuickScanButton.BackColor = System.Drawing.Color.Transparent;
@@ -252,18 +264,6 @@ namespace Sardauscan.Gui.CalibrationSteps
 			this.QuickScanButton.Text = "Quick Scan";
 			this.QuickScanButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			this.QuickScanButton.Click += new System.EventHandler(this.QuickScanButton_Click);
-			// 
-			// LoadButton
-			// 
-			this.LoadButton.BackColor = System.Drawing.Color.Transparent;
-			this.LoadButton.Cursor = System.Windows.Forms.Cursors.Hand;
-			this.LoadButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(55)))), ((int)(((byte)(85)))));
-			this.LoadButton.Image = global::Sardauscan.Properties.Resources.Load;
-			this.LoadButton.Location = new System.Drawing.Point(112, 6);
-			this.LoadButton.Name = "LoadButton";
-			this.LoadButton.Size = new System.Drawing.Size(36, 35);
-			this.LoadButton.TabIndex = 10;
-			this.LoadButton.Click += new System.EventHandler(this.LoadButton_Click);
 			// 
 			// CorrectionMatrix
 			// 

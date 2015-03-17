@@ -39,7 +39,7 @@ namespace Sardauscan.Gui.CalibrationSteps
 	{
 		public class StepInfo : ICalibrationStepInfo
 		{
-			public int OrderId { get { return 200; } }
+			public int OrderId { get { return 300; } }
 
 			public string Label { get { return "Build Dimention"; } }
 

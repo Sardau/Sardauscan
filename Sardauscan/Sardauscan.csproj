@@ -1035,6 +1035,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bin\" />
+    <Folder Include="Core\Experimental\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\collapse.png" />

@@ -91,9 +91,7 @@ namespace Sardauscan.Gui.OpenGL
             Drag = new DragBallNavigator(this);
             ViewerConfig = new GLViewerConfig();
             ViewerConfig.LoadDefault();
-
-        }
-
+         }
         #region Scene
 				Scene3D _Scene = null;
         public Scene3D Scene
