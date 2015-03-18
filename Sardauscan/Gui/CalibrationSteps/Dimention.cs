@@ -80,6 +80,10 @@ namespace Sardauscan.Gui.CalibrationSteps
 		}
 
 		bool loading = false;
+		void SetNumericUpDownValue(NumericUpDown updown, decimal value )
+		{
+			updown.Value = Math.Max(updown.Minimum, Math.Min(updown.Maximum, value));
+		}
 		void LoadFromSettings()
 		{
 			loading = true;
@@ -89,8 +93,8 @@ namespace Sardauscan.Gui.CalibrationSteps
 				this.Enabled=true;
 				Vector3d cam = new Vector3d(settings.Read(Settings.CAMERA, Settings.X, 0f), settings.Read(Settings.CAMERA, Settings.Y, 50f), settings.Read(Settings.CAMERA, Settings.Z, 220f));
 
-				this.CameraZ.Value = (decimal)cam.Z;
-				this.CameraY.Value = (decimal)cam.Y;
+				SetNumericUpDownValue(this.CameraZ,(decimal)cam.Z);
+				SetNumericUpDownValue(this.CameraY,(decimal)cam.Y);
 				ILaserProxy laser = Settings.Get<ILaserProxy>();
 				if (laser != null)
 				{
@@ -113,10 +117,10 @@ namespace Sardauscan.Gui.CalibrationSteps
 					if(cam.X < laserLoc.X)
 						angle = -angle;
 
-					this.LaserX.Value= (decimal)laserLoc.X;
+					SetNumericUpDownValue(this.LaserX,(decimal)laserLoc.X);
 					this.LaserYLabel.Text = string.Format("{0:.0}",laserLoc.Y);
-					this.LaserZ.Value= (decimal)laserLoc.Z;
-					this.LaserAngle.Value = (decimal) angle;
+					SetNumericUpDownValue(this.LaserZ,(decimal)laserLoc.Z);
+					SetNumericUpDownValue(this.LaserAngle,(decimal) angle);
 				}
 			}
 			else

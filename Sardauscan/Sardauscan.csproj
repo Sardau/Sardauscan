@@ -79,7 +79,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\Helper\ALGLIB.cs" />
     <Compile Include="Core\ICP\IterativeClosestPointTransform.cs" />
     <Compile Include="Core\Interface\I3DEntity.cs">
       <SubType>Code</SubType>
@@ -1035,7 +1034,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bin\" />
-    <Folder Include="Core\Experimental\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\collapse.png" />
