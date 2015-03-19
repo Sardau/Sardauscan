@@ -92,6 +92,7 @@
     <Compile Include="Core\KDTree\MinHeap.cs" />
     <Compile Include="Core\KDTree\NearestNeighbour.cs" />
     <Compile Include="Core\LaserCorrection.cs" />
+    <Compile Include="Core\OpenGL\GLEnable.cs" />
     <Compile Include="Core\OpenGL\RenderingContext.cs" />
     <Compile Include="Core\ProcessingTask\AbstractMeshBuilder.cs" />
     <Compile Include="Core\ProcessingTask\AbstractLineTask.cs" />
@@ -1063,6 +1064,7 @@
     <None Include="Resources\MouseTranslate.png" />
     <None Include="Resources\MouseZoom.png" />
     <None Include="Resources\config.txt" />
+    <None Include="Resources\checkerboard.png" />
     <Content Include="TODO.txt" />
     <None Include="Resources\FontAwesome_f17d%281%29_64.png" />
     <None Include="Resources\FontAwesome_f111%280%29_64.png" />

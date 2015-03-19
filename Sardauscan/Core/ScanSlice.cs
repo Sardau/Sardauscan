@@ -68,11 +68,13 @@ namespace Sardauscan.Core
         {
 					if (context.Wireframe)
 					{
+						GL.PolygonOffset(-1, -1);
 						RenderingContext linecontext = context;
 						linecontext.Lightning = false;
 						linecontext.UseObjectColor = context.UseObjectColor;
 						RenderAsWireFrame(ref linecontext);
 					}
+					GL.PolygonOffset(0, 0);
 					RenderAsFace(ref context);
 				}
 			/// <summary>

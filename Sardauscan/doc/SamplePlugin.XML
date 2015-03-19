@@ -90,6 +90,113 @@
             Display name of the Provider, for the user to know what he select;)
             </summary>
         </member>
+        <member name="T:FakeHardwarePlugins.FakeTurnTableProxy">
+            <summary>
+            Fake TurnTable Hardware Proxy for educational purpose ( and debug too ;) )
+            in this cas the plugin implement also the provider and the hardwareproxy
+            it is interesting when you don't have any configuration to make 
+            ( if you can only select one hardware, whitout any parameter)
+            </summary>
+            <remarks>
+            In this cas the object derive from AbstractProxyProvider&lt;ITurnTableProxy&gt;
+            a abstract class that implement some function for a ITurnTableProxy provider
+            </remarks>
+        </member>
+        <member name="M:FakeHardwarePlugins.FakeTurnTableProxy.Rotate(System.Double,System.Boolean)">
+            <summary>
+            Rotate the Table
+            </summary>
+            <param name="theta"></param>
+            <param name="relative"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FakeHardwarePlugins.FakeTurnTableProxy.InitialiseRotation">
+            <summary>
+            Reinit the rotation (ie set 0° to the current position)
+            </summary>
+        </member>
+        <member name="M:FakeHardwarePlugins.FakeTurnTableProxy.MinimumRotation">
+            <summary>
+            Retreave the minimum rotation of the table
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FakeHardwarePlugins.FakeTurnTableProxy.Dispose">
+            <summary>
+            Dispose your Hardware proxy
+            </summary>
+        </member>
+        <member name="M:FakeHardwarePlugins.FakeTurnTableProxy.LoadFromHardwareId(System.String)">
+            <summary>
+             Load a IHardwareProxy with a specific HardwareId 
+            </summary>
+            <param name="hardwareId"></param>
+            <returns> the loaded IHardwareProxy or null if you can't reload it</returns>
+        </member>
+        <member name="M:FakeHardwarePlugins.FakeTurnTableProxy.GetViewer">
+            <summary>
+            Get the associated Viewer of these IHardwareProxy
+            the viewer allow the user to interact with or tweak the hardware.
+            you can return null if there is no setting or viewer 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FakeHardwarePlugins.FakeTurnTableProxy.Select(System.Windows.Forms.IWin32Window)">
+            <summary>
+            This function is call when the user request a instance of ther IHardwareProxy
+            You can call winforms to as information ( Com port, configuration etc)
+            </summary>
+            <param name="owner">owner window</param>
+            <returns>a IHardwareProxy if one is selected, Null in case of cancle or not disponible</returns>
+        </member>
+        <member name="P:FakeHardwarePlugins.FakeTurnTableProxy.MotorEnabled">
+            <summary>
+            Enable disable motor
+            </summary>
+        </member>
+        <member name="P:FakeHardwarePlugins.FakeTurnTableProxy.HardwareId">
+            <summary>
+            A unique id to identify a specific instance of IHardwareProxy (mainly used for reload a IHardwareproxy, so store all the properties)
+            </summary>
+        </member>
+        <member name="P:FakeHardwarePlugins.FakeTurnTableProxy.Name">
+             <summary>
+            Display name of the Provider, for the user to know what he select;) 
+             </summary>
+        </member>
+        <member name="T:FakeHardwarePlugins.FakeTask">
+            <summary>
+            Fake task to show how a task plugins is implemented
+            </summary>
+        </member>
+        <member name="M:FakeHardwarePlugins.FakeTask.Clone">
+            <summary>
+            Clone
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FakeHardwarePlugins.FakeTask.DoTask(Sardauscan.Core.ScanData)">
+            <summary>
+            Do the work: function that actualy do the work
+            </summary>
+            <param name="source"></param>
+            <returns></returns>
+        </member>
+        <member name="P:FakeHardwarePlugins.FakeTask.Name">
+            <summary>
+            Name of the task
+            </summary>
+        </member>
+        <member name="P:FakeHardwarePlugins.FakeTask.In">
+            <summary>
+            In Format
+            </summary>
+        </member>
+        <member name="P:FakeHardwarePlugins.FakeTask.Out">
+            <summary>
+            Out Format
+            </summary>
+        </member>
         <member name="T:FakeHardwarePlugins.FakeLaserProxyProvider">
             <summary>
              Sample of IHardwareProxyProvider
@@ -177,113 +284,6 @@
             <summary>
             A unique id to identify a specific instance of IHardwareProxy (mainly used for reload a IHardwareproxy, so store all the properties)
             </summary>
-        </member>
-        <member name="T:FakeHardwarePlugins.FakeTask">
-            <summary>
-            Fake task to show how a task plugins is implemented
-            </summary>
-        </member>
-        <member name="M:FakeHardwarePlugins.FakeTask.Clone">
-            <summary>
-            Clone
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:FakeHardwarePlugins.FakeTask.DoTask(Sardauscan.Core.ScanData)">
-            <summary>
-            Do the work: function that actualy do the work
-            </summary>
-            <param name="source"></param>
-            <returns></returns>
-        </member>
-        <member name="P:FakeHardwarePlugins.FakeTask.Name">
-            <summary>
-            Name of the task
-            </summary>
-        </member>
-        <member name="P:FakeHardwarePlugins.FakeTask.In">
-            <summary>
-            In Format
-            </summary>
-        </member>
-        <member name="P:FakeHardwarePlugins.FakeTask.Out">
-            <summary>
-            Out Format
-            </summary>
-        </member>
-        <member name="T:FakeHardwarePlugins.FakeTurnTableProxy">
-            <summary>
-            Fake TurnTable Hardware Proxy for educational purpose ( and debug too ;) )
-            in this cas the plugin implement also the provider and the hardwareproxy
-            it is interesting when you don't have any configuration to make 
-            ( if you can only select one hardware, whitout any parameter)
-            </summary>
-            <remarks>
-            In this cas the object derive from AbstractProxyProvider&lt;ITurnTableProxy&gt;
-            a abstract class that implement some function for a ITurnTableProxy provider
-            </remarks>
-        </member>
-        <member name="M:FakeHardwarePlugins.FakeTurnTableProxy.Rotate(System.Double,System.Boolean)">
-            <summary>
-            Rotate the Table
-            </summary>
-            <param name="theta"></param>
-            <param name="relative"></param>
-            <returns></returns>
-        </member>
-        <member name="M:FakeHardwarePlugins.FakeTurnTableProxy.InitialiseRotation">
-            <summary>
-            Reinit the rotation (ie set 0° to the current position)
-            </summary>
-        </member>
-        <member name="M:FakeHardwarePlugins.FakeTurnTableProxy.MinimumRotation">
-            <summary>
-            Retreave the minimum rotation of the table
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:FakeHardwarePlugins.FakeTurnTableProxy.Dispose">
-            <summary>
-            Dispose your Hardware proxy
-            </summary>
-        </member>
-        <member name="M:FakeHardwarePlugins.FakeTurnTableProxy.LoadFromHardwareId(System.String)">
-            <summary>
-             Load a IHardwareProxy with a specific HardwareId 
-            </summary>
-            <param name="hardwareId"></param>
-            <returns> the loaded IHardwareProxy or null if you can't reload it</returns>
-        </member>
-        <member name="M:FakeHardwarePlugins.FakeTurnTableProxy.GetViewer">
-            <summary>
-            Get the associated Viewer of these IHardwareProxy
-            the viewer allow the user to interact with or tweak the hardware.
-            you can return null if there is no setting or viewer 
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:FakeHardwarePlugins.FakeTurnTableProxy.Select(System.Windows.Forms.IWin32Window)">
-            <summary>
-            This function is call when the user request a instance of ther IHardwareProxy
-            You can call winforms to as information ( Com port, configuration etc)
-            </summary>
-            <param name="owner">owner window</param>
-            <returns>a IHardwareProxy if one is selected, Null in case of cancle or not disponible</returns>
-        </member>
-        <member name="P:FakeHardwarePlugins.FakeTurnTableProxy.MotorEnabled">
-            <summary>
-            Enable disable motor
-            </summary>
-        </member>
-        <member name="P:FakeHardwarePlugins.FakeTurnTableProxy.HardwareId">
-            <summary>
-            A unique id to identify a specific instance of IHardwareProxy (mainly used for reload a IHardwareproxy, so store all the properties)
-            </summary>
-        </member>
-        <member name="P:FakeHardwarePlugins.FakeTurnTableProxy.Name">
-             <summary>
-            Display name of the Provider, for the user to know what he select;) 
-             </summary>
         </member>
     </members>
 </doc>

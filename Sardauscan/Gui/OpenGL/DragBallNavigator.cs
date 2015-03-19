@@ -85,6 +85,11 @@ namespace Sardauscan.Gui.OpenGL
 		public PointF Pane { get { return Data.Pane; } }
 		public double Zoom { get { return Data.Zoom; } }
 
+		public void SetPane(PointF pane)
+		{
+			Data.Pane=pane;
+			Data._Pane=pane;
+		}
 		public void SetAngleY(float value)
 		{
 			//Init();
