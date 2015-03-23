@@ -12,6 +12,9 @@
 #define motorPin3  4     // IN3 on the ULN2003 driver 1
 #define motorPin4  5     // IN4 on the ULN2003 driver 1
 
+//tips (from Mark Benson)
+//If anyone else is having problems with a BYJ48 stepper not doing anything, 
+//change the HALFSTEP value to 4 & REVOLUTION_STEP to 2048
 #define HALFSTEP 8
 #define REVOLUTION_STEP 4072
 #define STEP_BY_MINMOVE 4  // move by STEP_BY_MINMOVE (to avoid power loss when position is between step) 
