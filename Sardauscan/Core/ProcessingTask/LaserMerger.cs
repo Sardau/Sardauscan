@@ -37,11 +37,13 @@ namespace Sardauscan.Core.ProcessingTask
 	{
 
 		public override string Name{get { return "Merge Lasers"; }}
+        public override string DisplayName { get { return "Laser"; } }
 
 		public override eTaskItem In {get { return eTaskItem.ScanLines; }}
 
 		public override eTaskItem Out {get { return eTaskItem.ScanLines; }}
-		/// <summary>
+        public override eTaskType TaskType { get { return eTaskType.Smooth; } }
+        /// <summary>
 		/// Clone this
 		/// </summary>
 		/// <returns></returns>

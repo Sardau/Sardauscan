@@ -34,6 +34,17 @@ using System.IO;
 
 namespace Sardauscan.Core.ProcessingTask
 {
+    public enum eTaskType
+    {
+        Input,
+        Filter,
+        Transform,
+        Smooth,
+        MeshBuild,
+        Color,
+        UnknownTask,
+        IO
+    }
 	/// <summary>
 	/// Task input output data
 	/// </summary>
@@ -42,7 +53,6 @@ namespace Sardauscan.Core.ProcessingTask
 		None = 0,
 		ScanLines = 1,
 		Mesh = 2,
-		File = 3
 	}
 	/// <summary>
 	/// Task Status type
@@ -81,6 +91,13 @@ namespace Sardauscan.Core.ProcessingTask
 		[XmlIgnoreAttribute]
 		[Browsable(false)]
 		public abstract eTaskItem Out { get; }
+
+        /// <summary>
+        /// Output Data type
+        /// </summary>
+        [XmlIgnoreAttribute]
+        [Browsable(false)]
+        public virtual eTaskType TaskType { get { return eTaskType.UnknownTask; } }
 
 		/// <summary>
 		/// Status of the task
@@ -296,10 +313,12 @@ namespace Sardauscan.Core.ProcessingTask
 		public int CompareTo(object obj)
 		{
 			AbstractProcessingTask other = (AbstractProcessingTask)obj;
-			int c = this.In.CompareTo(other.In);
-			if (c == 0)
-				c = this.Out.CompareTo(other.Out);
-			if (c == 0)
+			int c = this.TaskType.CompareTo(other.TaskType);
+            if (c == 0)
+                c = this.In.CompareTo(other.In);
+            if (c == 0)
+                c = this.Out.CompareTo(other.Out);
+            if (c == 0)
 				c = this.DisplayName.CompareTo(other.DisplayName);
 			return c;
 		}
@@ -430,7 +449,7 @@ namespace Sardauscan.Core.ProcessingTask
 					default:
 						{
 							if (Ready)
-								return DisplayName;
+								return TaskType.ToString() + ": " + DisplayName;
 							else
 								return "Missings Ressource to run task";
 						}

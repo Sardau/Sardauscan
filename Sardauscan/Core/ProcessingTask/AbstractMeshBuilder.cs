@@ -153,6 +153,7 @@ namespace Sardauscan.Core.ProcessingTask
         {
             get { return eTaskItem.Mesh; }
         }
+        public override eTaskType TaskType {get{return  eTaskType.MeshBuild;}}
         /// <summary>
         /// Create Top and Bottom of mesh
         /// </summary>

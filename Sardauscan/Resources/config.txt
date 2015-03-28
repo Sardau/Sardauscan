@@ -1,51 +1,66 @@
 <xml>
   <LASER>
-    <MAGNITUDE_THRESHOLD value="14" type="System.Int32" />
+    <MAGNITUDE_THRESHOLD value="30" type="System.Int32" />
     <MIN_WIDTH value="1" type="System.Int32" />
     <MAX_WIDTH value="60" type="System.Int32" />
+    <FADE_DELAY value="100" type="System.Int32" />
   </LASER>
   <LASER_0>
-    <X value="111,759" type="System.Single" />
-    <Y value="69" type="System.Single" />
-    <Z value="189,4991" type="System.Single" />
+    <X value="120" type="System.Double" />
+    <Y value="75" type="System.Double" />
+    <Z value="207,846096908265" type="System.Double" />
     <DEFAULTCOLOR value="Red" type="System.Drawing.Color" />
   </LASER_0>
   <LASER_1>
     <X value="56,94019" type="System.Single" />
-    <Y value="69" type="System.Single" />
+    <Y value="75" type="System.Double" />
     <Z value="212,5037" type="System.Single" />
     <DEFAULTCOLOR value="Green" type="System.Drawing.Color" />
   </LASER_1>
   <LASER_2>
     <X value="-56,94019" type="System.Single" />
-    <Y value="69" type="System.Single" />
+    <Y value="75" type="System.Double" />
     <Z value="212,5037" type="System.Single" />
     <DEFAULTCOLOR value="Blue" type="System.Drawing.Color" />
   </LASER_2>
   <LASER_3>
     <X value="-118,0951" type="System.Single" />
-    <Y value="69" type="System.Single" />
+    <Y value="75" type="System.Double" />
     <Z value="208,9343" type="System.Single" />
     <DEFAULTCOLOR value="Cyan" type="System.Drawing.Color" />
   </LASER_3>
   <CAMERA>
     <X value="0" type="System.Single" />
-    <Y value="69" type="System.Single" />
-    <Z value="240" type="System.Single" />
+    <Y value="75" type="System.Double" />
+    <Z value="240" type="System.Double" />
   </CAMERA>
   <COM>
-    <LASER_TIMEOUT value="150" type="System.Int32" />
+    <LASER_TIMEOUT value="10" type="System.Int32" />
     <TABLE_TIMEOUT value="500" type="System.Int32" />
     <CONNECTION_TIMEOUT value="5000" type="System.Int32" />
     <INFO_TIMEOUT value="1000" type="System.Int32" />
   </COM>
   <SCANNER>
+    <PRECISION value="75" type="System.Int32" />
     <DEFAULTCOLOR value="LightGrey" type="System.Drawing.Color" />
+    <USEBITMAP value="False" type="System.Boolean" />
+    <MESHBUILD value="True" type="System.Boolean" />
+    <CENTERDETECTIONMODE value="MassHarmonicCenter" type="Sardauscan.Core.ImageProcessor+eLaserDetectionMode" />
+    <CALIBRATIONPRECISION value="50" type="System.Int32" />
   </SCANNER>
   <TABLE>
     <HEIGHT value="150" type="System.Single" />
     <DIAMETER value="200" type="System.Single" />
   </TABLE>
+  <OPENGL>
+    <SHOWSCENECOLOR value="True" type="System.Boolean" />
+    <SHOWBOUNDINGBOX value="True" type="System.Boolean" />
+    <DEFAULTMATERIAL value="White rubber" type="System.String" />
+    <LIGHTNING value="True" type="System.Boolean" />
+    <SMOOTH value="True" type="System.Boolean" />
+    <PROJECTION value="False" type="System.Boolean" />
+    <WIREFRAME value="False" type="System.Boolean" />
+  </OPENGL>
   <SYSTEM>
     <MAXTHREADS value="8" type="System.Int32" />
   </SYSTEM>

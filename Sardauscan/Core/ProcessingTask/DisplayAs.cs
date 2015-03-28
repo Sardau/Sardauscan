@@ -32,7 +32,8 @@ namespace Sardauscan.Core.ProcessingTask
 	/// <summary>
 	/// Change the rendering of ScanLines
 	/// </summary>
-	public class DisplayAs : AbstractLineTask
+    [Browsable(false)]
+    public class DisplayAs : AbstractLineTask
 	{
 #if DEBUG
 //		protected override bool LaunchParallel{get{return false;}}

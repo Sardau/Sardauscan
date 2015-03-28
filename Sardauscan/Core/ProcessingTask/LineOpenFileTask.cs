@@ -48,7 +48,7 @@ namespace Sardauscan.Core.ProcessingTask
         {
             get
             {
-                return "Open File";
+                return "Open "+ScanDataIO.DefaultExtention;
             }
         }
         public override string DisplayName
@@ -69,6 +69,7 @@ namespace Sardauscan.Core.ProcessingTask
         {
             get { return eTaskItem.ScanLines; }
         }
+        public override eTaskType TaskType { get { return eTaskType.IO; } }
 
 				/// <summary>
 				/// Clone this

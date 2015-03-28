@@ -14,7 +14,10 @@ namespace Sardauscan.Core.ProcessingTask
         public override eTaskItem In {get{return eTaskItem.ScanLines;}}
 
         public override eTaskItem Out{get{return eTaskItem.ScanLines;}}
-        public override string Name { get { return "Angle Merge"; } }
+        public override string Name { get { return "Merge Angle"; } }
+        public override string DisplayName { get { return "Angle"; } }
+        public override eTaskType TaskType { get { return eTaskType.Smooth; } }
+
 
         public override AbstractProcessingTask Clone()
         {

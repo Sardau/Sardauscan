@@ -342,17 +342,22 @@ namespace Sardauscan.Gui.Controls
 			}
 		}
 
-		private void DrawImage(Graphics g, Image image, Point pt, bool enabled)
+		private void DrawImage(Graphics g, Image image, Point pt, bool enabled,ColorMatrix colMat)
 		{
 			if (enabled)
 			{
 				ImageAttributes ia = new ImageAttributes();
-				if (this.Lock)
-				{
-					ColorMatrix cm = new ColorMatrix();
-					cm.Matrix33 = 0.3f;
-					ia.SetColorMatrix(cm);
-				}
+                if (colMat == null)
+                    colMat = new ColorMatrix();
+                if (this.Lock)
+                {
+                    ColorMatrix cm =  colMat;
+                    cm.Matrix33 *= 0.3f;
+
+                    ia.SetColorMatrix(cm);
+                }
+                else
+                    ia.SetColorMatrix(colMat);
 				g.DrawImage(image, new Rectangle(pt, new Size(image.Width, image.Height)), 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, ia);
 
 				//						g.DrawImage(image, pt);
@@ -362,12 +367,12 @@ namespace Sardauscan.Gui.Controls
 
 		}
 
-		private void DrawScaleImage(Graphics g, Point p, Image image, int bitmapSize, bool enabled)
+        private void DrawScaleImage(Graphics g, Point p, Image image, int bitmapSize, bool enabled, ColorMatrix colMat=null)
 		{
 			double factor = Math.Min(((double)bitmapSize) / image.Width, ((double)bitmapSize) / image.Height);
 			using (Bitmap img = new Bitmap(image, new System.Drawing.Size((int)(factor * image.Width), (int)(factor * image.Height))))
 			{
-				DrawImage(g, img, p, enabled);
+				DrawImage(g, img, p, enabled, colMat);
 			}
 		}
 		public void DrawTask(Graphics g, int itemIndex, Rectangle r, bool forceDisabled, bool showsettings = false)
@@ -389,18 +394,21 @@ namespace Sardauscan.Gui.Controls
 					{
 						using (Image outImage = GetImage(task.Out))
 						{
-							DrawScaleImage(g, r.Location, inImage, bitmapSize, !disabled);
-							r.X += bitmapSize / 3;
-							r.Width -= bitmapSize / 3;
-							/*
-								DrawScaleImage(g, r.Location, global::Sardauscan.Properties.Resources.Swap, bitmapSize, !disabled);
-								r.X += bitmapSize;
-								r.Width -=bitmapSize;
-							*/
-							DrawScaleImage(g, r.Location, outImage, bitmapSize, !disabled);
-							r.X += bitmapSize;
-							r.Width -= bitmapSize;
-						}
+                            DrawScaleImage(g, r.Location, inImage, bitmapSize, !disabled, SkinInfo.FadedColorMatrix);
+							r.X += bitmapSize*3/4 ;
+                            r.Width -= bitmapSize * 3 / 4;
+
+                            DrawScaleImage(g, r.Location, outImage, bitmapSize, !disabled, SkinInfo.FadedColorMatrix);
+                        
+                            r.X += bitmapSize;
+                            r.Width -= bitmapSize;
+                            using (Image taskImage = GetImage(task.TaskType))
+                            {
+                                Point p = new Point((int)(r.X-bitmapSize*1.35), r.Y);
+                                DrawScaleImage(g, p, taskImage, bitmapSize, !disabled,SkinInfo.HoverColorMatrix);
+                            }
+                        }
+                        
 						if (r.Width <= 0)
 							return;
 						if (showsettings && task.HasSettings)
@@ -440,9 +448,7 @@ namespace Sardauscan.Gui.Controls
 			switch (inType)
 			{
 				case eTaskItem.None:
-					return global::Sardauscan.Properties.Resources.Pulse;
-				case eTaskItem.File:
-					return global::Sardauscan.Properties.Resources.Floppy;
+                    return global::Sardauscan.Properties.Resources.Minus;
 				case eTaskItem.ScanLines:
 					return global::Sardauscan.Properties.Resources.Lines;
 				case eTaskItem.Mesh:
@@ -450,6 +456,21 @@ namespace Sardauscan.Gui.Controls
 			}
 			return global::Sardauscan.Properties.Resources.Mark_Question;
 		}
+
+        private static Image GetImage(eTaskType inType)
+        {
+            switch (inType)
+            {
+                case eTaskType.Input: return global::Sardauscan.Properties.Resources.Microscope;
+                case eTaskType.IO: return global::Sardauscan.Properties.Resources.Floppy;
+                case eTaskType.MeshBuild: return global::Sardauscan.Properties.Resources.Meshes;
+                case eTaskType.Smooth: return global::Sardauscan.Properties.Resources.Mesh;
+                case eTaskType.Filter: return global::Sardauscan.Properties.Resources.Rescue;
+                case eTaskType.Transform: return global::Sardauscan.Properties.Resources.Rescue;
+                case eTaskType.Color: return global::Sardauscan.Properties.Resources.Paint;
+            }
+            return global::Sardauscan.Properties.Resources.Gear;
+        }
 
 		public struct IconInfo
 		{
@@ -496,8 +517,8 @@ namespace Sardauscan.Gui.Controls
 
 		private void InitializeComponent()
 		{
-			this.SuspendLayout();
-			this.ResumeLayout(false);
+            this.SuspendLayout();
+            this.ResumeLayout(false);
 
 		}
 	}

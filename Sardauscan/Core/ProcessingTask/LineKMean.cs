@@ -40,7 +40,7 @@ namespace Sardauscan.Core.ProcessingTask
 	 /// <summary>
 	 /// Apply a K-Mean process to remove the Scanline noises
 	 /// </summary>
-     [Browsable(true)]
+     [Browsable(false)]
     public class KMean : AbstractLineTask
     {
 
@@ -403,7 +403,7 @@ namespace Sardauscan.Core.ProcessingTask
 
         public override string Name
         {
-            get { return "K-Mean Filter"; }
+            get { return "Filter K-Mean"; }
         }
     } // class
 

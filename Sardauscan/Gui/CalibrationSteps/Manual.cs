@@ -117,7 +117,7 @@ namespace Sardauscan.Gui.CalibrationSteps
 				if (!ignore && Visible)
 				{
 					DateTime now = DateTime.Now;
-					bool expired = (now - lastImageTime).TotalMilliseconds > 100;
+					bool expired = (now - lastImageTime).TotalMilliseconds > 10;
 					if (expired)
 					{
 						ICameraProxy camera = Settings.Get<ICameraProxy>();

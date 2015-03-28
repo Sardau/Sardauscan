@@ -55,13 +55,13 @@ namespace Sardauscan.Hardware.Gui
 		private void InitializeComponent()
 		{
 			this.PreviewPictureBox = new System.Windows.Forms.PictureBox();
-			this.dsCamPropertySlider1 = new Sardauscan.Hardware.Gui.DSCam.DSCamPropertySlider();
-			this.dsCamPropertySlider2 = new Sardauscan.Hardware.Gui.DSCam.DSCamPropertySlider();
-			this.dsCamPropertySlider3 = new Sardauscan.Hardware.Gui.DSCam.DSCamPropertySlider();
-			this.dsCamPropertySlider4 = new Sardauscan.Hardware.Gui.DSCam.DSCamPropertySlider();
-			this.dsCamPropertySlider5 = new Sardauscan.Hardware.Gui.DSCam.DSCamPropertySlider();
-			this.dsCamPropertySlider6 = new Sardauscan.Hardware.Gui.DSCam.DSCamPropertySlider();
-			this.dsCamPropertySlider7 = new Sardauscan.Hardware.Gui.DSCam.DSCamPropertySlider();
+			this.dsCamPropertySlider1 = new DSCam.DSCamPropertySlider();
+			this.dsCamPropertySlider2 = new DSCam.DSCamPropertySlider();
+			this.dsCamPropertySlider3 = new DSCam.DSCamPropertySlider();
+			this.dsCamPropertySlider4 = new DSCam.DSCamPropertySlider();
+			this.dsCamPropertySlider5 = new DSCam.DSCamPropertySlider();
+			this.dsCamPropertySlider6 = new DSCam.DSCamPropertySlider();
+			this.dsCamPropertySlider7 = new DSCam.DSCamPropertySlider();
 			((System.ComponentModel.ISupportInitialize)(this.PreviewPictureBox)).BeginInit();
 			this.SuspendLayout();
 			// 

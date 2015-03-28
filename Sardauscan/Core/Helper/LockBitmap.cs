@@ -42,10 +42,11 @@ namespace Sardauscan.Core
         IntPtr Iptr = IntPtr.Zero;
         BitmapData bitmapData = null;
 
-        public byte[] Pixels { get; set; }
-        public int Depth { get; private set; }
-        public int Width { get; private set; }
-        public int Height { get; private set; }
+				byte[] Pixels;
+				int Depth;
+				public int Width;
+				public int Height;
+				int Components;
 
         public LockBitmap(Bitmap source)
         {
@@ -72,6 +73,8 @@ namespace Sardauscan.Core
 
                 // get source bitmap pixel format size
                 Depth = System.Drawing.Bitmap.GetPixelFormatSize(Source.PixelFormat);
+							
+								Components = Depth / 8;
 
                 // Check if bpp (Bits Per Pixel) is 8, 24, or 32
                 if (Depth != 8 && Depth != 24 && Depth != 32)
@@ -116,7 +119,6 @@ namespace Sardauscan.Core
             }
         }
 
-        int Components { get { return Depth / 8; } }
         /// <summary>
         /// Get the color of the specified pixel
         /// </summary>
@@ -159,27 +161,25 @@ namespace Sardauscan.Core
             return clr;
         }
 
-
-        public byte[] GetRedComponentRow(int x)
-        {
-            byte[] red = new byte[Width];
-
-            int cCount = Components;
-            int depth = Depth;
-            for (int y = 0; y < Height; y++)
-            {
-                int i = ((y * Width) + x) * cCount;
-
-                if (depth == 32) // For 32 bpp get Red, Green, Blue and Alpha
-                    red[y] = Pixels[i + 2];
-                if (depth == 24) // For 24 bpp get Red, Green and Blue
-                    red[y] = Pixels[i + 2];
-                if (depth == 8)
-                    // For 8 bpp get color value (Red, Green and Blue values are the same)
-                    red[y] = Pixels[i];
-            }
-            return red;
-        }
+			  public byte GetRed(int x, int y)
+				{
+					// Get start index of the specified pixel
+					int i = ((y * Width) + x) * Components;
+					if (Depth == 24) // For 24 bpp get Red, Green and Blue
+					{
+						return Pixels[i + 2];
+					}
+					if (Depth == 32) // For 32 bpp get Red, Green, Blue and Alpha
+					{
+						return Pixels[i + 2];
+					}
+					if (Depth == 8)
+					// For 8 bpp get color value (Red, Green and Blue values are the same)
+					{
+						return Pixels[i];
+					}
+					return 0;
+				}
         /// <summary>
         /// Set the color of the specified pixel
         /// </summary>

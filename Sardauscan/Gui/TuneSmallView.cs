@@ -141,7 +141,7 @@ namespace Sardauscan.Gui
                 if (Visible)
                 {
 										DateTime now = DateTime.Now;
-										bool expired = (now - lastImageTime).TotalMilliseconds > 500;
+										bool expired = (now - lastImageTime).TotalMilliseconds > 1000;
 										if (expired)
 										{
 											LoadFromSettings();

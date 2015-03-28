@@ -50,9 +50,10 @@ namespace Sardauscan.Core.ProcessingTask
 
 		public override eTaskItem Out
 		{
-			get { return eTaskItem.File; }
+			get { return eTaskItem.None; }
 		}
-		/// <summary>
+        public override eTaskType TaskType { get { return eTaskType.IO; } }
+        /// <summary>
 		/// Clone this
 		/// </summary>
 		/// <returns></returns>
@@ -118,7 +119,7 @@ namespace Sardauscan.Core.ProcessingTask
 		}
 		public override string Name
 		{
-			get { return "Save Points"; }
+            get { return "Save " + ScanDataIO.DefaultExtention; }
 		}
 		public override string DisplayName
 		{
@@ -163,7 +164,7 @@ namespace Sardauscan.Core.ProcessingTask
 		{
 			get
 			{
-				return "Save Mesh";
+                return "Save" + ScanDataIO.DefaultExtention; ;
 			}
 		}
 	}
@@ -191,7 +192,7 @@ namespace Sardauscan.Core.ProcessingTask
 		}
 		public override string Name
 		{
-			get { return "Save STL"; }
+			get { return "Save "+StlIO.DefaultExtention; }
 		}
 	}
 
@@ -220,7 +221,7 @@ namespace Sardauscan.Core.ProcessingTask
 		}
 		public override string Name
 		{
-			get { return "Save PLY"; }
+			get { return "Save "+PLYIO.DefaultExtention; }
 		}
 	}
 
@@ -249,7 +250,7 @@ namespace Sardauscan.Core.ProcessingTask
 		}
 		public override string Name
 		{
-			get { return "Save XYZ"; }
+			get { return "Save "+XYZIO.DefaultExtention; }
 		}
 	}
 
@@ -277,7 +278,7 @@ namespace Sardauscan.Core.ProcessingTask
 		}
 		public override string Name
 		{
-			get { return "Save OBJ"; }
+			get { return "Save "+WaveFormIO.DefaultExtention; }
 		}
 	}
 

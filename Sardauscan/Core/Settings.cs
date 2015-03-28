@@ -67,8 +67,10 @@ namespace Sardauscan.Core
 				/// <summary></summary>
 				public const string MAX_WIDTH = "MAX_WIDTH";
 				/// <summary></summary>
-				public const string MIN_WIDTH = "MIN_WIDTH";
-				/// <summary></summary>
+                public const string MIN_WIDTH = "MIN_WIDTH";
+                /// <summary></summary>
+                public const string FADE_DELAY = "FADE_DELAY";
+                /// <summary></summary>
 				public const string ROTATION = "ROTATION";
 				/// <summary></summary>
 				public const string TRANSLATIONX = "TRANSLATIONX";

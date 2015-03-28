@@ -46,7 +46,7 @@ namespace Sardauscan.Core
 		/// <param name="imageHeight"></param>
 		/// <param name="pngFilename"></param>
 		/// <returns></returns>
-		public static Bitmap SavePixels(List<PixelLocation> pixels,
+		public static Bitmap SavePixels(List<PointF> pixels,
 										 int imageWidth,
 										 int imageHeight,
 										 string pngFilename = "")
@@ -70,13 +70,13 @@ namespace Sardauscan.Core
 		/// </summary>
 		/// <param name="image"></param>
 		/// <param name="pixels"></param>
-		public static void OverlayPixels(this Bitmap image, List<PixelLocation> pixels)
+        public static void OverlayPixels(this Bitmap image, List<PointF> pixels)
 		{
 			LockBitmap lbmp = new LockBitmap(image);
 			for (int iPx = 0; iPx < pixels.Count; iPx++)
 			{
-				int x = Utils.ROUND(pixels[iPx].X);
-				int y = Utils.ROUND(pixels[iPx].Y);
+				int x = (int)(pixels[iPx].X);
+				int y = (int)(pixels[iPx].Y);
 				lbmp.SetPixel(x, y, Color.Red);
 			}
 			lbmp.UnlockBits();
@@ -99,26 +99,6 @@ namespace Sardauscan.Core
 			}
 			lbmp.UnlockBits();
 			return ret;
-		}
-		/// <summary>
-		/// Set the red componenent For a bitmap
-		/// </summary>
-		/// <param name="image"></param>
-		/// <param name="reds"></param>
-		public static void SetRedComponent(this Bitmap image, List<byte[]> reds)
-		{
-			LockBitmap lbmp = new LockBitmap(image);
-			for (int y = 0; y < reds.Count; y++)
-			{
-				byte[] line = reds[y];
-				for (int x = 0; x < line.Length; x++)
-				{
-					Color c = lbmp.GetPixel(x, y);
-					c = Color.FromArgb(c.A, line[y], c.G, c.B);
-					lbmp.SetPixel(x, y, c);
-				}
-			}
-			lbmp.UnlockBits();
 		}
 		/// <summary>
 		/// Set the row color of a Bitmap

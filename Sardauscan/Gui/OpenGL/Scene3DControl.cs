@@ -247,7 +247,7 @@ namespace Sardauscan.Gui.OpenGL
 
 			if (BoundingBox)
 				DrawBoundingBox(Color.Red, Scene.Min, Scene.Max);
-			//if (Lightning)
+			if (Lightning)
 			{
 				GL.Enable(EnableCap.Lighting);
 				GL.ColorMaterial(MaterialFace.FrontAndBack, ColorMaterialParameter.AmbientAndDiffuse);

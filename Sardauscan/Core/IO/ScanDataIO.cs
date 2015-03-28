@@ -174,12 +174,22 @@ namespace Sardauscan.Core.IO
 		{
 			string[] part = vectorStr.Split(" ".ToArray());
 			Vector3d ret = new Vector3d();
-			double dummy = double.NaN;
-			if (double.TryParse(part[0], out dummy) && double.TryParse(part[1], out dummy) && double.TryParse(part[2], out dummy))
+            double x = double.NaN;
+            double y = double.NaN;
+            double z = double.NaN;
+            if (double.TryParse(part[0], NumberStyles.Any, CultureInfo.InvariantCulture, out x) && 
+                double.TryParse(part[1], NumberStyles.Any, CultureInfo.InvariantCulture, out y) && 
+                double.TryParse(part[2], NumberStyles.Any, CultureInfo.InvariantCulture, out z))
 			{
-				ret.X = double.Parse(part[0], CultureInfo.InvariantCulture);
-				ret.Y = double.Parse(part[1], CultureInfo.InvariantCulture);
-				ret.Z = double.Parse(part[2], CultureInfo.InvariantCulture);
+                if( !double.IsNaN(x) &&
+                    !double.IsNaN(x) &&
+                    !double.IsNaN(x)
+                  )
+                {
+                    ret.X = x;
+                    ret.Y = y;
+                    ret.Z = z;
+                }
 			}
 			return ret;
 		}

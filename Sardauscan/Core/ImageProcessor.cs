@@ -55,8 +55,9 @@ using Sardauscan.Core.Geometry;
 
 namespace Sardauscan.Core
 {
-	public class ImageProcessor : IDisposable
+   	public class ImageProcessor : IDisposable
 	{
+
 		public enum eLaserDetectionMode
 		{
 			MaxCenter,
@@ -76,15 +77,18 @@ namespace Sardauscan.Core
 
 		#endregion
 
-		public ImageProcessor(double magnitudeThreshold, int minLaserWidth, int maxLaserWidth)
+		public ImageProcessor(double magnitudeThreshold, int minLaserWidth, int maxLaserWidth, eLaserDetectionMode detectionMode)
 		{
 			m_laserMagnitudeThreshold = magnitudeThreshold;
 			m_maxLaserWidth = maxLaserWidth;
 			m_minLaserWidth = minLaserWidth;
-			Settings set = Settings.Get<Settings>();
-			eLaserDetectionMode detectionMode = (eLaserDetectionMode)set.Read(Settings.SCANNER, Settings.CENTERDETECTIONMODE, eLaserDetectionMode.MassCenter);
-
 			this.LaserDetectionMode = detectionMode;
+		}
+
+
+		public ImageProcessor(double magnitudeThreshold, int minLaserWidth, int maxLaserWidth)
+			: this(magnitudeThreshold, minLaserWidth, maxLaserWidth, (eLaserDetectionMode)Settings.Get<Settings>().Read(Settings.SCANNER, Settings.CENTERDETECTIONMODE, eLaserDetectionMode.MassCenter))
+		{
 		}
 		/// <summary>
 		/// Dispose object
@@ -104,19 +108,32 @@ namespace Sardauscan.Core
 	 * @param thresholdFactor - Scales the laser threshold by this amount.  default = 1.0
 	 * @return Returns the number of locations written to @p laserLocations.
 	 */
-		public List<PixelLocation> Process(Bitmap before, Bitmap after, Bitmap debuggingImage,
-										ref int firstRowLaserCol, ref int numSuspectedBadLaserLocations, ref int numImageProcessingRetries)
+        public List<PointF> Process(Bitmap before, Bitmap after, Bitmap debuggingImage)
 		{
-			int numBad = 0;
-			List<PixelLocation> ret = SubProcess(before, after, debuggingImage, m_laserMagnitudeThreshold, ref firstRowLaserCol, ref numBad);
 
-			numSuspectedBadLaserLocations += numBad;
+			LockBitmap b = new LockBitmap(before);
+			LockBitmap d = debuggingImage != null ? new LockBitmap(debuggingImage) : null;
+            List<PointF> ret = Process(b, after, d);
+			b.UnlockBits();
+			if(d!=null)
+				d.UnlockBits();
 
 			return ret;
 		}
 
 
-		private int DetectBestLaserRange(ImageProcessor.LaserRange[] ranges, int numRanges, int prevLaserCol)
+        public List<PointF> Process(LockBitmap before, Bitmap after, LockBitmap debuggingImage)
+		{
+
+			LockBitmap a = new LockBitmap(after);
+            List<PointF> ret = SubProcess(before, a, debuggingImage, m_laserMagnitudeThreshold);
+
+			a.UnlockBits();
+			return ret;
+		}
+
+
+		private int DetectBestLaserRange(LaserRange[] ranges, int numRanges, int prevLaserCol)
 		{
 			int bestRange = 0;
 			int distanceOfBest = Math.Abs(ranges[0].centerCol - prevLaserCol);
@@ -135,21 +152,21 @@ namespace Sardauscan.Core
 
 			return bestRange;
 		}
-		private double DetectLaserRangeCenter(ImageProcessor.LaserRange range, List<Color> ar, List<Color> br)
+		private double DetectLaserRangeCenter(LaserRange range, double[] magSquare)
 		{
 			switch (LaserDetectionMode)
 			{
 				case eLaserDetectionMode.MassCenter:
-					return GetMassCenter(range, ar, br);
+					return GetMassCenter(range, magSquare);
 				case eLaserDetectionMode.MassHarmonicCenter:
-					return GetMassHarmonicCenter(range, ar, br);
+					return GetMassHarmonicCenter(range, magSquare);
 				case eLaserDetectionMode.QuadricCenter:
-					return GetQuadricCenter(range, ar, br);
+					return GetQuadricCenter(range, magSquare);
 			}
-			return GetMaxCenter(range, ar, br);
+			return GetMaxCenter(range, magSquare);
 		}
 		//http://fr.wikipedia.org/wiki/Moyenne_quadratique
-		private double GetQuadricCenter(ImageProcessor.LaserRange range, List<Color> ar, List<Color> br)
+		private double GetQuadricCenter(LaserRange range, double[] magSquare)
 		{
 			int startCol = range.startCol;
 			int endCol = range.endCol;
@@ -158,15 +175,15 @@ namespace Sardauscan.Core
 			double sum = 0;
 			for (int col = startCol; col < endCol; col++)
 			{
-					count++;
-					sum+=col*col;
+				count++;
+				sum += col * col;
 			}
 			return Math.Sqrt(sum / count);
 
 		}
 
 		//http://fr.wikipedia.org/wiki/Moyenne_harmonique_pond%C3%A9r%C3%A9e
-		private double GetMassHarmonicCenter(ImageProcessor.LaserRange range, List<Color> ar, List<Color> br)
+		private double GetMassHarmonicCenter(LaserRange range, double[] magSquare)
 		{
 			int startCol = range.startCol;
 			int endCol = range.endCol;
@@ -175,10 +192,7 @@ namespace Sardauscan.Core
 			double denominator = 0;
 			for (int col = startCol; col < endCol; col++)
 			{
-				int r = br[col].R - ar[col].R;
-				int g = br[col].G - ar[col].G;
-				int b = br[col].B - ar[col].B;
-				double mag = r * r + g * g + b * b;
+				double mag = magSquare[col];
 				if (mag != 0)
 				{
 					numerator += mag;
@@ -188,7 +202,7 @@ namespace Sardauscan.Core
 			return numerator / denominator;
 
 		}
-		private double GetMassCenter(ImageProcessor.LaserRange range, List<Color> ar, List<Color> br)
+		private double GetMassCenter(LaserRange range, double[] magSquare)
 		{
 			int startCol = range.startCol;
 			double centerCol = startCol;
@@ -199,12 +213,7 @@ namespace Sardauscan.Core
 			int cCol = 0;
 			for (int bCol = startCol; bCol < endCol; bCol++)
 			{
-				int iCol = bCol;
-				int r = br[iCol].R - ar[iCol].R;
-				int g = br[iCol].G - ar[iCol].G;
-				int b = br[iCol].B - ar[iCol].B;
-
-				double mag = r * r + g * g + b * b;
+				double mag =magSquare[bCol];
 				totalSum += mag;
 				weightedSum += mag * cCol;
 
@@ -216,21 +225,16 @@ namespace Sardauscan.Core
 			return centerCol;
 		}
 
-		private double GetMaxCenter(ImageProcessor.LaserRange range, List<Color> ar, List<Color> br)
+		private double GetMaxCenter(LaserRange range, double[] magSquare)
 		{
 			int startCol = range.startCol;
 			double centerCol = startCol;
 			int endCol = range.endCol;
-			int maxMagSq = 0;
+			double maxMagSq = 0;
 			int numSameMax = 0;
 			for (int bCol = startCol; bCol <= endCol; bCol++)
 			{
-				int iCol = bCol;
-				int r = br[iCol].R - ar[iCol].R;
-				int g = br[iCol].G - ar[iCol].G;
-				int b = br[iCol].B - ar[iCol].B;
-				int magSq = r * r + g * g + b * b;
-
+				double magSq = magSquare[bCol];
 				if (magSq > maxMagSq || bCol == 0)
 				{
 					maxMagSq = magSq;
@@ -247,12 +251,17 @@ namespace Sardauscan.Core
 
 			return centerCol;
 		}
-		private List<PixelLocation> SubProcess(Bitmap before, Bitmap after, Bitmap debuggingImage,
-				 double laserThreshold, ref int firstRowLaserCol, ref int numSuspectedBadLaserLocations)
+		private List<PointF> SubProcess(LockBitmap before, LockBitmap after, LockBitmap debuggingImage,
+				 double laserThreshold)
 		{
-			List<PixelLocation> laserLocations = new List<PixelLocation>(before.Height);
+			int firstRowLaserCol = before.Width / 2;
+            List<PointF> laserLocations = new List<PointF>(before.Height);
 
-			Rectangle clipRect = new Rectangle(0, 0, before.Width, before.Height);
+
+			int left_Clip = 0;
+			int top_Clip = 0;
+			int right_Clip = left_Clip + before.Width;
+			int bottom_Clip = top_Clip + before.Height;
 
 			int width = before.Width;
 			int height = before.Height;
@@ -265,43 +274,39 @@ namespace Sardauscan.Core
 			// The location that we last detected a laser line
 			int prevLaserCol = firstRowLaserCol;
 
-			List<List<Color>> ar = before.GetPixels();
-			List<List<Color>> br = after.GetPixels();
 
 			/** The LaserRanges for each column */
 			LaserRange[] laserRanges = new LaserRange[before.Height + 1];
 
+			double[] magSquare = new double[before.Width];
+
 			//            for (int y = 0; y < height && numLocations < height; y++)
-			for (int y = clipRect.Top; y < clipRect.Bottom && numLocations < height; y++)
+			for (int y = top_Clip; y < bottom_Clip && numLocations < height; y++)
 			{
-				Color[] debugColor = new Color[width];
-				List<Color> arLine = ar[y];
-				List<Color> brLine = br[y];
 
 				// The column that the laser started and ended on
 				int numLaserRanges = 0;
 				laserRanges[numLaserRanges].startCol = -1;
 				laserRanges[numLaserRanges].endCol = -1;
 
-				int imageColumn = 0;
 				//		        for (int  x = 0; x < rowStep; x += 1)
 				/**/
-				for (int x = clipRect.Left; x < clipRect.Right; x += 1)
+				for (int x = left_Clip; x < right_Clip; x += 1)
 				{
 					/**/
-					imageColumn = x;
 					// Perform image subtraction
-					int r = brLine[x].R - arLine[x].R;
+					int r = before.GetRed(x, y) - after.GetRed(x, y);
 					int magSq = r * r;
+					magSquare[x] = magSq;
 					byte mag = (byte)(255.0f * (magSq * 0.000015379f));
 					if (debuggingImage != null)
 					{
 						if (mag > laserThreshold)
-							debugColor[x] = Color.FromArgb(255, mag, mag, mag);
+							debuggingImage.SetPixel(x,y, Color.FromArgb(255, mag, mag, mag));
 						else if (magSq > 0)
-							debugColor[x] = Color.FromArgb(255, mag, mag, 0);
+							debuggingImage.SetPixel(x,y, Color.FromArgb(255, mag, mag, 0));
 						else
-							debugColor[x] = Color.Black;
+							debuggingImage.SetPixel(x,y, Color.Black);
 					}
 
 					// Compare it against the threshold
@@ -310,14 +315,14 @@ namespace Sardauscan.Core
 						// The start of pixels with laser in them
 						if (laserRanges[numLaserRanges].startCol == -1)
 						{
-							laserRanges[numLaserRanges].startCol = imageColumn;
+							laserRanges[numLaserRanges].startCol = x;
 						}
 
 					}
 					// The end of pixels with laser in them
 					else if (laserRanges[numLaserRanges].startCol != -1)
 					{
-						int laserWidth = imageColumn - laserRanges[numLaserRanges].startCol;
+						int laserWidth = x - laserRanges[numLaserRanges].startCol;
 						if (laserWidth <= m_maxLaserWidth && laserWidth >= m_minLaserWidth)
 						{
 							// If this range was real close to the previous one, merge them instead of creating a new one
@@ -327,8 +332,8 @@ namespace Sardauscan.Core
 								int rangeDistance = laserRanges[numLaserRanges].startCol - laserRanges[numLaserRanges - 1].endCol;
 								if (rangeDistance < RANGE_DISTANCE_THRESHOLD)
 								{
-									laserRanges[numLaserRanges - 1].endCol = imageColumn;
-									laserRanges[numLaserRanges - 1].centerCol = Utils.ROUND((laserRanges[numLaserRanges - 1].startCol + laserRanges[numLaserRanges - 1].endCol) / 2);
+									laserRanges[numLaserRanges - 1].endCol = x;
+									laserRanges[numLaserRanges - 1].centerCol =(laserRanges[numLaserRanges - 1].startCol + laserRanges[numLaserRanges - 1].endCol) / 2;
 									wasMerged = true;
 									numMerged++;
 								}
@@ -338,8 +343,8 @@ namespace Sardauscan.Core
 							if (!wasMerged)
 							{
 								// Add this range as a candidate
-								laserRanges[numLaserRanges].endCol = imageColumn;
-								laserRanges[numLaserRanges].centerCol = Utils.ROUND((laserRanges[numLaserRanges].startCol + laserRanges[numLaserRanges].endCol) / 2);
+								laserRanges[numLaserRanges].endCol = x;
+								laserRanges[numLaserRanges].centerCol = (laserRanges[numLaserRanges].startCol + laserRanges[numLaserRanges].endCol) / 2;
 
 								numLaserRanges++;
 							}
@@ -354,14 +359,8 @@ namespace Sardauscan.Core
 							laserRanges[numLaserRanges].startCol = -1;
 						}
 					}
-
-					// Go from image components back to image pixels
-					imageColumn++;
-
 				} // foreach column
 
-				if (debuggingImage != null)
-					debuggingImage.SetRowColors(y, debugColor);
 
 				// If we have a valid laser region
 				if (numLaserRanges > 0)
@@ -369,9 +368,9 @@ namespace Sardauscan.Core
 					int rangeChoice = DetectBestLaserRange(laserRanges, numLaserRanges, prevLaserCol);
 					prevLaserCol = laserRanges[rangeChoice].centerCol;
 
-					double centerCol = DetectLaserRangeCenter(laserRanges[rangeChoice], arLine, brLine);
+					double centerCol = DetectLaserRangeCenter(laserRanges[rangeChoice],magSquare);
 
-					PixelLocation location = new PixelLocation((double)centerCol, y);
+                    PointF location = new PointF((float)centerCol, y);
 					laserLocations.Add(location);
 
 					// If this is the first row that a laser is detected in, set the firstRowLaserCol member
@@ -380,11 +379,6 @@ namespace Sardauscan.Core
 						firstRowLaserCol = laserRanges[rangeChoice].startCol;
 					}
 
-					// Detect if we think this may have been a bad detection
-					if (numLaserRanges > NUM_LASER_RANGE_THRESHOLD)
-					{
-						numSuspectedBadLaserLocations++;
-					}
 				}
 			} // foreach row
 
@@ -404,4 +398,5 @@ namespace Sardauscan.Core
 		private const int NUM_LASER_RANGE_THRESHOLD = 3;
 		private const uint RANGE_DISTANCE_THRESHOLD = 5;
 	}
+
 }

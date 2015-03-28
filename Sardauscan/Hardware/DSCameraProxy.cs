@@ -226,7 +226,7 @@ namespace Sardauscan.Hardware
                     }
 
                     // Start waiting
-                    if (!m_PictureReady.WaitOne(1000, false))
+                    if (!m_PictureReady.WaitOne(5000, false))
                     {
                         throw new Exception("Timeout waiting to get picture");
                     }
@@ -560,7 +560,7 @@ namespace Sardauscan.Hardware
 
             // Set the media type to Video/RBG24
             media.majorType = MediaType.Video;
-            media.subType = MediaSubType.RGB24;
+						media.subType = MediaSubType.RGB24;
             media.formatType = FormatType.VideoInfo;
             hr = sampGrabber.SetMediaType( media );
             DsError.ThrowExceptionForHR( hr );

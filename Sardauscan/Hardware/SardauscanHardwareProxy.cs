@@ -155,13 +155,15 @@ namespace Sardauscan.Hardware
 				{
 					string ex = Serial.ReadExisting();
 					if (!string.IsNullOrEmpty(ex))
-						Debug.WriteLine("<==*" + ex);
+						Debug.WriteLine("<==<==*" + ex);
 				}
 				catch { }
 				Debug.WriteLine("==>" + command + ":");
 				Serial.WriteLine(command);
+                //Serial.BaseStream.Flush();
 				//Thread.Sleep(timeout/4);
-				string ret = Serial.ReadLine().TrimEnd("\r\n".ToCharArray());
+                string ret = Serial.ReadTo("\n").TrimEnd("\r\n".ToCharArray());
+				//string ret = Serial.ReadLine().TrimEnd("\r\n".ToCharArray());
 				Debug.WriteLine("<==" + ret);
 				return ret;
 			}

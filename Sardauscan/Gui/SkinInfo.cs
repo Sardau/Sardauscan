@@ -84,6 +84,22 @@ namespace Sardauscan.Gui
                 return cm;
             }
         }
+        public static ColorMatrix FadedColorMatrix
+        {
+            get
+            {
+                float a = 0.50f;
+                ColorMatrix cm = new ColorMatrix(new float[][]
+					{
+							new float[] {1,  0,  0,  0, 0},        
+							new float[] {0,  1,  0,  0, 0},        
+							new float[] {0,  0,  1,  0, 0},        
+							new float[] {0,  0,  0,  a, 0},        
+							new float[] {0, 0, 0, 0, 1}
+					});
+                return cm;
+            }
+        }
         public static ColorMatrix HoverColorMatrix
         {
             get

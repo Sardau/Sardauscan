@@ -81,6 +81,8 @@ namespace Sardauscan.Core.ProcessingTask
 		{
 			get { return "Scale"; }
 		}
+        public override eTaskType TaskType { get { return eTaskType.Transform; } }
+
 		/// <summary>
 		/// Clone this
 		/// </summary>

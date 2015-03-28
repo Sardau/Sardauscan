@@ -26,12 +26,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Sardauscan.Core.Geometry;
+using System.ComponentModel;
 
 namespace Sardauscan.Core.ProcessingTask
 {
 	/// <summary>
 	/// Reconstruc the Mesh using the Scanline points index
 	/// </summary>
+    [Browsable(false)]
 	public class MeshBuilderByIndex : AbstractMeshBuilder
 	{
 		/// <summary>

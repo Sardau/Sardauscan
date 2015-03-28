@@ -32,6 +32,7 @@ using System.Windows.Forms;
 using Sardauscan.Core;
 using Sardauscan.Core.Interface;
 using Sardauscan.Core.Geometry;
+using System.Threading;
 
 namespace Sardauscan.Gui
 {
@@ -45,8 +46,6 @@ namespace Sardauscan.Gui
 			InitializeComponent();
 		}
 
-
-
 		protected ICameraProxy CameraProxy { get { return Settings.Get<ICameraProxy>(); } }
 		protected ILaserProxy LaserProxy { get { return Settings.Get<ILaserProxy>(); } }
 		public bool Available
@@ -57,6 +56,13 @@ namespace Sardauscan.Gui
 			}
 		}
 
+		public void SetPicture(PictureBox pb, Bitmap bmp)
+		{
+			Image old = pb.Image;
+			pb.Image = bmp;
+			if (old != null)
+				old.Dispose();
+		}
 
 		public void TestLaser(int laserIndex, double theshold, int minLaserWidth, int maxLaserWidth)
 		{
@@ -68,36 +74,34 @@ namespace Sardauscan.Gui
 				this.ResultPictureBox.Image = global::Sardauscan.Properties.Resources.Denied;
 				return;
 			}
-			// turn all laser off and take reference picture
-			LaserProxy.TurnAll(false);
-			Bitmap refImg = CameraProxy.AcquireImage();
-			this.ReferencePictureBox.Image = refImg;
+			try
+			{
+                int fadeTime = Settings.Get<Settings>().Read(Settings.LASER_COMMON, Settings.FADE_DELAY, 100);
+                // turn all laser off and take reference picture
+				LaserProxy.TurnAll(false);
+                Thread.Sleep(fadeTime); // wait fade laser
+                Bitmap refImg = CameraProxy.AcquireImage();
+				SetPicture(ReferencePictureBox,refImg);
 
-			// take laser picture
-			LaserProxy.Turn(laserIndex,true);
-			Bitmap laserImg = CameraProxy.AcquireImage();
-			LaserProxy.Turn(laserIndex, true);
-			this.LaserPictureBox.Image = laserImg;
+				// take laser picture
+				LaserProxy.Turn(laserIndex, true);
+                Thread.Sleep(fadeTime); // wait fade laser
+				Bitmap laserImg = CameraProxy.AcquireImage();
+				SetPicture(LaserPictureBox,laserImg);
 
-			Bitmap debuggingImage = new Bitmap(refImg.Width, refImg.Height);
-			int firstRowLaserCol = (int)(CameraProxy.ImageWidth * 0.5);
-			int numSuspectedBadLaserLocations = 0;
-			int numImageProcessingRetries = 0;
+				Bitmap debuggingImage = new Bitmap(refImg.Width, refImg.Height);
+				
+				ImageProcessor imgproc = new ImageProcessor(theshold, minLaserWidth, maxLaserWidth);
 
-			ImageProcessor imgproc = new ImageProcessor(theshold, minLaserWidth, maxLaserWidth);
+                List<PointF> laserloc = imgproc.Process(refImg,laserImg,debuggingImage);
 
-			List<PixelLocation> laserloc = imgproc.Process(refImg,
-																									laserImg,
-																									debuggingImage,
-																									ref firstRowLaserCol,
-																									ref numSuspectedBadLaserLocations,
-																									ref numImageProcessingRetries);
+				SetPicture(DifferencePictureBox,debuggingImage);
 
-			this.DifferencePictureBox.Image = (Image)debuggingImage;
-
-			// Write the pixel image
-			debuggingImage = BitmapExtention.SavePixels(laserloc, refImg.Width, refImg.Height);
-			this.ResultPictureBox.Image = (Image)debuggingImage.Clone();
+				// Write the pixel image
+				debuggingImage = BitmapExtention.SavePixels(laserloc, refImg.Width, refImg.Height);
+				SetPicture(ResultPictureBox,debuggingImage);
+			}
+			catch { }
 		}
 	}
 }

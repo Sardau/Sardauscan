@@ -41,9 +41,12 @@ namespace Sardauscan.Core.ProcessingTask
         {
             get
             {
-                return "Bezier Smooth";
+                return "Smooth Bezier";
             }
         }
+        public override string DisplayName { get { return "Bezier"; } }
+        public override eTaskType TaskType { get { return eTaskType.Smooth; } }
+
         public enum eMode
         {
             [Description("Mode 0")]

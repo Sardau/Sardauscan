@@ -41,9 +41,10 @@ namespace Sardauscan.Core.ProcessingTask
         {
             get
             {
-                return "Median Filter";
+                return "Filter Median";
             }
         }
+        public override eTaskType TaskType { get { return eTaskType.Filter; } }
         private uint m_Order = 5;
 
         [Browsable(true)]

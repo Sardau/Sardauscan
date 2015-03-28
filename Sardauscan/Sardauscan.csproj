@@ -41,9 +41,10 @@
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>
     </DocumentationFile>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -52,10 +53,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DirectShowLib-2005, Version=2.1.0.0, Culture=neutral, PublicKeyToken=67e7b740cdfc2d3f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>ExternalDLL\DirectShowLib-2005.dll</HintPath>
-    </Reference>
     <Reference Include="OpenTK, Version=1.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>ExternalDLL\OpenTK.dll</HintPath>
@@ -99,6 +96,7 @@
     <Compile Include="Core\ProcessingTask\AngleColor.cs" />
     <Compile Include="Core\ProcessingTask\AngleMerge.cs" />
     <Compile Include="Core\ProcessingTask\CalibrationTask.cs" />
+    <Compile Include="Core\ProcessingTask\GrabTaskcs.cs" />
     <Compile Include="Core\ProcessingTask\ICPTask.cs" />
     <Compile Include="Core\ProcessingTask\LaserMerger.cs" />
     <Compile Include="Core\ProcessingTask\LineKMean.cs" />
@@ -128,6 +126,7 @@
     <Compile Include="Core\ProcessingTask\SaveTask.cs" />
     <Compile Include="Core\ProcessingTask\DisplayAs.cs" />
     <Compile Include="Core\ProcessingTask\SurfaceSmoothing.cs" />
+    <Compile Include="Core\ProcessingTask\TextureTask.cs" />
     <Compile Include="Core\Reflector.cs" />
     <Compile Include="Core\ScanLine.cs" />
     <Compile Include="Core\ScanData.cs" />
@@ -179,6 +178,12 @@
       <DependentUpon>ViewSelector.cs</DependentUpon>
     </Compile>
     <Compile Include="Gui\Controls\ApplicationView\ViewType.cs" />
+    <Compile Include="Gui\Controls\CameraLivePreviewControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Gui\Controls\CameraLivePreviewControl.Designer.cs">
+      <DependentUpon>CameraLivePreviewControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Gui\Controls\CrashReport.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -272,19 +277,21 @@
     </Compile>
     <Compile Include="Gui\UserControlExt.cs" />
     <Compile Include="Hardware\AbstractProxyProvider.cs" />
-    <Compile Include="Hardware\DSCameraProxyProvider.cs" />
-    <Compile Include="Hardware\Gui\DSCameraProxyControl.cs">
+    <Compile Include="Hardware\Gui\NetCamera\NetCameraProxyControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Hardware\Gui\DSCameraProxyControl.Designer.cs">
-      <DependentUpon>DSCameraProxyControl.cs</DependentUpon>
+    <Compile Include="Hardware\Gui\NetCamera\NetCameraProxyControl.Designer.cs">
+      <DependentUpon>NetCameraProxyControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Hardware\Gui\DSCam\DSCamPropertySlider.cs">
+    <Compile Include="Hardware\Gui\NetCamera\NetCameraSelectionControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Hardware\Gui\DSCam\DSCamPropertySlider.Designer.cs">
-      <DependentUpon>DSCamPropertySlider.cs</DependentUpon>
+    <Compile Include="Hardware\Gui\NetCamera\NetCameraSelectionControl.Designer.cs">
+      <DependentUpon>NetCameraSelectionControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Hardware\NetCameraProxy.cs" />
+    <Compile Include="Hardware\NetCamera.cs" />
+    <Compile Include="Hardware\NetCameraProxyProvider.cs" />
     <Compile Include="Hardware\SardauscanProxyProvider.cs" />
     <Compile Include="Hardware\Gui\SardauscanProxyControl.cs">
       <SubType>UserControl</SubType>
@@ -297,12 +304,6 @@
     </Compile>
     <Compile Include="Hardware\Gui\SardauscanSelectionControl.Designer.cs">
       <DependentUpon>SardauscanSelectionControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Hardware\Gui\DSCameraSelectionControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Hardware\Gui\DSCameraSelectionControl.Designer.cs">
-      <DependentUpon>DSCameraSelectionControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Core\IO\PLYIO.cs" />
     <Compile Include="Core\IO\ScanDataIO.cs" />
@@ -344,7 +345,6 @@
     <Compile Include="Gui\Controls\SettingsControl.Designer.cs">
       <DependentUpon>SettingsControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Hardware\DSCameraInfo.cs" />
     <Compile Include="Hardware\Com\PortInfo.cs" />
     <Compile Include="Hardware\Com\Provider.cs" />
     <Compile Include="Core\Config.cs" />
@@ -373,7 +373,6 @@
     <Compile Include="Core\Settings.cs" />
     <Compile Include="Core\Interface\ITurnTableProxy.cs" />
     <Compile Include="Core\Helper\Utils.cs" />
-    <Compile Include="Hardware\DSCameraProxy.cs" />
     <Compile Include="Core\IO\XYZIO.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -397,6 +396,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Gui\Controls\ApplicationView\ViewSelector.resx">
       <DependentUpon>ViewSelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gui\Controls\CameraLivePreviewControl.resx">
+      <DependentUpon>CameraLivePreviewControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Gui\Controls\CrashReport.resx">
       <DependentUpon>CrashReport.cs</DependentUpon>
@@ -458,20 +460,17 @@
     <EmbeddedResource Include="Gui\Controls\SettingsControl.resx">
       <DependentUpon>SettingsControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Hardware\Gui\DSCameraProxyControl.resx">
-      <DependentUpon>DSCameraProxyControl.cs</DependentUpon>
+    <EmbeddedResource Include="Hardware\Gui\NetCamera\NetCameraProxyControl.resx">
+      <DependentUpon>NetCameraProxyControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Hardware\Gui\DSCam\DSCamPropertySlider.resx">
-      <DependentUpon>DSCamPropertySlider.cs</DependentUpon>
+    <EmbeddedResource Include="Hardware\Gui\NetCamera\NetCameraSelectionControl.resx">
+      <DependentUpon>NetCameraSelectionControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Hardware\Gui\SardauscanProxyControl.resx">
       <DependentUpon>SardauscanProxyControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Hardware\Gui\SardauscanSelectionControl.resx">
       <DependentUpon>SardauscanSelectionControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Hardware\Gui\DSCameraSelectionControl.resx">
-      <DependentUpon>DSCameraSelectionControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -1071,6 +1070,16 @@
     <Content Include="Resources\OPENGL.xml">
       <SubType>Designer</SubType>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="ExternalLibs\Camera_Net\Camera_NET.csproj">
+      <Project>{e6052609-a070-41d5-85b9-acaba91170c5}</Project>
+      <Name>Camera_NET</Name>
+    </ProjectReference>
+    <ProjectReference Include="ExternalLibs\DirectShowLib\DirectShowLib-2010.csproj">
+      <Project>{ce009bfa-5ef6-4153-b2a1-2fa79698a9ae}</Project>
+      <Name>DirectShowLib-2010</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

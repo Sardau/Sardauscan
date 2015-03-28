@@ -48,7 +48,11 @@ namespace Sardauscan.Core
 			String[] allPluginsPath = System.IO.Directory.GetFiles(Program.PluginsPath, "*.dll", System.IO.SearchOption.TopDirectoryOnly);
 			for (int i = 0; i < allPluginsPath.Length; i++)
 			{
-				Assembly a = Assembly.LoadFile(allPluginsPath[i]);
+                try
+                {
+                    Assembly a = Assembly.LoadFile(allPluginsPath[i]);
+                }
+                catch { }
 			}
 			_pluginloaded = true;
 		}

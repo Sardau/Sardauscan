@@ -234,31 +234,26 @@ namespace Sardauscan.Core
 
 			ScanData ret = new ScanData();
 			UpdatePercent(0, ret);
+            int fadeTime = settings.Read(Settings.LASER_COMMON, Settings.FADE_DELAY, 100);
 
 			TurnTable.InitialiseRotation();
 			int laserCount = Lasers.Count;
-			int numbadLaserLocation = 0;
-			int numImageProcessingRetries = 0;
 			// Scan all laser location, 
 			for (double currentAngle = 0; currentAngle < 360f; currentAngle += RotationStep)
 			{
 				if (this.CancelPending) return ret;
 
 				Laser.TurnAll(false); // All laser off
-				Bitmap imgoff = GetCapture();
+                Thread.Sleep(fadeTime); // wait fade laser
+                Bitmap imgoff = GetCapture();
 				for (int laserIndex = 0; laserIndex < laserCount; laserIndex++)
 				{
 					Laser.Turn(Lasers[laserIndex].Id, true);
-					Thread.Sleep(100); // wait fade laser
+                    Thread.Sleep(fadeTime); // wait fade laser
 					Bitmap imgon = GetCapture();
 					Laser.Turn(Lasers[laserIndex].Id, false);
 
-					List<PixelLocation> laserloc = ImageProcessor.Process(imgoff,
-																													imgon,
-																													null,
-																													ref Lasers[laserIndex].FirstRowLaserCol,
-																													ref numbadLaserLocation,
-																													ref numImageProcessingRetries);
+                    List<PointF> laserloc = ImageProcessor.Process(imgoff,imgon,null);
 
 					Point3DList samplePoints = Lasers[laserIndex].MapPoints(laserloc, UseTexture ? imgoff : null, UseCorrectionMatrix);
 					PositionPostProcess(ref samplePoints, -Utils.DEGREES_TO_RADIANS(currentAngle));
@@ -306,6 +301,7 @@ namespace Sardauscan.Core
 		#region Overrides
 		public override eTaskItem In { get { return eTaskItem.None; } }
 		public override eTaskItem Out { get { return eTaskItem.ScanLines; } }
+        public override eTaskType TaskType { get { return eTaskType.Input; } }
 		/// <summary>
 		/// Name
 		/// </summary>

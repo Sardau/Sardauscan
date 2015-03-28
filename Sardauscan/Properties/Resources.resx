@@ -247,7 +247,7 @@
   <data name="ConnectionLine1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Entypo_e790(14)_64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ConnectionLine2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Filter" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Entypo_e791(13)_64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ConnectionLine3" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -595,7 +595,7 @@
   <data name="octicons_f06d_1__64" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\octicons_f06d(1)_64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="octicons_f0d1_0__64" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Paint" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\octicons_f0d1(0)_64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="OPENGL" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -625,7 +625,7 @@
   <data name="Close" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Close.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="FontAwesome_f16c_2__64" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="TaskInput" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\FontAwesome_f16c(2)_64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Cube" type="System.Resources.ResXFileRef, System.Windows.Forms">

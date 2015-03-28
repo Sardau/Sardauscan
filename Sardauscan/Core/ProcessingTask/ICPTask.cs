@@ -18,6 +18,7 @@ namespace Sardauscan.Core.ProcessingTask
 		public override eTaskItem In {get {return eTaskItem.ScanLines;}}
 
 		public override eTaskItem Out {get {return eTaskItem.ScanLines;}}
+        public override eTaskType TaskType { get { return eTaskType.Transform; } }
 
 		public override AbstractProcessingTask Clone()
 		{

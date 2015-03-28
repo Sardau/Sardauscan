@@ -75,6 +75,7 @@ namespace Sardauscan.Gui.Controls
 						return;
 					if (Settings.Get(proxyType) != null)
 						return;
+					/// change and use the provider instead of the proxy, to avoir creation of proxy just to create the last used
 					IHardwareProxy proxy = Reflector.CreateInstance<IHardwareProxy>(proxyType);
 					string hardwareId = set.Read(Settings.LAST_USED, Settings.HARDWAREID<T>(), string.Empty);
 					proxy = proxy.LoadFromHardwareId(hardwareId);

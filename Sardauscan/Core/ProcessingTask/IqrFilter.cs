@@ -41,8 +41,10 @@ namespace Sardauscan.Core.ProcessingTask
     {
         public override string Name
         {
-            get { return "IQR filter"; }
+            get { return "Filter IQR"; }
         }
+        public override eTaskType TaskType { get { return eTaskType.Filter; } }
+
         public struct ValidityRange
         {
             public double Min;

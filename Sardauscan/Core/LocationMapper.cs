@@ -75,7 +75,7 @@ namespace Sardauscan.Core
 
 		public SizeF TableSize { get; private set; }
 		/** Lookup the 3D points for each pixel location */
-		public Point3DList MapPoints(List<PixelLocation> laserLocations, Bitmap image, Color defColor)
+        public Point3DList MapPoints(List<PointF> laserLocations, Bitmap image, Color defColor)
 		{
 			double MAX_DIST_Y = TableSize.Height * 2;
 			double MAX_DIST_XZ_SQ = (TableSize.Width / 2) * (TableSize.Width / 2);
@@ -145,7 +145,7 @@ namespace Sardauscan.Core
 		 * @param globalPt - Point on the camera sensor in global coordinates
 		 * @param ray - The output ray.
 		 */
-		private Ray CalculateCameraRay(PixelLocation imagePixel)
+        private Ray CalculateCameraRay(PointF imagePixel)
 		{
 
 			// Performance Note: Most of this could be pre-computed
@@ -171,7 +171,7 @@ namespace Sardauscan.Core
 		}
 
 		/** Calculate where the ray will hit the laser plane and write it to @p point */
-		private bool IntersectLaserPlane(Ray ray, ref Point3D point, PixelLocation pixel)
+        private bool IntersectLaserPlane(Ray ray, ref Point3D point, PointF pixel)
 		{
 			// Reference: http://www.scratchapixel.com/lessons/3d-basic-lessons/lesson-7-intersecting-simple-shapes/ray-plane-and-ray-disk-intersection/
 			// d = ((p0 - l0) * n) / (l * n)

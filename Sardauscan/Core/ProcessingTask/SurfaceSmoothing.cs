@@ -16,8 +16,10 @@ namespace Sardauscan.Core.ProcessingTask
 		public override eTaskItem In{	get { return eTaskItem.ScanLines; }}
 
 		public override eTaskItem Out { get { return eTaskItem.ScanLines; } }
+        public override eTaskType TaskType { get { return eTaskType.Smooth; } }
 
-		public override string Name { get { return "Surface smooth"; } }
+		public override string Name { get { return "Smooth Surface"; } }
+        public override string DisplayName { get { return "Surface"; } }
 
 		public override AbstractProcessingTask Clone()
 		{

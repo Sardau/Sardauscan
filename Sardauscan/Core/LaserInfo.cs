@@ -32,18 +32,18 @@ using Sardauscan.Core.Geometry;
 
 namespace Sardauscan.Core
 {
-	/// <summary>
-	/// Laser information
-	/// </summary>
+    /// <summary>
+    /// Laser information
+    /// </summary>
     public class LaserInfo
     {
-			/// <summary>
-			/// Ctor
-			/// </summary>
-			/// <param name="id"></param>
-			/// <param name="cameraPos"></param>
-			/// <param name="tableSize"></param>
-        public LaserInfo(int id,Vector3d cameraPos,SizeF tableSize)
+        /// <summary>
+        /// Ctor
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="cameraPos"></param>
+        /// <param name="tableSize"></param>
+        public LaserInfo(int id, Vector3d cameraPos, SizeF tableSize)
         {
             Id = id;
             Vector3d loc = new Vector3d();
@@ -51,73 +51,68 @@ namespace Sardauscan.Core
             loc.X = settings.Read(Settings.LASER(Id), Settings.X, 9.5f);
             loc.Y = settings.Read(Settings.LASER(Id), Settings.Y, 27.0f);
             loc.Z = settings.Read(Settings.LASER(Id), Settings.Z, 7.0f);
-						DefaultColor = settings.Read(Settings.LASER(Id), Settings.DEFAULTCOLOR, LaserInfo.GetDefaultColor(Id));
+            DefaultColor = settings.Read(Settings.LASER(Id), Settings.DEFAULTCOLOR, LaserInfo.GetDefaultColor(Id));
 
 
             Location = loc;
 
-            ICameraProxy camera = Settings.Get<ICameraProxy>();
-            FirstRowLaserCol = (int)(camera.ImageWidth * 0.5);
-
-
             Mapper = new LocationMapper(Location, cameraPos, tableSize);
 
-						Correction = new LaserCorrection();
-						Correction.LoadFromSettings(Id);
+            Correction = new LaserCorrection();
+            Correction.LoadFromSettings(Id);
 
         }
-			/// <summary>
-			/// Map points
-			/// </summary>
-			/// <param name="laserLocations"></param>
-			/// <param name="image"></param>
-			/// <returns></returns>
-        public ScanLine MapPoints(List<PixelLocation> laserLocations, Bitmap image,bool useCorrection)
+        /// <summary>
+        /// Map points
+        /// </summary>
+        /// <param name="laserLocations"></param>
+        /// <param name="image"></param>
+        /// <returns></returns>
+        public ScanLine MapPoints(List<PointF> laserLocations, Bitmap image, bool useCorrection)
         {
-					  Point3DList points = Mapper.MapPoints(laserLocations, image, DefaultColor);
-						ScanLine ret = new ScanLine(Id, points.Count);
-						if (useCorrection)
-						{
-							Matrix4d m = Correction.GetMatrix();
-							int count =points.Count;
-							for(int i=0;i<count;i++)
-							{
-								Point3D p = points[i];
-								Vector3d v = Vector3d.Transform(p.Position, m);
-								Vector3d n = Vector3d.Transform(p.Normal, m);
-								n.Normalize();
-								ret.Add( new Point3D(v,n,p.Color));
-							}
-						}
-						else
-						{
-							ret.Add(points);
-						}
+            Point3DList points = Mapper.MapPoints(laserLocations, image, DefaultColor);
+            ScanLine ret = new ScanLine(Id, points.Count);
+            if (useCorrection)
+            {
+                Matrix4d m = Correction.GetMatrix();
+                int count = points.Count;
+                for (int i = 0; i < count; i++)
+                {
+                    Point3D p = points[i];
+                    Vector3d v = Vector3d.Transform(p.Position, m);
+                    Vector3d n = Vector3d.Transform(p.Normal, m);
+                    n.Normalize();
+                    ret.Add(new Point3D(v, n, p.Color));
+                }
+            }
+            else
+            {
+                ret.Add(points);
+            }
             return ret;
         }
-			/// <summary>
-			/// Laser ID
-			/// </summary>
+        /// <summary>
+        /// Laser ID
+        /// </summary>
         public int Id { get; private set; }
-			/// <summary>
-			/// Laser Location
-			/// </summary>
+        /// <summary>
+        /// Laser Location
+        /// </summary>
         public Vector3d Location { get; private set; }
 
         protected LocationMapper Mapper { get; private set; }
-        public int FirstRowLaserCol = 320;
-			/// <summary>
-			/// Laser default Texture color
-			/// </summary>
+        /// <summary>
+        /// Laser default Texture color
+        /// </summary>
         public Color DefaultColor = Color.White;
 
-				private static Color[] _DefaultColor = new Color[] { Color.Red, Color.Lime, Color.Blue, Color.Cyan, Color.Magenta, Color.Yellow, Color.White };
-				public static Color GetDefaultColor(int index)
-				{
-					if (index < 0)
-						return Color.Transparent;
-					return _DefaultColor[index%_DefaultColor.Length];
-				}
-				public LaserCorrection Correction;
+        private static Color[] _DefaultColor = new Color[] { Color.Red, Color.Lime, Color.Blue, Color.Cyan, Color.Magenta, Color.Yellow, Color.White };
+        public static Color GetDefaultColor(int index)
+        {
+            if (index < 0)
+                return Color.Transparent;
+            return _DefaultColor[index % _DefaultColor.Length];
+        }
+        public LaserCorrection Correction;
     }
 }

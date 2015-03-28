@@ -44,7 +44,7 @@ namespace Sardauscan.Core.ProcessingTask
 		/// </summary>
         public override string Name
         {
-            get { return "By Interpolation"; }
+            get { return "Build Mesh"; }
         }
     }
 }

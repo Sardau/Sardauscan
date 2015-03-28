@@ -27,19 +27,21 @@ using System.Linq;
 using System.Text;
 using Sardauscan.Core.Geometry;
 using OpenTK;
+using System.ComponentModel;
 
 namespace Sardauscan.Core.ProcessingTask
 {
 	/// <summary>
 	/// Smooth the scanline with a average
 	/// </summary>
+    [Browsable(false)]
     public class LineAverageSmooth : AbstractLineTask
     {
         public override string Name
         {
             get
             {
-                return "Average";
+                return "Smooth Average";
             }
         }
 

@@ -28,19 +28,12 @@ using System.Text;
 using System.Drawing;
 
 namespace Sardauscan.Core.Geometry
-{
+{/*
 	/// <summary>
 	/// Calss for a pixel location in a image
 	/// </summary>
-	public class PixelLocation
+	public struct PixelLocation 
 	{
-		/// <summary>
-		/// Ctor
-		/// </summary>
-		public PixelLocation()
-			: this(-1, -1)
-		{
-		}
 		/// <summary>
 		///  CTor
 		/// </summary>
@@ -76,5 +69,5 @@ namespace Sardauscan.Core.Geometry
 		{
             return new PointF((float)X, (float)Y);
 		}
-	}
+	}*/
 }

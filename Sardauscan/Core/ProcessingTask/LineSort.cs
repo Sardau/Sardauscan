@@ -58,7 +58,7 @@ namespace Sardauscan.Core.ProcessingTask
 
 		public override string Name
 		{
-			get { return "Angle Sort"; }
+			get { return "Sort"; }
 		}
 	}
 }
