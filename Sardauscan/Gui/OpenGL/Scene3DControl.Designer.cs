@@ -121,7 +121,7 @@ namespace Sardauscan.Gui.OpenGL
             this.Controls.Add(this.HomeButton);
             this.ForeColor = System.Drawing.SystemColors.HighlightText;
             this.Name = "Scene3DControl";
-            this.Size = new System.Drawing.Size(224, 171);
+            this.Size = new System.Drawing.Size(265, 190);
             this.Load += new System.EventHandler(this.Object3DView_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Render);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.glSurface_MouseUp);

@@ -139,5 +139,13 @@ namespace Sardauscan.Core.Geometry
 			foreach (IScene3DPart part in this)
 				part.Render(ref context);
 		}
+        public int GetNumVertices()
+        {
+            int count = 0;
+            for (int i = 0; i < Count; i++)
+                count += this[i].GetNumVertices();
+            return count;
+        }
+
 	}
 }

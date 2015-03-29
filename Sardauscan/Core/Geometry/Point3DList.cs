@@ -503,5 +503,10 @@ namespace Sardauscan.Core.Geometry
 				p1.Normal = MathUtils.TransformPoint(p1.Normal, matrixdouble);
 			}
 		}
+        public virtual int GetNumVertices()
+        {
+            return this.Count;
+        }
+
 	}
 }

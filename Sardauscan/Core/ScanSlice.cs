@@ -116,5 +116,11 @@ namespace Sardauscan.Core
 			/// this "ScanLine" is part of mesh: it is composed of Face
 			/// </summary>
         public override bool IsFaces {get{   return true;  }}
+
+        public override int GetNumVertices()
+        {
+            return base.GetNumVertices()/2;
+        }
+
     }
 }

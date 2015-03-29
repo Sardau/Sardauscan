@@ -267,6 +267,22 @@ namespace Sardauscan.Gui.OpenGL
 			GL.Translate(0, -SceneYOffset, 0);
 			DrawScannerTable(scannerCenter);
 			SwapBuffers();
+            using (Graphics g = Graphics.FromHwnd(this.Handle))
+            {
+                using (SolidBrush bg = new SolidBrush(this.BackColor))
+                {
+                    using (SolidBrush bf = new SolidBrush(this.ForeColor))
+                    {
+                        string text = String.Format("{0} points", Scene.GetNumVertices().ToString("N0"));
+                        SizeF s = g.MeasureString(text, this.Font);
+                        RectangleF rect = new RectangleF(0,0,s.Width,s.Height);
+                        rect.Y = this.Height - s.Height;
+                        g.FillRectangle(bg,rect);
+                        g.DrawString(text, this.Font, bf, rect.Location);
+                    }
+                }
+            }
+//            this.Label.Text = String.Format("{0} points", Scene.GetNumVertices());
 		}
 		#region Draw
 		public static void Axis(Vector3d center, double size)

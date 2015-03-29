@@ -61,6 +61,8 @@ namespace Sardauscan.Core.Interface
 		/// </summary>
 		/// <param name="context"></param>
 		void Render(ref RenderingContext context);
+
+        int GetNumVertices();
 	}
 
 	/// <summary>

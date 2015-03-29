@@ -175,5 +175,11 @@ namespace Sardauscan.Core
 
 		}
 
+        public int GetNumVertices()
+        {
+            return this.PointCount();
+        }
+
+
 	}
 }
