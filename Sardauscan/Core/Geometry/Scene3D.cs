@@ -134,10 +134,15 @@ namespace Sardauscan.Core.Geometry
 		/// <param name="context"></param>
 		public void Render(ref RenderingContext context)
 		{
-			if (Dirty)
-				Update();
-			foreach (IScene3DPart part in this)
-				part.Render(ref context);
+            try
+            {
+                if (Dirty)
+                    Update();
+                foreach (IScene3DPart part in this)
+                    part.Render(ref context);
+            }
+            catch
+            { }
 		}
         public int GetNumVertices()
         {
