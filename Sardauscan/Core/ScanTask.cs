@@ -258,7 +258,7 @@ namespace Sardauscan.Core
 					Point3DList samplePoints = Lasers[laserIndex].MapPoints(laserloc, UseTexture ? imgoff : null, UseCorrectionMatrix);
 					PositionPostProcess(ref samplePoints, -Utils.DEGREES_TO_RADIANS(currentAngle));
 					ScanLine line = new ScanLine(laserIndex, samplePoints);
-					line.DisplayAsLine = false;
+					line.DisplayAsLine = true;
 					ret.Add(line);
 				}
 				int percent = (int)((currentAngle / 360f) * 100f);

@@ -32,6 +32,7 @@ using System.Xml;
 using System.Globalization;
 using System.Drawing;
 using Sardauscan.Core;
+using Sardauscan.Gui;
 
 namespace Sardauscan.Core.OpenGL
 {
@@ -84,10 +85,14 @@ namespace Sardauscan.Core.OpenGL
 		public static GLMaterial Default()
 		{
 			GLMaterial ret = new GLMaterial();
-			ret.Ambiant = ColorExtension.ColorFromVector(new Vector4(0.5f, 0.5f, 0.5f, 0.0f));
-			ret.Diffuse = ColorExtension.ColorFromVector(new Vector4(0.75f, 0.75f, 0.75f, 0.0f));
-			ret.Specular = ColorExtension.ColorFromVector(new Vector4(1.0f, 1f, 1f, 0.0f));
-			ret.Shininess = 0.9f;
+			/*
+			ret.Ambiant = ColorExtension.ColorFromVector(new Vector4(0f, 0.25f, 0.5f, 0.0f));
+			ret.Diffuse = ColorExtension.ColorFromVector(new Vector4(0f, 0.5f, 1f, 0.0f));
+			*/
+			ret.Ambiant = SkinInfo.View3DBackColor;// ColorExtension.ColorFromVector(new Vector4(0f, 0.25f, 0.5f, 0.0f));
+			ret.Diffuse = ret.Ambiant;
+			ret.Specular = ret.Ambiant.Darker();
+			ret.Shininess = 1f;
 
 			return ret;
 		}

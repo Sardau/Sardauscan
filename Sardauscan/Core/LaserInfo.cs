@@ -72,6 +72,7 @@ namespace Sardauscan.Core
         {
             Point3DList points = Mapper.MapPoints(laserLocations, image, DefaultColor);
             ScanLine ret = new ScanLine(Id, points.Count);
+						ret.DisplayAsLine = true;
             if (useCorrection)
             {
                 Matrix4d m = Correction.GetMatrix();
@@ -89,6 +90,7 @@ namespace Sardauscan.Core
             {
                 ret.Add(points);
             }
+
             return ret;
         }
         /// <summary>
