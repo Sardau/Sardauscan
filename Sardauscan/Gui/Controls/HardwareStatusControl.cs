@@ -151,6 +151,7 @@ namespace Sardauscan.Gui.Controls
 
 		private void Button_Click(object sender, EventArgs e)
 		{
+			NotifyChange();
 			if (sender is StatusImageButton)
 			{
 				bool on = ((StatusImageButton)sender).On;
@@ -256,6 +257,7 @@ namespace Sardauscan.Gui.Controls
 				disp.Dispose();
 			SettingsPanel.Height = 0;
 			this.HideSettings.Visible = false;
+			NotifyChange();
 		}
 
 		Control _settingsPanel = null;

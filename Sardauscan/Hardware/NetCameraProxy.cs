@@ -25,6 +25,19 @@ namespace Sardauscan.Hardware
 				return null;
 			}
 		}
+
+		private RotateFlipType _Rotation = 0;
+		public RotateFlipType Rotation
+		{
+			get
+			{
+				return _Rotation;
+			}
+			set
+			{
+				_Rotation = value;
+			}
+		}
 		public NetCameraProxy()
             : this(null,null)
         { }
@@ -68,7 +81,10 @@ namespace Sardauscan.Hardware
 
 		public Bitmap AcquireImage()
 		{
-			return _Camera.SnapshotSourceImage();
+			Bitmap bmp = _Camera.SnapshotSourceImage();
+			if(Rotation!= RotateFlipType.RotateNoneFlipNone)
+				bmp.RotateFlip(Rotation);
+			return bmp;
 		}
 
 
@@ -147,6 +163,9 @@ namespace Sardauscan.Hardware
 					ret += string.Format("{0}", id);
 					if(_Camera.Resolution!=null)
 						ret += string.Format("|{0}", _Camera.Resolution);
+					else
+						ret += "|";
+					ret += string.Format("|{0}", Rotation);
 				}
 				return ret;
 			}
@@ -184,6 +203,9 @@ namespace Sardauscan.Hardware
 			ResolutionList resolutions = Camera.GetResolutionList(moniker);
 			if (resolutions == null)
 				return null;
+			RotateFlipType rotation = RotateFlipType.RotateNoneFlipNone;
+			if (parts.Length >= 3)
+				rotation = (RotateFlipType)Enum.Parse(typeof(RotateFlipType),parts[2],true);
 
 			for (int index = 0; index < resolutions.Count; index++)
 			{
@@ -191,6 +213,7 @@ namespace Sardauscan.Hardware
 				{
 					NetCameraProxy proxy = new NetCameraProxy();
 					proxy.SetCamera(moniker, resolutions[index]);
+					proxy.Rotation = rotation;
 					return proxy;
 				}
 			}
