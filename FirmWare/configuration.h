@@ -20,9 +20,9 @@
 #define STEP_BY_MINMOVE 4  // move by STEP_BY_MINMOVE (to avoid power loss when position is between step) 
 
 #define LASER_COUNT 4
-#define LASER_PIN_1 A0 //yellow
-#define LASER_PIN_2 A1 //orange
-#define LASER_PIN_3 A2 //green
+#define LASER_PIN_1 A1 //yellow
+#define LASER_PIN_2 A2 //orange
+#define LASER_PIN_3 A3 //green
 #define LASER_PIN_4 13 //blue
 
 #endif

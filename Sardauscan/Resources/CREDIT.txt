@@ -9,3 +9,4 @@ This project is based on these project and article : Big thanks to them
 - SerialCommand : Copyright (C) 2011-2013 Steven Cogswell  http://awtfy.com
 - Accelstepper : Copyright (C) 2009 Mike McCauley
 - LockBitmap :  Vano Maisuradze http://www.codeproject.com/Tips/240428/Work-with-bitmap-faster-with-Csharp
+- French tutorial : Hugo from smartfiend forum : http://talk.smartfri.odns.fr/index.php?action=profile;u=516
