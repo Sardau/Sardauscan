@@ -29,6 +29,11 @@ namespace Sardauscan.Gui.Controls
 		/// Required designer variable.
 		/// </summary>
 		private System.ComponentModel.IContainer components = null;
+		private StatusImageButton RightButton;
+		private StatusImageButton button1;
+		private StatusImageButton button2;
+		private StatusImageButton button3;
+		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
 
 		/// <summary> 
 		/// Clean up any resources being used.
@@ -156,10 +161,5 @@ namespace Sardauscan.Gui.Controls
 
 		#endregion
 
-		private StatusImageButton RightButton;
-		private StatusImageButton button1;
-		private StatusImageButton button2;
-		private StatusImageButton button3;
-		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
 	}
 }

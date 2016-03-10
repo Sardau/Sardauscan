@@ -98,6 +98,7 @@ namespace Sardauscan.Gui
 			// 
 			// LaserComboBox
 			// 
+			this.LaserComboBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
 			this.LaserComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.LaserComboBox.FormattingEnabled = true;
 			this.LaserComboBox.Location = new System.Drawing.Point(68, 4);
@@ -105,6 +106,7 @@ namespace Sardauscan.Gui
 			this.LaserComboBox.Name = "LaserComboBox";
 			this.LaserComboBox.Size = new System.Drawing.Size(98, 21);
 			this.LaserComboBox.TabIndex = 3;
+			this.LaserComboBox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.LaserComboBox_DrawItem);
 			this.LaserComboBox.SelectedIndexChanged += new System.EventHandler(this.LaserComboBox_SelectedIndexChanged);
 			// 
 			// label1

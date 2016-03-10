@@ -82,7 +82,7 @@ void TableCommand()
 		    Serial.print(" => "); 
 		    Serial.println(StepsToRotation(REVOLUTION_STEP)); 
                   }
-		 else if(arg[0]=='C' ||arg[0]=='s') //T C
+		 else if(arg[0]=='C' ||arg[0]=='c') //T C
                   {
                     stepper1.setCurrentPosition(0);
 		    Serial.print("RESET CUTTENT POSITION "); 

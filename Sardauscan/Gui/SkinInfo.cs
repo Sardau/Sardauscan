@@ -168,5 +168,46 @@ namespace Sardauscan.Gui
             }
         }
 
+				public static Image Colorize(Image img, Color color)
+				{
+					float factor = 0.5f;
+					float r = color.R * factor;
+					float g = color.G * factor;
+					float b = color.B * factor;
+					float a = 0.5f*color.A /255f;
+					float bri = 1-factor;
+					//double contrast = 1.25f; // twice the contrast
+					float con = 1 + 1 - bri;
+
+					float aBri = bri - 1.0f;
+
+
+					float rW = 0.3086f;
+					float gW = 0.6094f;
+					float bW = 0.0820f;
+
+							float[][] ptsArray = {
+                                     new float[] {rW*r*con,  rW,  rW,  0, 0},
+                                     new float[] {gW,  gW*g*con,  gW,  0, 0},
+                                     new float[] {bW,  bW,  bW*b*con,  0, 0},
+                                     new float[] {0,  0,  0,  a, 0},
+                                     new float[] {aBri, aBri, aBri, 0, 1}
+                                 };
+							// Create ColorMatrix
+							ColorMatrix cm = new ColorMatrix(ptsArray);
+
+							return ChangeImage(img, cm);
+				}
+				public static Image ChangeImage(Image img, ColorMatrix matrix)
+				{
+					Bitmap bmp = new Bitmap(img.Width, img.Height);
+					using (Graphics gaphics = Graphics.FromImage(bmp))
+					{
+						ImageAttributes ia = new ImageAttributes();
+						ia.SetColorMatrix(matrix);
+						gaphics.DrawImage(img, new Rectangle(0, 0, img.Width, img.Height), 0, 0, img.Width, img.Height, GraphicsUnit.Pixel, ia);
+					}
+					return bmp;
+				}
     }
 }

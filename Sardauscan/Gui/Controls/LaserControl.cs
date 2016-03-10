@@ -45,8 +45,31 @@ namespace Sardauscan.Gui.Controls
 			InitializeComponent();
 			OffImage = global::Sardauscan.Properties.Resources.Spot_Off;
 			OnImage = global::Sardauscan.Properties.Resources.Spot_On;
+			ColorizeLaser(this.button1);
+			ColorizeLaser(this.button2);
+			ColorizeLaser(this.button3);
+			ColorizeLaser(this.RightButton);
 			AlignControls();
 		}
+		public void ColorizeLaser(StatusImageButton button)
+		{
+			button.Image = SkinInfo.Colorize(OnImage,GetLaserColor(button));
+		}
+		Color GetLaserColor(StatusImageButton button)
+		{
+			int laserIndex = -1;
+			try
+			{
+				laserIndex = int.Parse(button.Tag.ToString());
+			}
+			catch { laserIndex = -1; }
+			Settings settings = Settings.Get<Settings>();
+			if (settings != null && laserIndex >= 0)
+				return settings.Read(Settings.LASER(laserIndex), Settings.DEFAULTCOLOR, LaserInfo.GetDefaultColor(laserIndex));
+			else
+				return LaserInfo.GetDefaultColor(laserIndex);
+		}
+
 		/// <summary>
 		/// Dispose object
 		/// </summary>

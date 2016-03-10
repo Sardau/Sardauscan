@@ -154,5 +154,37 @@ namespace Sardauscan.Gui
             {
             }
         }
+
+				Color GetLaserColor(int laserIndex)
+				{
+					Settings settings = Settings.Get<Settings>();
+					if (settings != null && laserIndex >= 0)
+						return settings.Read(Settings.LASER(laserIndex), Settings.DEFAULTCOLOR, LaserInfo.GetDefaultColor(laserIndex));
+					else
+						return LaserInfo.GetDefaultColor(laserIndex);
+				}
+				private void LaserComboBox_DrawItem(object sender, DrawItemEventArgs e)
+				{
+
+					Color col = this.GetLaserColor(e.Index);
+					using (SolidBrush b = new SolidBrush(col))
+					{
+						if (e.Index >= 0)
+						{
+							e.DrawBackground();
+							int sqareSize = e.Bounds.Height - 4;
+							e.Graphics.FillRectangle(b, new Rectangle(e.Bounds.X + 2, e.Bounds.Y + 2, sqareSize, sqareSize));
+							using (Pen p = new Pen(SkinInfo.ForeColor))
+								e.Graphics.DrawRectangle(p, new Rectangle(e.Bounds.X + 2, e.Bounds.Y + 2, sqareSize, sqareSize));
+							Rectangle textRect = new Rectangle(e.Bounds.Left + e.Bounds.Height, e.Bounds.Top, e.Bounds.Width - e.Bounds.Height, e.Bounds.Height);
+							using (SolidBrush textB = new SolidBrush(SkinInfo.ForeColor))
+							{
+								e.Graphics.DrawString(LaserComboBox.Items[e.Index].ToString(), this.Font, textB, textRect);
+							}
+						}
+
+					}
+				}
+
     }
 }

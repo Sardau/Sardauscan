@@ -203,7 +203,7 @@ namespace Sardauscan.Gui.CalibrationSteps
 						{
 							ScanLine line=null;
 							LaserCorrection corr = null;
-							double size = ScanInfo.Size() * 1.2f;
+							double size = ScanInfo.Size() * 0.66f;
 							double factor = Math.Min(PreviewPanel.Width, PreviewPanel.Height) / size;
 							Matrix4d baseMatrix = Matrix4d.Scale(factor);
 							PointF center = new PointF(PreviewPanel.Width / 2, PreviewPanel.Height / 2);
