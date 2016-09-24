@@ -2,10 +2,10 @@
 
 Sardauscan is a 3d laser scanner aimed to cost less than 30$ ... 
 
-yes it's cheap.. and I think I can call it "the cheapest 3d scanner on Earth" ;)
+Yes it's cheap.. and I think I can call it "the cheapest 3d scanner on Earth" ;)
 
 
-All the harware you need is an Arduino Nano, a 1 to 4 line laser, a micro geared stepper (28BYJ-48), and a hercule hd twist webcam
+All the harware you need is: an Arduino Nano, a 1 to 4 line laser, a micro geared stepper (28BYJ-48), and a hercule hd twist webcam
 
 The main software is writen in c# and winforms.
 
