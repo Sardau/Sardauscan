@@ -10,3 +10,4 @@ This project is based on these project and article : Big thanks to them
 - Accelstepper : Copyright (C) 2009 Mike McCauley
 - LockBitmap :  Vano Maisuradze http://www.codeproject.com/Tips/240428/Work-with-bitmap-faster-with-Csharp
 - French tutorial : Hugo from smartfiend forum : http://talk.smartfri.odns.fr/index.php?action=profile;u=516
+- English tutorial : Bill Burnard http://www.thingiverse.com/bburnard/about
