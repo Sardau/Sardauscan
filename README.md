@@ -20,7 +20,7 @@ It is possible to develop and add your own tasks via plugins.
 
 The software will not be linked to any specific hardware.
 Using plugins, one could add harware controllers for additional cameras, turn tables and lasers.
-For example, if you wish to use another scanneror webcam.
+For example, if you wish to use another scanner or webcam.
 
 Directory "Firmware" => code for the arduino
 Directory "STL" the source stl and 123Design file.
