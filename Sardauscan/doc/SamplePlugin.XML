@@ -27,34 +27,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:FakeHardwarePlugins.FakeCameraProxy.Dispose">
-            <summary>
-            dispose your Camera proxy
-            </summary>
-        </member>
-        <member name="M:FakeHardwarePlugins.FakeCameraProxy.LoadFromHardwareId(System.String)">
-            <summary>
-             Load a IHardwareProxy with a specific HardwareId 
-            </summary>
-            <param name="hardwareId"></param>
-            <returns> the loaded IHardwareProxy or null if you can't reload it</returns>
-        </member>
-        <member name="M:FakeHardwarePlugins.FakeCameraProxy.GetViewer">
-            <summary>
-            Get the associated Viewer of these IHardwareProxy
-            the viewer allow the user to interact with or tweak the hardware.
-            you can return null if there is no setting or viewer ( it will be a shame for camera, but hey you do what you want)
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:FakeHardwarePlugins.FakeCameraProxy.Select(System.Windows.Forms.IWin32Window)">
-            <summary>
-            This function is call when the user request a instance of ther IHardwareProxy
-            You can call winforms to as information ( Com port, configuration etc)
-            </summary>
-            <param name="owner">owner window</param>
-            <returns>a IHardwareProxy if one is selected, Null in case of cancle or not disponible</returns>
-        </member>
         <member name="P:FakeHardwarePlugins.FakeCameraProxy.ImageHeight">
             <summary>
             Get the camera image Height resolution (height of the current image)
@@ -80,15 +52,43 @@
             Get the focal lenght
             </summary>
         </member>
+        <member name="M:FakeHardwarePlugins.FakeCameraProxy.Dispose">
+            <summary>
+            dispose your Camera proxy
+            </summary>
+        </member>
         <member name="P:FakeHardwarePlugins.FakeCameraProxy.HardwareId">
             <summary>
             A unique id to identify a specific instance of IHardwareProxy (mainly used for reload a IHardwareproxy, so store all the properties)
             </summary>
         </member>
+        <member name="M:FakeHardwarePlugins.FakeCameraProxy.LoadFromHardwareId(System.String)">
+            <summary>
+             Load a IHardwareProxy with a specific HardwareId 
+            </summary>
+            <param name="hardwareId"></param>
+            <returns> the loaded IHardwareProxy or null if you can't reload it</returns>
+        </member>
+        <member name="M:FakeHardwarePlugins.FakeCameraProxy.GetViewer">
+            <summary>
+            Get the associated Viewer of these IHardwareProxy
+            the viewer allow the user to interact with or tweak the hardware.
+            you can return null if there is no setting or viewer ( it will be a shame for camera, but hey you do what you want)
+            </summary>
+            <returns></returns>
+        </member>
         <member name="P:FakeHardwarePlugins.FakeCameraProxy.Name">
             <summary>
             Display name of the Provider, for the user to know what he select;)
             </summary>
+        </member>
+        <member name="M:FakeHardwarePlugins.FakeCameraProxy.Select(System.Windows.Forms.IWin32Window)">
+            <summary>
+            This function is call when the user request a instance of ther IHardwareProxy
+            You can call winforms to as information ( Com port, configuration etc)
+            </summary>
+            <param name="owner">owner window</param>
+            <returns>a IHardwareProxy if one is selected, Null in case of cancle or not disponible</returns>
         </member>
         <member name="T:FakeHardwarePlugins.FakeLaserProxyProvider">
             <summary>
@@ -105,14 +105,6 @@
             if no configuration is necessary
             </summary>
         </member>
-        <member name="M:FakeHardwarePlugins.FakeLaserProxyProvider.Select(System.Windows.Forms.IWin32Window)">
-            <summary>
-            This function is call when the user request a instance of ther IHardwareProxy
-            You can call winforms to as information ( Com port, configuration etc)
-            </summary>
-            <param name="owner">owner window</param>
-            <returns>a IHardwareProxy if one is selected, Null in case of cancle or not disponible</returns>
-        </member>
         <member name="P:FakeHardwarePlugins.FakeLaserProxyProvider.Name">
             <summary>
             for the user to know ;)
@@ -122,6 +114,14 @@
             <summary>
             tell what type of IHardwareProxy the provider deliver 
             </summary>
+        </member>
+        <member name="M:FakeHardwarePlugins.FakeLaserProxyProvider.Select(System.Windows.Forms.IWin32Window)">
+            <summary>
+            This function is call when the user request a instance of ther IHardwareProxy
+            You can call winforms to as information ( Com port, configuration etc)
+            </summary>
+            <param name="owner">owner window</param>
+            <returns>a IHardwareProxy if one is selected, Null in case of cancle or not disponible</returns>
         </member>
         <member name="T:FakeHardwarePlugins.FakeLaserProxy">
             <summary>
@@ -147,9 +147,20 @@
             as if a laser is on or off
             </summary>
         </member>
+        <member name="P:FakeHardwarePlugins.FakeLaserProxy.Count">
+            <summary>
+            ILaserProxy.Count
+            Number of Laser(s)
+            </summary>
+        </member>
         <member name="M:FakeHardwarePlugins.FakeLaserProxy.Dispose">
             <summary>
             Czalled when the IHardwareProxy is released
+            </summary>
+        </member>
+        <member name="P:FakeHardwarePlugins.FakeLaserProxy.HardwareId">
+            <summary>
+            A unique id to identify a specific instance of IHardwareProxy (mainly used for reload a IHardwareproxy, so store all the properties)
             </summary>
         </member>
         <member name="M:FakeHardwarePlugins.FakeLaserProxy.LoadFromHardwareId(System.String)">
@@ -167,34 +178,10 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="P:FakeHardwarePlugins.FakeLaserProxy.Count">
-            <summary>
-            ILaserProxy.Count
-            Number of Laser(s)
-            </summary>
-        </member>
-        <member name="P:FakeHardwarePlugins.FakeLaserProxy.HardwareId">
-            <summary>
-            A unique id to identify a specific instance of IHardwareProxy (mainly used for reload a IHardwareproxy, so store all the properties)
-            </summary>
-        </member>
         <member name="T:FakeHardwarePlugins.FakeTask">
             <summary>
             Fake task to show how a task plugins is implemented
             </summary>
-        </member>
-        <member name="M:FakeHardwarePlugins.FakeTask.Clone">
-            <summary>
-            Clone
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:FakeHardwarePlugins.FakeTask.DoTask(Sardauscan.Core.ScanData)">
-            <summary>
-            Do the work: function that actualy do the work
-            </summary>
-            <param name="source"></param>
-            <returns></returns>
         </member>
         <member name="P:FakeHardwarePlugins.FakeTask.Name">
             <summary>
@@ -210,6 +197,19 @@
             <summary>
             Out Format
             </summary>
+        </member>
+        <member name="M:FakeHardwarePlugins.FakeTask.Clone">
+            <summary>
+            Clone
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FakeHardwarePlugins.FakeTask.DoTask(Sardauscan.Core.ScanData)">
+            <summary>
+            Do the work: function that actualy do the work
+            </summary>
+            <param name="source"></param>
+            <returns></returns>
         </member>
         <member name="T:FakeHardwarePlugins.FakeTurnTableProxy">
             <summary>
@@ -242,9 +242,19 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="P:FakeHardwarePlugins.FakeTurnTableProxy.MotorEnabled">
+            <summary>
+            Enable disable motor
+            </summary>
+        </member>
         <member name="M:FakeHardwarePlugins.FakeTurnTableProxy.Dispose">
             <summary>
             Dispose your Hardware proxy
+            </summary>
+        </member>
+        <member name="P:FakeHardwarePlugins.FakeTurnTableProxy.HardwareId">
+            <summary>
+            A unique id to identify a specific instance of IHardwareProxy (mainly used for reload a IHardwareproxy, so store all the properties)
             </summary>
         </member>
         <member name="M:FakeHardwarePlugins.FakeTurnTableProxy.LoadFromHardwareId(System.String)">
@@ -262,6 +272,11 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="P:FakeHardwarePlugins.FakeTurnTableProxy.Name">
+             <summary>
+            Display name of the Provider, for the user to know what he select;) 
+             </summary>
+        </member>
         <member name="M:FakeHardwarePlugins.FakeTurnTableProxy.Select(System.Windows.Forms.IWin32Window)">
             <summary>
             This function is call when the user request a instance of ther IHardwareProxy
@@ -269,21 +284,6 @@
             </summary>
             <param name="owner">owner window</param>
             <returns>a IHardwareProxy if one is selected, Null in case of cancle or not disponible</returns>
-        </member>
-        <member name="P:FakeHardwarePlugins.FakeTurnTableProxy.MotorEnabled">
-            <summary>
-            Enable disable motor
-            </summary>
-        </member>
-        <member name="P:FakeHardwarePlugins.FakeTurnTableProxy.HardwareId">
-            <summary>
-            A unique id to identify a specific instance of IHardwareProxy (mainly used for reload a IHardwareproxy, so store all the properties)
-            </summary>
-        </member>
-        <member name="P:FakeHardwarePlugins.FakeTurnTableProxy.Name">
-             <summary>
-            Display name of the Provider, for the user to know what he select;) 
-             </summary>
         </member>
     </members>
 </doc>
